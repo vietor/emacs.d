@@ -24,17 +24,15 @@
 (diminish 'whole-line-or-region-mode)
 (make-variable-buffer-local 'whole-line-or-region-mode)
 
-(require-package 'browse-kill-ring)
-(setq browse-kill-ring-separator "\f")
-(global-set-key (kbd "M-Y") 'browse-kill-ring)
-(after-load 'browse-kill-ring
-  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
-  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
-  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
-(after-load 'page-break-lines
-  (push 'browse-kill-ring-mode page-break-lines-modes))
-
 (when (maybe-require-package 'avy)
   (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
+
+(require-package 'helm)
+(require 'helm-config)
+
+(global-set-key (kbd "M-x")       'helm-M-x)
+(global-set-key (kbd "M-y")       'helm-show-kill-ring)
+(global-set-key (kbd "C-x b")     'helm-buffers-list)
+(global-set-key (kbd "C-x C-f")   'helm-find-files)
 
 (provide 'init-editor-enhance)
