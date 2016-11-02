@@ -9,5 +9,8 @@
 (require 'init-environ)
 (require 'init-preload)
 
+(require 'init-gtags)
+
 (require 'init-editor)
 (require 'init-editor-enhance)
+
