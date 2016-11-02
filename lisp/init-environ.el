@@ -1,5 +1,5 @@
 (custom-set-variables
- '(warning-suppress-types (quote ((alloc)))))
+  '(warning-suppress-types (quote ((alloc)))))
  
 (defconst os-mac (eq system-type 'darwin))
 (defconst os-mac-x (memq window-system '(mac ns x)))

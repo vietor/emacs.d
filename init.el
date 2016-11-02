@@ -7,4 +7,7 @@
 (require 'init-package)
 (require 'init-aproject)
 (require 'init-environ)
+(require 'init-preload)
 
+(require 'init-editor)
+(require 'init-editor-enhance)
