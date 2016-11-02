@@ -12,4 +12,13 @@
 (when os-mac-x
   (exec-path-from-shell-initialize))
 
-(provide 'init-system)
+(defun smart-setenv (name value)
+  (if (not (string-equal "PATH" name))
+      (setenv name value)
+    (let ((paths (list value)))
+      (setq exec-path (append paths exec-path))
+      (setenv "PATH" (concat (mapconcat 'identity paths path-separator)
+                             path-separator
+                             (getenv "PATH"))))))
+
+(provide 'init-environ)
