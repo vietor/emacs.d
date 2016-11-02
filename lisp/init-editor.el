@@ -29,7 +29,9 @@
 (setq track-eol nil)
 (setq echo-keystrokes 0.1)
 (setq-default case-fold-search t)
+
 (setq-default indent-tabs-mode nil)
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 (delete-selection-mode t)
 (setq-default
