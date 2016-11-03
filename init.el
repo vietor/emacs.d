@@ -9,13 +9,14 @@
 (require 'init-environ)
 (require 'init-preload)
 
-(require 'init-gtags)
-
 (require 'init-editor)
 (require 'init-editor-enhance)
 (require 'init-editor-extends)
 (require 'init-sessions)
 (require 'init-locales)
 (require 'init-windows)
+
+(require 'init-git)
+(require 'init-gtags)
 
 (require 'init-javascript)
