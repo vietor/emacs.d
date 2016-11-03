@@ -3,13 +3,13 @@
 (setq completion-cycle-threshold 5)
 
 (require-package 'company)
+(require-package 'helm-company)
+
 (add-hook 'after-init-hook 'global-company-mode)
 
 (after-load 'company
   (diminish 'company-mode)
-  (setq-default company-backends '(company-capf
-                                   company-files
-                                   (company-dabbrev-code company-gtags company-keywords)
-                                   company-dabbrev)))
+  (define-key company-mode-map (kbd "C-:") 'helm-company)
+  (define-key company-active-map (kbd "C-:") 'helm-company))
 
 (provide 'init-company)
