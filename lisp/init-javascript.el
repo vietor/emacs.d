@@ -21,4 +21,7 @@
             (lambda ()
               (setq deep-buffer-indent-function 'web-beautify-js))))
 
+(after-load 'company-gtags
+  (add-to-list 'company-gtags-modes 'js2-mode))
+
 (provide 'init-javascript)

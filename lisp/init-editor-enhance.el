@@ -34,6 +34,7 @@
 (require 'helm-config)
 
 (helm-mode 1)
+(diminish 'helm-mode)
 (define-key global-map [remap occur] 'helm-occur)
 (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
 (define-key global-map [remap find-file] 'helm-find-files)

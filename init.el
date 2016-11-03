@@ -18,5 +18,9 @@
 
 (require 'init-git)
 (require 'init-gtags)
+(require 'init-company)
 
+(require 'init-cxx)
+(require 'init-scala)
+(require 'init-python)
 (require 'init-javascript)
