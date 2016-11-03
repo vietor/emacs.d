@@ -30,6 +30,14 @@
 (setq echo-keystrokes 0.1)
 (setq-default case-fold-search t)
 
+(global-linum-mode 1)
+(column-number-mode t)
+(global-font-lock-mode 1)
+(global-hl-line-mode t)
+(when (fboundp 'electric-pair-mode)
+  (electric-pair-mode))
+(when (fboundp 'electric-indent-mode)
+  (electric-indent-mode 1))
 (setq-default indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -79,7 +87,10 @@
 (when os-mac
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
-  (setq default-input-method "MacOSX"))
+  (setq default-input-method "MacOSX")
+  (set-fontset-font
+    t 'symbol
+    (font-spec :family "Apple Color Emoji") nil 'prepend))
 
 (after-aproject-change
   (setq frame-title-format '("Emacs @ " aproject-rootdir))

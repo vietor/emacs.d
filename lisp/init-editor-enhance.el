@@ -35,4 +35,21 @@
 (global-set-key (kbd "C-x b")     'helm-buffers-list)
 (global-set-key (kbd "C-x C-f")   'helm-find-files)
 
+(defun indent-current-buffer ()
+  (interactive)
+  (if (functionp buffer-indent-function)
+      (funcall buffer-indent-function)
+    (save-excursion
+      (delete-trailing-whitespace)
+      (indent-region (point-min) (point-max)))))
+
+(defun deep-indent-current-buffer ()
+  (interactive)
+  (if (functionp deep-buffer-indent-function)
+      (funcall deep-buffer-indent-function)
+    (message "Unindent, \'deep-buffer-indent-function\' not a function")))
+
+(global-set-key (kbd "<f12>")   'indent-current-buffer)
+(global-set-key (kbd "M-<f12>") 'deep-indent-current-buffer)
+
 (provide 'init-editor-enhance)

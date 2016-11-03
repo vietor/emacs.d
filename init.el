@@ -13,4 +13,7 @@
 
 (require 'init-editor)
 (require 'init-editor-enhance)
+(require 'init-editor-extends)
+(require 'init-sessions)
 
+(require 'init-javascript)
