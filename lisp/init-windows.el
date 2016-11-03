@@ -121,6 +121,7 @@
 (global-set-key (kbd "M-<f8>")  'switch-to-shell-buffer)
 (global-set-key (kbd "C-x o")   'switch-window)
 (global-set-key (kbd "C-x C-o") 'switch-window)
+(global-set-key (kbd "C-x C-k") 'kill-current-buffer)
 (global-set-key (kbd "C-x 4 0") 'kill-buffers-switch-scratch)
 (global-set-key (kbd "C-x 4 1") 'kill-buffers-exclude-current)
 (global-set-key (kbd "C-x 4 2") 'split-window-vertically-instead)

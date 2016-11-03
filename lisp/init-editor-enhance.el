@@ -7,7 +7,6 @@
 (global-undo-tree-mode)
 (diminish 'undo-tree-mode)
 
-(require-package 'nlinum)
 (require-package 'page-break-lines)
 (global-page-break-lines-mode)
 (diminish 'page-break-lines-mode)
@@ -39,6 +38,7 @@
 (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
 (define-key global-map [remap find-file] 'helm-find-files)
 (define-key global-map [remap list-buffers] 'helm-buffers-list)
+(define-key global-map [remap bookmark-jump] 'helm-filtered-bookmarks)
 
 (global-set-key (kbd "M-x")       'helm-M-x)
 (global-set-key (kbd "C-x C-m")   'helm-M-x)
