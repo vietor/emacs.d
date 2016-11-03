@@ -67,7 +67,8 @@
   (setq mouse-wheel-scroll-amount '(3))
   (setq mouse-wheel-progressive-speed nil)
   (setq display-time-format "(%m/%d %H:%M)")
-  (display-time))
+  (display-time)
+  (load-theme 'deeper-blue' t))
 
 (let ((no-border '(internal-border-width . 0)))
   (add-to-list 'default-frame-alist no-border)
@@ -97,5 +98,8 @@
   (setq save-place-file (aproject-store-file "saved-places"))
   (setq eshell-directory-name (aproject-store-file "eshell/"))
   (setq url-configuration-directory (aproject-store-file "url/")))
+
+(global-set-key (kbd "C-.")     'set-mark-command)
+(global-set-key (kbd "C-x C-.") 'pop-global-mark)
 
 (provide 'init-editor)

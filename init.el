@@ -16,5 +16,6 @@
 (require 'init-editor-extends)
 (require 'init-sessions)
 (require 'init-locales)
+(require 'init-windows)
 
 (require 'init-javascript)

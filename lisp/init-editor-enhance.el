@@ -1,5 +1,3 @@
-(load-theme 'deeper-blue' t)
-
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "<f1>") 'help-command)
@@ -40,6 +38,7 @@
 (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
 
 (global-set-key (kbd "M-x")       'helm-M-x)
+(global-set-key (kbd "C-x C-m")   'helm-M-x)
 (global-set-key (kbd "M-y")       'helm-show-kill-ring)
 
 (provide 'init-editor-enhance)
