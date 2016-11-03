@@ -52,10 +52,6 @@
 (show-paren-mode 1)
 (setq show-paren-style 'expression)
 
-(setq-default
-  blink-cursor-interval 0.4
-  blink-matching-paren-distance nil)
-
 (when window-system
   (tooltip-mode -1)
   (tool-bar-mode -1)
@@ -70,6 +66,11 @@
   (display-time)
   (load-theme 'deeper-blue' t))
 
+(blink-cursor-mode -1)
+(setq default-frame-alist '((vertical-scroll-bars . nil)
+                            (tool-bar-lines . 0)
+                            (menu-bar-lines . 0)
+                            (fullscreen . nil)))
 (let ((no-border '(internal-border-width . 0)))
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
