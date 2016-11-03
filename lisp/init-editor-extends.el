@@ -3,7 +3,6 @@
   (let ((prev-pos (point)))
     (back-to-indentation)
     (kill-region (point) prev-pos)))
-
 (global-set-key (kbd "C-M-<backspace>") 'kill-back-to-indentation)
 
 (defun delete-current-buffer-file ()
@@ -54,14 +53,13 @@
     (save-excursion
       (delete-trailing-whitespace)
       (indent-region (point-min) (point-max)))))
+(global-set-key (kbd "<f12>")   'indent-current-buffer)
 
 (defun deep-indent-current-buffer ()
   (interactive)
   (if (functionp deep-buffer-indent-function)
       (funcall deep-buffer-indent-function)
     (indent-current-buffer)))
-
-(global-set-key (kbd "<f12>")   'indent-current-buffer)
 (global-set-key (kbd "M-<f12>") 'deep-indent-current-buffer)	
 
 (defun comment-eclipse ()
@@ -78,7 +76,24 @@
                   (end-of-line)
                   (point))))
     (comment-or-uncomment-region start end)))
-	
 (global-set-key (kbd "M-;")     'comment-eclipse)
+
+(defun smart-beginning-of-line ()
+  (interactive)
+  (let ((oldpos (point)))
+    (beginning-of-line)
+    (and (= oldpos (point))
+         (back-to-indentation))))
+(global-set-key [remap move-beginning-of-line] 'smart-beginning-of-line)
+
+(defun smart-end-of-line ()
+  (interactive)
+  (let ((oldpos (point)))
+    (beginning-of-line)
+    (when (re-search-forward "[ \t]*$" (point-at-eol) t)
+      (goto-char (match-beginning 0)))
+    (when (= oldpos (point))
+      (end-of-line))))
+(global-set-key [remap move-end-of-line] 'smart-end-of-line)
 
 (provide 'init-editor-extends)

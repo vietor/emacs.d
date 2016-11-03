@@ -1,9 +1,7 @@
+(load-theme 'deeper-blue' t)
+
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-SPC"))
-(global-unset-key (kbd "<f3>"))
-(global-unset-key (kbd "<f4>"))
-(global-unset-key (kbd "<f10>"))
-(global-unset-key (kbd "<f11>"))
 (global-set-key (kbd "<f1>") 'help-command)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
@@ -27,29 +25,21 @@
 (when (maybe-require-package 'avy)
   (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
 
+(require-package 'move-dup)
+(global-set-key [M-up] 'md/move-lines-up)
+(global-set-key [M-down] 'md/move-lines-down)
+(global-set-key [M-S-up] 'md/move-lines-up)
+(global-set-key [M-S-down] 'md/move-lines-down)
+
+;; heml
 (require-package 'helm)
 (require 'helm-config)
 
+(helm-mode 1)
+(define-key global-map [remap occur] 'helm-occur)
+(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+
 (global-set-key (kbd "M-x")       'helm-M-x)
 (global-set-key (kbd "M-y")       'helm-show-kill-ring)
-(global-set-key (kbd "C-x b")     'helm-buffers-list)
-(global-set-key (kbd "C-x C-f")   'helm-find-files)
-
-(defun indent-current-buffer ()
-  (interactive)
-  (if (functionp buffer-indent-function)
-      (funcall buffer-indent-function)
-    (save-excursion
-      (delete-trailing-whitespace)
-      (indent-region (point-min) (point-max)))))
-
-(defun deep-indent-current-buffer ()
-  (interactive)
-  (if (functionp deep-buffer-indent-function)
-      (funcall deep-buffer-indent-function)
-    (message "Unindent, \'deep-buffer-indent-function\' not a function")))
-
-(global-set-key (kbd "<f12>")   'indent-current-buffer)
-(global-set-key (kbd "M-<f12>") 'deep-indent-current-buffer)
 
 (provide 'init-editor-enhance)

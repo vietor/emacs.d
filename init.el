@@ -15,5 +15,6 @@
 (require 'init-editor-enhance)
 (require 'init-editor-extends)
 (require 'init-sessions)
+(require 'init-locales)
 
 (require 'init-javascript)
