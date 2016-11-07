@@ -1,7 +1,5 @@
 (setq winner-dont-bind-my-keys 5)
 (winner-mode 1)
-(global-set-key (kbd "<f2>") 'winner-undo)
-(global-set-key (kbd "<f3>") 'winner-redo)
 
 (require-package 'switch-window)
 (setq-default
