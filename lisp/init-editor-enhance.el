@@ -28,6 +28,19 @@
 (global-set-key [M-S-up] 'md/move-lines-up)
 (global-set-key [M-S-down] 'md/move-lines-down)
 
+;; wgrep
+(require-package 'wgrep)
+(setq-default grep-scroll-output t)
+(add-hook 'after-init-hook
+          (lambda ()
+            (dolist (directory global-exclude-directories)
+              (add-to-list 'grep-find-ignored-directories directory))
+            (dolist (file global-exclude-files)
+              (add-to-list 'grep-find-ignored-files file))))
+(after-load 'grep
+  (setq wgrep-enable-key "e")
+  (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers))
+
 ;; heml
 (require-package 'helm)
 (require 'helm-config)
