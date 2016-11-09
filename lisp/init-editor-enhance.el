@@ -35,8 +35,7 @@
   (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers))
 
 ;; heml
-(unless (version< emacs-version "24.4")
-  (require-package 'helm)
+(when (maybe-require-package 'helm)
   (require 'helm-config)
 
   (setq helm-M-x-fuzzy-match t
