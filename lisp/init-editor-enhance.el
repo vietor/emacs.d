@@ -35,27 +35,28 @@
   (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers))
 
 ;; heml
-(require-package 'helm)
-(require 'helm-config)
+(unless (version< emacs-version "24.4")
+  (require-package 'helm)
+  (require 'helm-config)
 
-(setq helm-M-x-fuzzy-match t
-      helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match    t
-	  helm-semantic-fuzzy-match t
-      helm-imenu-fuzzy-match    t)
+  (setq helm-M-x-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match    t
+        helm-semantic-fuzzy-match t
+        helm-imenu-fuzzy-match    t)
 
-(helm-mode 1)
-(diminish 'helm-mode)
+  (helm-mode 1)
+  (diminish 'helm-mode)
 
-(define-key global-map [remap occur] 'helm-occur)
-(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-(define-key global-map [remap find-file] 'helm-find-files)
-(define-key global-map [remap list-buffers] 'helm-buffers-list)
-(define-key global-map [remap bookmark-jump] 'helm-filtered-bookmarks)
+  (define-key global-map [remap occur] 'helm-occur)
+  (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+  (define-key global-map [remap find-file] 'helm-find-files)
+  (define-key global-map [remap list-buffers] 'helm-buffers-list)
+  (define-key global-map [remap bookmark-jump] 'helm-filtered-bookmarks)
 
-(global-set-key (kbd "M-x")       'helm-M-x)
-(global-set-key (kbd "C-x C-m")   'helm-M-x)
-(global-set-key (kbd "C-x b")     'helm-mini)
-(global-set-key (kbd "M-y")       'helm-show-kill-ring)
+  (global-set-key (kbd "M-x")       'helm-M-x)
+  (global-set-key (kbd "C-x C-m")   'helm-M-x)
+  (global-set-key (kbd "C-x b")     'helm-mini)
+  (global-set-key (kbd "M-y")       'helm-show-kill-ring))
 
 (provide 'init-editor-enhance)
