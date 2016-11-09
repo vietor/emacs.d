@@ -75,8 +75,6 @@
   (setq mouse-yank-at-point t)
   (setq mouse-wheel-scroll-amount '(3))
   (setq mouse-wheel-progressive-speed nil)
-  (setq display-time-format "(%m/%d %H:%M)")
-  (display-time)
   (load-theme 'deeper-blue' t))
 
 (blink-cursor-mode -1)
