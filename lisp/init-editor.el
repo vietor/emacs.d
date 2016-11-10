@@ -72,9 +72,9 @@
   (set-scroll-bar-mode nil)
   (set-default 'cursor-type 'bar)
   (mouse-wheel-mode t)
-  (setq mouse-yank-at-point t)
-  (setq mouse-wheel-scroll-amount '(3))
-  (setq mouse-wheel-progressive-speed nil)
+  (setq mouse-wheel-scroll-amount '(1
+                                    ((shift) . 5)
+                                    ((control))))
   (load-theme 'deeper-blue' t))
 
 (blink-cursor-mode -1)
