@@ -1,3 +1,4 @@
+(eval-when-compile (require 'cl))
 (let ((parent-dir (expand-file-name "site-lisp/" user-emacs-directory)))
   (dolist (dir (directory-files parent-dir))
     (unless (string-match "^\\." dir)
