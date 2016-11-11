@@ -1,5 +1,9 @@
-(require 'package)
+(let ((parent-dir (expand-file-name "site-lisp/" user-emacs-directory)))
+  (dolist (dir (directory-files parent-dir))
+    (unless (string-match "^\\." dir)
+      (add-to-list 'load-path (expand-file-name dir parent-dir)))))
 
+(require 'package)
 (add-to-list 'package-archives
   `("melpa" . "http://melpa.org/packages/"))
 (setq package-enable-at-startup nil)
@@ -22,11 +26,5 @@
     (error
      (message "Couldn't install package `%s': %S" package err)
      nil)))
-
-
-(let ((parent-dir (expand-file-name "site-lisp/" user-emacs-directory)))
-  (dolist (dir (directory-files parent-dir))
-    (unless (string-match "^\\." dir)
-      (add-to-list 'load-path (expand-file-name dir parent-dir)))))
 
 (provide 'init-package)
