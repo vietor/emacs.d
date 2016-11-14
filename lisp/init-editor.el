@@ -65,6 +65,8 @@
 (show-paren-mode 1)
 (setq show-paren-style 'expression)
 
+(setq vc-handled-backends nil)
+
 (when window-system
   (tooltip-mode -1)
   (tool-bar-mode -1)
