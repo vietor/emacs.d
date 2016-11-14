@@ -43,10 +43,7 @@
 (setq echo-keystrokes 0.1)
 (setq-default case-fold-search t)
 
-(global-linum-mode 1)
 (column-number-mode t)
-(global-font-lock-mode 1)
-(global-hl-line-mode t)
 (when (fboundp 'electric-pair-mode)
   (electric-pair-mode))
 (when (fboundp 'electric-indent-mode)
@@ -54,6 +51,7 @@
 (setq-default indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
+(show-paren-mode 1)
 (delete-selection-mode t)
 (setq-default
   shift-select-mode nil
@@ -61,9 +59,6 @@
   indicate-empty-lines t
   scroll-preserve-screen-position 'always
   set-mark-command-repeat-pop t)
-
-(show-paren-mode 1)
-(setq show-paren-style 'expression)
 
 (setq vc-handled-backends nil)
 
