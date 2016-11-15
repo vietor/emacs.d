@@ -1,10 +1,3 @@
-(defadvice desktop-read (around trace-desktop-errors)
-  (let ((debug-on-error t))
-    ad-do-it))
-
-(dolist (mode '(dired-mode))
-  (add-to-list 'desktop-modes-not-to-save mode))
-
 (require-package 'session)
 (add-aproject-init
  (session-initialize))
