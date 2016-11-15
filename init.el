@@ -1,10 +1,7 @@
 (when (version< emacs-version "24")
   (error "You must run emacs 24 or later!"))
 
-(defconst orign-gc-cons-threshold gc-cons-threshold)
 (setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'after-init-hook
-          (lambda () (setq gc-cons-threshold orign-gc-cons-threshold)))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'init-compat)
