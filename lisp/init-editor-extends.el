@@ -34,14 +34,17 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
+(defvar buffer-indent-ignore-modes
+  '(sql-mode))
 (defvar-local buffer-indent-function nil)
 (defun indent-current-buffer ()
   (interactive)
   (if (functionp buffer-indent-function)
       (funcall buffer-indent-function)
-    (save-excursion
-      (delete-trailing-whitespace)
-      (indent-region (point-min) (point-max)))))
+    (unless (apply 'derived-mode-p buffer-indent-ignore-modes)
+      (save-excursion
+        (delete-trailing-whitespace)
+        (indent-region (point-min) (point-max))))))
 (global-set-key (kbd "<f12>")   'indent-current-buffer)
 
 (defvar-local deep-buffer-indent-function nil)
