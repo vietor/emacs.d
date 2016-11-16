@@ -34,11 +34,6 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(defvar-local retain-trailing-whitespace nil)
-(defadvice delete-trailing-whitespace (around retain activate)
-  (unless retain-trailing-whitespace
-    ad-do-it))
-
 (defvar-local buffer-indent-function nil)
 (defun indent-current-buffer ()
   (interactive)
