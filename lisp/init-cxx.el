@@ -8,8 +8,8 @@
   (when indent-tabs-mode
     (setq tab-width c-basic-offset)))
 
-(defvar cxx-mode nil)
-(make-variable-buffer-local 'cxx-mode)
+(defvar-local cxx-mode nil)
+
 (defvar cxx-mode-hook '()
   "Hooks to run after c/c++'s mode")
 
