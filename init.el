@@ -3,6 +3,7 @@
 
 (setq gc-cons-threshold (* 128 1024 1024))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (require 'init-compat)
 (require 'init-package)
@@ -26,3 +27,7 @@
 (require 'init-python)
 (require 'init-web)
 (require 'init-javascript)
+
+(when (file-exists-p custom-file)
+  (load custom-file))
+
