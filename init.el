@@ -10,6 +10,7 @@
 (require 'init-aproject)
 (require 'init-environ)
 (require 'init-preload)
+(require 'init-preload-local nil t)
 
 (require 'init-editor)
 (require 'init-editor-enhance)
@@ -27,6 +28,7 @@
 (require 'init-python)
 (require 'init-web)
 (require 'init-javascript)
+(require 'init-markdown)
 
 (when (file-exists-p custom-file)
   (load custom-file))
