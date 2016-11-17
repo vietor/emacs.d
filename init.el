@@ -1,3 +1,6 @@
+;; Disaple emacs fool
+;; (package-initialize)
+
 (when (version< emacs-version "24")
   (error "You must run emacs 24 or later!"))
 
