@@ -25,6 +25,7 @@
 (require 'init-git)
 (require 'init-gtags)
 (require 'init-company)
+(require 'init-flycheck)
 
 (require 'init-cxx)
 (require 'init-scala)
