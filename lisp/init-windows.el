@@ -3,8 +3,8 @@
 
 (require-package 'switch-window)
 (setq-default
-  switch-window-shortcut-style 'alphabet
-  switch-window-timeout nil)
+ switch-window-shortcut-style 'alphabet
+ switch-window-timeout nil)
 (global-set-key (kbd "C-x o")   'switch-window)
 
 (defun kill-current-buffer ()
@@ -68,7 +68,9 @@
           (setq name (buffer-name buffer))
           (setq mode (buffer-major-mode buffer))
           (unless (or (string-prefix-p " " name)
-                      (member name '("*Ibuffer*" "*Messages*"))
+                      (and (string-prefix-p "*" name)
+                           (string-suffix-p "*" name)
+                           (not (member name '("*scratch*" "*shell*"))))
                       (member mode '(dired-mode gtags-select-mode)))
             (setq target-buffer buffer)
             (throw 'break nil)))))
