@@ -28,6 +28,16 @@
 (global-set-key [M-S-up] 'md/move-lines-up)
 (global-set-key [M-S-down] 'md/move-lines-down)
 
+(require-package 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+(require-package 'multiple-cursors)
+(defun mc/save-lists ())
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+
 ;; wgrep
 (require-package 'wgrep)
 (after-load 'grep
