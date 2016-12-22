@@ -6,9 +6,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-  `("melpa" . "https://melpa.org/packages/"))
-(setq package-enable-at-startup nil)
-(package-initialize)
+  `("melpa" . "http://melpa.org/packages/"))
 
 (defun require-package (package &optional min-version no-refresh)
   (if (package-installed-p package min-version)
@@ -27,5 +25,8 @@
     (error
      (message "Couldn't install package `%s': %S" package err)
      nil)))
+
+(setq package-enable-at-startup nil)
+(package-initialize)
 
 (provide 'init-package)
