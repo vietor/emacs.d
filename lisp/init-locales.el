@@ -1,17 +1,18 @@
+(defun utf8-locale-p (v)
+  (and v (string-match "UTF-8" v)))
+
 (defun locale-is-utf8-p ()
-  (or (string-match-p "UTF-8" (and (executable-find "locale") (shell-command-to-string "locale")))
-      (string-match-p "UTF-8" (getenv "LC_ALL"))
-      (string-match-p "UTF-8" (getenv "LC_CTYPE"))
-      (string-match-p "UTF-8" (getenv "LANG"))))
+  (or (utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
+      (utf8-locale-p (getenv "LC_ALL"))
+      (utf8-locale-p (getenv "LC_CTYPE"))
+      (utf8-locale-p (getenv "LANG"))))
 
 (when (or window-system (locale-is-utf8-p))
-  (setq utf-translate-cjk-mode nil)
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
   (set-terminal-coding-system 'utf-8)
-  (unless os-windows
-   (set-selection-coding-system 'utf-8))
+  (set-selection-coding-system (if os-windows 'utf-16-le 'utf-8))
   (prefer-coding-system 'utf-8))
 
 (provide 'init-locales)
