@@ -113,15 +113,4 @@
     (switch-to-buffer buffer)))
 (global-set-key (kbd "M-<f8>")  'switch-to-shell-buffer)
 
-(defun kill-buffer-when-shell-command-exit ()
-  (let ((process (ignore-errors (get-buffer-process (current-buffer)))))
-    (when process
-      (set-process-sentinel
-       process
-       (lambda (proc change)
-         (when (string-match "\\(finished\\|exited\\)" change)
-           (kill-buffer (process-buffer proc))))))))
-(add-hook 'shell-mode-hook 'kill-buffer-when-shell-command-exit)
-(add-hook 'term-mode-hook 'kill-buffer-when-shell-command-exit)
-
 (provide 'init-windows)
