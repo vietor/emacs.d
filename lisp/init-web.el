@@ -13,6 +13,9 @@
 (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
 (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
 
+(after-load 'company-dabbrev-code
+  (add-to-list 'company-dabbrev-code-modes 'web-mode))
+
 ;; css
 (require-package 'sass-mode)
 
