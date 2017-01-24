@@ -1,6 +1,7 @@
 (require 'gtags)
 
 (defconst gtags-key-prefix "C-x g")
+(setq gtags-select-buffer-single t)
 
 (fmakunbound 'gtags-visit-rootdir)
 (fmakunbound 'gtags-find-with-idutils)
@@ -52,20 +53,11 @@
         (gtags-push-context)
         (gtags-goto-tag tagname (if gtags-grep-all-text-files "go" "g"))))))
 
-(defun gtags-select-kill-buffers ()
-  (interactive)
-  (setq gtags-buffer-stack nil)
-  (setq gtags-point-stack nil)
-  (dolist (buffer (buffer-list))
-    (when (eq (buffer-major-mode buffer) 'gtags-select-mode)
-      (kill-buffer buffer))))
-
 (defun gtags-keybind-rebuild ()
   (setq gtags-select-mode-map (make-keymap))
   (suppress-keymap gtags-select-mode-map)
   (dolist (pair '(("p" . previous-line)
                   ("n" . next-line)
-                  ("k" . gtags-select-kill-buffers)
                   ("q" . gtags-pop-stack)
                   ("RET" . gtags-select-tag)))
     (define-key gtags-select-mode-map (kbd (car pair)) (cdr pair)))
@@ -80,8 +72,7 @@
                   ("R" . gtags-find-rtag-from-here)
                   ("s" . gtags-find-symbol)
                   ("S" . gtags-find-symbol-from-here)
-                  ("b" . gtags-build-tags)
-                  ("k" . gtags-select-kill-buffers)))
+                  ("b" . gtags-build-tags)))
     (global-set-key (kbd (concat gtags-key-prefix " " (car pair))) (cdr pair))))
 
 (when (executable-find "global")
