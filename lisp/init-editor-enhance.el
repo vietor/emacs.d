@@ -44,6 +44,16 @@
   (setq wgrep-enable-key "e")
   (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers))
 
+;; ag
+(when (executable-find "ag")
+  (require-package 'ag)
+  (require-package 'wgrep-ag)
+  (setq-default ag-reuse-window t)
+  (setq-default ag-highlight-search t)
+  (defun ag-project-root-at-aproject (filepath)
+    (if aproject-project aproject-rootdir filepath))
+  (setq-default ag-project-root-function 'ag-project-root-at-aproject))
+
 ;; heml
 (when (maybe-require-package 'helm)
   (require 'helm-config)
