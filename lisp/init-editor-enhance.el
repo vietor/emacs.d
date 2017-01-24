@@ -49,6 +49,7 @@
   (require-package 'ag)
   (require-package 'wgrep-ag)
   (setq-default ag-reuse-window t)
+  (setq-default ag-reuse-buffers t)
   (setq-default ag-highlight-search t)
   (defun ag-project-root-at-aproject (filepath)
     (if aproject-project aproject-rootdir filepath))
