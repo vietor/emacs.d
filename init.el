@@ -8,12 +8,11 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+(require 'init-preinit nil t)
 (require 'init-compat)
 (require 'init-package)
-(require 'init-aproject)
-(require 'init-environ)
 (require 'init-preload)
-(require 'init-preload-local nil t)
+(require 'init-environ)
 
 (require 'init-editor)
 (require 'init-editor-enhance)

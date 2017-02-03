@@ -4,6 +4,6 @@
 
 *.swp
 /setenv
-/custom.el
-/lisp/init-preload-local.el
+/custom.el*
+/lisp/init-preinit.el
 
