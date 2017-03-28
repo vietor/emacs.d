@@ -8,7 +8,7 @@
 
 (defun python-deep-buffer-indent ()
   (py-autopep8)
-  (when running-os-windows
+  (when os-windows
     (goto-char (point-min))
     (while (search-forward "\r" nil t) (replace-match ""))))
 
