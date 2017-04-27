@@ -5,6 +5,7 @@ GTAGS
 /elpa*/
 /.aproject/
 /auto-save-list/
+/server/
 
 *.swp
 /setenv
