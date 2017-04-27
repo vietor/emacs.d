@@ -1,8 +1,8 @@
 ;; Disaple emacs fool
 ;; (package-initialize)
 
-(when (version< emacs-version "24")
-  (error "You must run emacs 24 or later!"))
+(when (version< emacs-version "24.4")
+  (error "You must run emacs 24.4 or later!"))
 
 (setq gc-cons-threshold (* 128 1024 1024))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
