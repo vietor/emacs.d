@@ -1,3 +1,6 @@
+(unless (featurep 'subr-x)
+  (require 'subr-x))
+
 (unless (fboundp 'defvar-local)
   (defmacro defvar-local (var val &optional docstring)
     (declare (debug defvar) (doc-string 3))
