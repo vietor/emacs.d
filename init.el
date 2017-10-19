@@ -27,7 +27,7 @@
 (require 'init-flycheck)
 
 (require 'init-cxx)
-(require 'init-scala)
+(require 'init-jvm)
 (require 'init-python)
 (require 'init-web)
 (require 'init-javascript)
