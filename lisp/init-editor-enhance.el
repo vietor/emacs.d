@@ -40,9 +40,8 @@
 
 ;; wgrep
 (require-package 'wgrep)
-(after-load 'grep
-  (setq wgrep-enable-key "e")
-  (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers))
+(setq wgrep-enable-key "e")
+(setq wgrep-auto-save-buffer t)
 
 ;; ag
 (when (executable-find "ag")
