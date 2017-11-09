@@ -29,6 +29,7 @@
 (require 'init-cxx)
 (require 'init-jvm)
 (require 'init-python)
+(require 'init-golang)
 (require 'init-web)
 (require 'init-javascript)
 (require 'init-markdown)
