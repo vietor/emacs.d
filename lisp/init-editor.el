@@ -21,9 +21,6 @@
 
 (setq-default major-mode 'text-mode)
 (setq initial-major-mode 'text-mode)
-(setq initial-scratch-message "")
-(setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message t)
 
 (setq create-lockfiles nil)
 (setq make-backup-files nil)
@@ -33,6 +30,7 @@
 (menu-bar-mode -1)
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
+(setq inhibit-startup-screen t)
 (setq-default
   truncate-lines nil
   truncate-partial-width-windows nil)

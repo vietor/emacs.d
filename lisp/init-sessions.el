@@ -1,4 +1,7 @@
 (require-package 'session)
+
+(setq session-save-file-coding-system 'utf-8)
+
 (add-aproject-init
  (session-initialize))
 (after-aproject-change
