@@ -55,27 +55,20 @@
   (setq-default ag-project-root-function 'ag-project-root-at-aproject))
 
 ;; heml
-(when (maybe-require-package 'helm)
-  (require 'helm-config)
+(when (maybe-require-package 'ivy)
+  (require-package 'counsel)
 
-  (setq helm-M-x-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match    t
-        helm-semantic-fuzzy-match t
-        helm-imenu-fuzzy-match    t)
+  (setq-default ivy-use-virtual-buffers t
+                ivy-virtual-abbreviate 'fullpath
+                ivy-count-format ""
+                ivy-magic-tilde nil
+                ivy-initial-inputs-alist nil)
+  (setq-default counsel-mode-override-describe-bindings t)
 
-  (helm-mode 1)
-  (diminish 'helm-mode)
+  (ivy-mode 1)
+  (diminish 'ivy-mode)
 
-  (define-key global-map [remap occur] 'helm-occur)
-  (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-  (define-key global-map [remap find-file] 'helm-find-files)
-  (define-key global-map [remap list-buffers] 'helm-buffers-list)
-  (define-key global-map [remap bookmark-jump] 'helm-filtered-bookmarks)
-
-  (global-set-key (kbd "M-x")       'helm-M-x)
-  (global-set-key (kbd "C-x C-m")   'helm-M-x)
-  (global-set-key (kbd "C-x b")     'helm-mini)
-  (global-set-key (kbd "M-y")       'helm-show-kill-ring))
+  (counsel-mode 1)
+  (diminish 'counsel-mode))
 
 (provide 'init-editor-enhance)
