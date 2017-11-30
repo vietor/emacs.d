@@ -54,7 +54,7 @@
     (if aproject-project aproject-rootdir filepath))
   (setq-default ag-project-root-function 'ag-project-root-at-aproject))
 
-;; heml
+;; ivy
 (when (maybe-require-package 'ivy)
   (require-package 'counsel)
 

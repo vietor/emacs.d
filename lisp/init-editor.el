@@ -110,5 +110,6 @@
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 (global-set-key (kbd "M-g q")   'keyboard-escape-quit)
 
+(define-key global-map [remap list-buffers] 'ibuffer)
 
 (provide 'init-editor)
