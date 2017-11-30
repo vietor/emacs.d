@@ -7,9 +7,4 @@
   (diminish 'company-mode))
 (add-hook 'after-init-hook 'global-company-mode)
 
-(when (maybe-require-package 'helm-company)
-  (after-load 'company
-    (define-key company-mode-map (kbd "C-:") 'helm-company)
-    (define-key company-active-map (kbd "C-:") 'helm-company)))
-
 (provide 'init-company)
