@@ -65,13 +65,12 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (set-scroll-bar-mode nil)
-  (set-default 'cursor-type 'bar)
   (mouse-wheel-mode t)
   (setq mouse-wheel-scroll-amount '(1
                                     ((shift) . 5)
                                     ((control)))))
 
-(blink-cursor-mode -1)
+(setq-default blink-cursor-interval 0.4)
 (setq default-frame-alist '((vertical-scroll-bars . nil)
                             (tool-bar-lines . 0)
                             (menu-bar-lines . 0)
