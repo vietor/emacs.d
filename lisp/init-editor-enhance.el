@@ -4,7 +4,7 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
 (when window-system
-  (load-theme 'misterioso t))
+  (load-theme 'deeper-blue t))
 
 (require-package 'undo-tree)
 (global-undo-tree-mode)
