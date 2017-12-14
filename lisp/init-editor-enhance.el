@@ -3,6 +3,9 @@
 (global-set-key (kbd "<f1>") 'help-command)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
+(when window-system
+  (load-theme 'misterioso t))
+
 (require-package 'undo-tree)
 (global-undo-tree-mode)
 (diminish 'undo-tree-mode)

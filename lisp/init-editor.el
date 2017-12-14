@@ -69,8 +69,7 @@
   (mouse-wheel-mode t)
   (setq mouse-wheel-scroll-amount '(1
                                     ((shift) . 5)
-                                    ((control))))
-  (load-theme 'deeper-blue' t))
+                                    ((control)))))
 
 (blink-cursor-mode -1)
 (setq default-frame-alist '((vertical-scroll-bars . nil)
