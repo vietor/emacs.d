@@ -65,6 +65,7 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (set-scroll-bar-mode nil)
+  (set-default 'cursor-type 'bar)
   (mouse-wheel-mode t)
   (setq mouse-wheel-scroll-amount '(1
                                     ((shift) . 5)
