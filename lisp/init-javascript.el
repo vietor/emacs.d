@@ -14,6 +14,9 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 
+(when (executable-find "prettier")
+  (require-package 'prettier-js))
+
 (when (executable-find "js-beautify")
   (require-package 'web-beautify)
   (add-hook 'js2-mode-hook
