@@ -1,6 +1,7 @@
 (require-package 'session)
 
 (setq session-save-file-coding-system 'utf-8)
+(setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
 
 (add-aproject-init
  (session-initialize))

@@ -66,6 +66,7 @@
                 ivy-virtual-abbreviate 'fullpath
                 ivy-count-format ""
                 ivy-magic-tilde nil
+                ivy-dynamic-exhibit-delay-ms 150
                 ivy-initial-inputs-alist '((man . "^")
                                            (woman . "^")))
   (setq-default counsel-mode-override-describe-bindings t)

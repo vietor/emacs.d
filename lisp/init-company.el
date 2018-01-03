@@ -8,6 +8,8 @@
 (after-load 'company
   (diminish 'company-mode)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous))
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (setq-default company-dabbrev-other-buffers 'all
+                company-tooltip-align-annotations t))
 
 (provide 'init-company)
