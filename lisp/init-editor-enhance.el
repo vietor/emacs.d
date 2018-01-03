@@ -4,7 +4,8 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
 (when window-system
-  (load-theme 'deeper-blue t))
+  (require-package 'dracula-theme)
+  (load-theme 'dracula t))
 
 (require-package 'undo-tree)
 (global-undo-tree-mode)
