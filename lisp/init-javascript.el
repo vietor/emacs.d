@@ -20,16 +20,16 @@
 (when (executable-find "js-beautify")
   (require-package 'web-beautify))
 
-(defun deep-buffer-indent-javascript()
-  (let ((myfun 'indent-current-buffer))
-    (unless (bound-and-true-p js2-jsx-mode)
-      (when (fboundp 'web-beautify-js)
-        (setq myfun 'web-beautify-js)))
-    (funcall myfun)))
-
 (add-hook 'js2-mode-hook
           (lambda ()
-            (setq deep-buffer-indent-function 'deep-buffer-indent-javascript)))
+            (setq mode-name "JS2")
+            (when (fboundp 'web-beautify-js)
+              (setq deep-buffer-indent-function 'web-beautify-js))))
+
+(add-hook 'js2-jsx-mode-hook
+          (lambda ()
+            (setq mode-name "JS2-JSX")
+            (setq deep-buffer-indent-function nil)))
 
 (after-load 'company-gtags
   (add-to-list 'company-gtags-modes 'js2-mode))
