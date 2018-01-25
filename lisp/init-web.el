@@ -2,6 +2,7 @@
 (require-package 'web-mode)
 (require 'web-mode)
 
+(add-to-list 'auto-mode-alist '("\\.njk?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
