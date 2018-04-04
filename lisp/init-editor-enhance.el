@@ -60,6 +60,7 @@
 
 ;; ivy
 (when (maybe-require-package 'ivy)
+  (require-package 'ivy-smex)
   (require-package 'counsel)
 
   (setq-default ivy-use-virtual-buffers t
@@ -75,6 +76,8 @@
   (diminish 'ivy-mode)
 
   (counsel-mode 1)
-  (diminish 'counsel-mode))
+  (diminish 'counsel-mode)
+
+  (global-set-key (kbd "M-x") 'ivy-smex))
 
 (provide 'init-editor-enhance)
