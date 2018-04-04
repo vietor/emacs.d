@@ -60,7 +60,6 @@
 
 ;; ivy
 (when (maybe-require-package 'ivy)
-  (require-package 'ivy-smex)
   (require-package 'counsel)
 
   (setq-default ivy-use-virtual-buffers t
@@ -76,8 +75,10 @@
   (diminish 'ivy-mode)
 
   (counsel-mode 1)
-  (diminish 'counsel-mode)
+  (diminish 'counsel-mode))
 
-  (global-set-key (kbd "M-x") 'ivy-smex))
+(when (maybe-require-package 'smex)
+  (setq-default smex-save-file (aproject-store-file "smex"))
+  (global-set-key [remap execute-extended-command] 'smex))
 
 (provide 'init-editor-enhance)
