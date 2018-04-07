@@ -23,5 +23,8 @@
 
 ;; css
 (require-package 'sass-mode)
+(unless (fboundp 'scss-mode)
+  (require-package 'scss-mode))
+(setq-default scss-compile-at-save nil)
 
 (provide 'init-web)
