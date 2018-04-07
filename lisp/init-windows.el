@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (setq winner-dont-bind-my-keys 5)
 (winner-mode 1)
 
