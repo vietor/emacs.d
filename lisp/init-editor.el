@@ -97,7 +97,6 @@
 (when os-mac
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
-  (setq default-input-method "MacOSX")
   (set-fontset-font
    t 'symbol
    (font-spec :family "Apple Color Emoji") nil 'prepend))
