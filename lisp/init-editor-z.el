@@ -89,4 +89,4 @@
       (end-of-line))))
 (global-set-key [remap move-end-of-line] 'smart-end-of-line)
 
-(provide 'init-editor-extends)
+(provide 'init-editor-z)

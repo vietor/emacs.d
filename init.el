@@ -14,9 +14,9 @@
 (require 'init-preload)
 (require 'init-environ)
 
-(require 'init-editor)
-(require 'init-editor-enhance)
-(require 'init-editor-extends)
+(require 'init-editor-a)
+(require 'init-editor-b)
+(require 'init-editor-z)
 (require 'init-sessions)
 (require 'init-locales)
 (require 'init-windows)

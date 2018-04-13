@@ -82,4 +82,4 @@
     (setq-default smex-save-file (aproject-store-file "smex")))
   (global-set-key [remap execute-extended-command] 'smex))
 
-(provide 'init-editor-enhance)
+(provide 'init-editor-b)
