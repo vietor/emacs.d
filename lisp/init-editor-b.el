@@ -79,7 +79,7 @@
 
 (when (maybe-require-package 'smex)
   (after-aproject-change
-    (setq-default smex-save-file (aproject-store-file "smex")))
+    (setq smex-save-file (aproject-store-file "smex")))
   (global-set-key [remap execute-extended-command] 'smex))
 
 (provide 'init-editor-b)
