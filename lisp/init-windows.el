@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (setq winner-dont-bind-my-keys 5)
 (winner-mode 1)
 
@@ -35,28 +37,32 @@
 (global-set-key (kbd "C-x 1") 'toggle-delete-other-windows)
 
 (defun split-window-func-with-other-buffer (split-function)
-  (lexical-let ((s-f split-function))
-    (lambda ()
-      (interactive)
-      (funcall s-f)
-      (let ((target-window (next-window)))
-        (set-window-buffer target-window (other-buffer))
+  (lambda (&optional arg)
+    (interactive "P")
+    (funcall split-function)
+    (let ((target-window (next-window)))
+      (set-window-buffer target-window (other-buffer))
+      (unless arg
         (select-window target-window)))))
 (global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
 (global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
 
 (defun split-window-horizontally-instead ()
   (interactive)
-  (save-excursion
+  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-horizontally))))
+    (split-window-horizontally)
+    (when other-buffer
+      (set-window-buffer (next-window) other-buffer))))
 (global-set-key (kbd "C-x 4 3") 'split-window-horizontally-instead)
 
 (defun split-window-vertically-instead ()
   (interactive)
-  (save-excursion
+  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
+    (split-window-vertically)
+    (when other-buffer
+      (set-window-buffer (next-window) other-buffer))))
 (global-set-key (kbd "C-x 4 2") 'split-window-vertically-instead)
 
 (defun smart-last-usage-buffer ()
