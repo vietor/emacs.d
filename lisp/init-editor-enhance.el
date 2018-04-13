@@ -78,7 +78,8 @@
   (diminish 'counsel-mode))
 
 (when (maybe-require-package 'smex)
-  (setq-default smex-save-file (aproject-store-file "smex"))
+  (after-aproject-change
+    (setq-default smex-save-file (aproject-store-file "smex")))
   (global-set-key [remap execute-extended-command] 'smex))
 
 (provide 'init-editor-enhance)
