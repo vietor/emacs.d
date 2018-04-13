@@ -113,4 +113,4 @@
 
 (define-key global-map [remap list-buffers] 'ibuffer)
 
-(provide 'init-editor)
+(provide 'init-editor-a)
