@@ -1,7 +1,9 @@
 (require 'gtags)
 
-(defconst gtags-key-prefix "C-x g")
+(setq gtags-pop-delete t)
+(setq gtags-grep-all-text-files t)
 (setq gtags-select-buffer-single t)
+(defconst gtags-key-prefix "C-x g")
 
 (fmakunbound 'gtags-visit-rootdir)
 (fmakunbound 'gtags-find-with-idutils)
@@ -84,10 +86,6 @@
                 (gtags-mode 1)
                 (diminish 'gtags-mode)))))
 
-(defadvice gtags-pop-stack (after empty-to-kill activate)
-  (unless gtags-buffer-stack
-    (gtags-select-kill-buffers)))
-
 (after-aproject-change
  (setenv "GTAGSROOT" aproject-rootdir))
 
@@ -96,9 +94,7 @@
    ((and (executable-find "pygmentize") (executable-find "ctags"))
     (setenv "GTAGSLABEL" "pygments"))
    ((executable-find "ctags")
-    (setenv "GTAGSLABEL" "ctags"))
-   (t
-    (setenv "GTAGSLABEL" "native"))))
+    (setenv "GTAGSLABEL" "ctags"))))
 
 (gtags-label-parser)
 (add-hook 'aproject-environ-change-hook 'gtags-label-parser)
