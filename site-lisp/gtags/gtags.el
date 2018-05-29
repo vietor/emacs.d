@@ -24,7 +24,7 @@
 
 ;; GLOBAL home page is at: http://www.gnu.org/software/global/
 ;; Author: Tama Communications Corporation
-;; Version: 3.8
+;; Version: 3.9
 ;; Keywords: tools
 
 ;; Gtags-mode is implemented as a minor mode so that it can work with any
@@ -106,7 +106,7 @@
 ;;; Customizing gtags-mode
 ;;;
 (defgroup gtags nil
-  "Minor mode for GLOBAL source code tag system."
+  "Minor mode for GLOBAL source code tagging system."
   :group 'tools
   :prefix "gtags-")
 
@@ -515,13 +515,22 @@
 (defun gtags-visit-rootdir ()
   "Tell tags commands the root directory of source tree."
   (interactive)
-  (let (path input)
+  (let (path input default-path)
     (setq path gtags-rootdir)
     (if (not path)
         (setq path (gtags-get-rootpath)))
     (if (not path)
         (setq insert-default-directory (if (string-match gtags-tramp-path-regexp default-directory) nil t)))
-    (setq input (read-file-name "Visit root directory: " path path t))
+    ;
+    ; 19.6.5 Reading File Names (GNU Emacs Lisp Reference Manual)
+    ; If both default and initial are nil and the buffer is visiting a file,
+    ; read-file-name uses the absolute file name of that file as default. 
+    ;
+    (setq default-path
+        (if (and insert-default-directory (not path))
+            default-directory
+            path))
+    (setq input (read-file-name "Visit root directory: " path default-path t))
     (if (equal "" input) nil
       (if (not (file-directory-p input))
         (message "%s is not directory." input)
@@ -866,7 +875,8 @@
 	    (find-file-other-window file)))
         (if delete (kill-buffer prev-buffer)))
       (setq gtags-current-buffer (current-buffer))
-      (goto-line line)
+      (goto-char (point-min))
+      (forward-line (1- line))
       (gtags-mode 1))))
 
 ;; make complete list (do nothing)
