@@ -1,5 +1,5 @@
 (custom-set-variables
-  '(warning-suppress-types (quote ((alloc)))))
+ '(warning-suppress-types (quote ((alloc)))))
 
 (defconst os-mac (eq system-type 'darwin))
 (defconst os-mac-x (memq window-system '(mac ns x)))
@@ -10,12 +10,13 @@
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var)))
 (when os-mac-x
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (setenv "PATH" (mapconcat 'identity (delete-dups (split-string (getenv "PATH") path-separator)) path-separator)))
 
 (defun smart-setenv (name value)
   (if (not (string-equal "PATH" name))
       (setenv name value)
-    (let ((paths (list value)))
+    (let ((paths (split-string value path-separator)))
       (setq exec-path (append paths exec-path))
       (setenv "PATH" (concat (mapconcat 'identity paths path-separator)
                              path-separator
