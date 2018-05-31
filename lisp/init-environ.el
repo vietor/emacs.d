@@ -10,7 +10,11 @@
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var)))
 (when os-mac-x
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (add-hook 'shell-mode-hook
+            (lambda ()
+              (setq exec-path (delete-dups exec-path))
+              (setenv "PATH" (mapconcat 'identity (delete-dups (split-string (getenv "PATH") path-separator)) path-separator)))))
 
 (defun smart-setenv (name value)
   (if (not (string-equal "PATH" name))
