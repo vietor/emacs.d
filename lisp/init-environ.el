@@ -10,17 +10,15 @@
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var)))
 (when os-mac-x
-  (exec-path-from-shell-initialize)
-  (setenv "PATH" (mapconcat 'identity (delete-dups (split-string (getenv "PATH") path-separator)) path-separator)))
+  (exec-path-from-shell-initialize))
 
 (defun smart-setenv (name value)
   (if (not (string-equal "PATH" name))
       (setenv name value)
-    (let ((paths (split-string value path-separator)))
-      (setq exec-path (append paths exec-path))
-      (setenv "PATH" (concat (mapconcat 'identity paths path-separator)
-                             path-separator
-                             (getenv "PATH"))))))
+    (let ((this-path) (paths (remove "" (split-string value path-separator))))
+      (setq exec-path (delete-dups (append paths exec-path)))
+      (setq this-path (concat (mapconcat 'identity paths path-separator) path-separator (getenv "PATH")))
+      (setenv "PATH" (mapconcat 'identity (delete-dups (split-string this-path path-separator)) path-separator)))))
 
 (defun startup-environ (file)
   (when (file-exists-p file)
