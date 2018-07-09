@@ -84,8 +84,10 @@
   (add-to-list 'initial-frame-alist no-border))
 
 (global-auto-revert-mode)
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
+(setq global-auto-revert-non-file-buffers t
+      auto-revert-verbose nil)
+(after-load 'autorevert
+  (diminish 'auto-revert-mode))
 
 (setq-default show-trailing-whitespace t)
 (dolist (hook '(compilation-mode-hook minibuffer-setup-hook))
