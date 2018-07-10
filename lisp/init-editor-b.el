@@ -58,6 +58,7 @@
 (require-package 'wgrep)
 (setq wgrep-enable-key "e")
 (setq wgrep-auto-save-buffer t)
+(setq grep-use-null-device nil) ;; Fix wgrep
 
 ;; ag
 (when (executable-find "ag")
