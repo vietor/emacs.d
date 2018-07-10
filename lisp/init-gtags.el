@@ -3,7 +3,7 @@
 (setq gtags-pop-delete t)
 (setq gtags-grep-all-text-files t)
 (setq gtags-select-buffer-single t)
-(defconst gtags-key-prefix "C-x g")
+(defconst gtags-key-prefix "C-x t")
 
 (fmakunbound 'gtags-visit-rootdir)
 (fmakunbound 'gtags-find-with-idutils)
