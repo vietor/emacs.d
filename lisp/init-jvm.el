@@ -1,8 +1,4 @@
-(when (executable-find "scala")
-  (require-package 'scala-mode))
-
-(when (executable-find "sbt")
-  (require-package 'sbt-mode))
+(require-package 'scala-mode)
 
 (when (executable-find "gradle")
   (require-package 'groovy-mode)
