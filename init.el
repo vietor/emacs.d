@@ -31,6 +31,7 @@
 (require 'init-python)
 (require 'init-golang)
 (require 'init-web)
+(require 'init-php)
 (require 'init-javascript)
 (require 'init-markdown)
 
