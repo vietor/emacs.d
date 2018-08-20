@@ -1,8 +1,8 @@
 (when (executable-find "go")
   (require-package 'go-mode)
 
-  (add-hook 'before-save-hook 'gofmt-before-save)
   (after-aproject-change
-   (setenv "GOPATH" aproject-rootdir)))
+   (setenv "GOPATH" aproject-rootdir))
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
 (provide 'init-golang)
