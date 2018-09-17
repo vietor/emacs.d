@@ -3,10 +3,13 @@
 
 (when (version< emacs-version "24.4")
   (error "You must run emacs 24.4 or later!"))
-
-(setq gc-cons-threshold (* 128 1024 1024))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(let ((normal-gc-cons-threshold (* 20 1024 1024))
+      (init-gc-cons-threshold (* 128 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
 
 (require 'init-preinit nil t)
 (require 'init-compat)
@@ -22,6 +25,7 @@
 (require 'init-windows)
 
 (require 'init-git)
+(require 'init-grep)
 (require 'init-gtags)
 (require 'init-company)
 (require 'init-flycheck)
@@ -35,6 +39,6 @@
 (require 'init-javascript)
 (require 'init-markdown)
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
-

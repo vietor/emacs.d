@@ -54,22 +54,6 @@
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
-;; wgrep
-(require-package 'wgrep)
-(setq wgrep-enable-key "e")
-(setq wgrep-auto-save-buffer t)
-
-;; ag
-(when (executable-find "ag")
-  (require-package 'ag)
-  (require-package 'wgrep-ag)
-  (setq-default ag-reuse-window t)
-  (setq-default ag-reuse-buffers t)
-  (setq-default ag-highlight-search t)
-  (defun ag-project-root-at-aproject (filepath)
-    (if aproject-project aproject-rootdir filepath))
-  (setq-default ag-project-root-function 'ag-project-root-at-aproject))
-
 ;; ivy
 (when (maybe-require-package 'ivy)
   (require-package 'counsel)
