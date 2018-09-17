@@ -1,6 +1,3 @@
-(custom-set-variables
- '(warning-suppress-types (quote ((alloc)))))
-
 (defconst *is-os-mac* (eq system-type 'darwin))
 (defconst *is-os-win* (eq system-type 'windows-nt))
 
