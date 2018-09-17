@@ -93,10 +93,10 @@
 (dolist (hook '(compilation-mode-hook minibuffer-setup-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 
-(when os-windows
+(when *is-os-win*
   (setq w32-get-true-file-attributes nil))
 
-(when os-mac
+(when *is-os-mac*
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
   (set-fontset-font
