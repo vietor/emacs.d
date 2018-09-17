@@ -19,3 +19,5 @@
   (defun ag-project-root-at-aproject (filepath)
     (if aproject-project aproject-rootdir filepath))
   (setq-default ag-project-root-function 'ag-project-root-at-aproject))
+
+(provide 'init-grep)
