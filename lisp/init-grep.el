@@ -16,8 +16,8 @@
   (setq-default ag-reuse-window t)
   (setq-default ag-reuse-buffers t)
   (setq-default ag-highlight-search t)
-  (defun ag-project-root-at-aproject (filepath)
-    (if aproject-project aproject-rootdir filepath))
-  (setq-default ag-project-root-function 'ag-project-root-at-aproject))
+  (setq-default ag-project-root-function
+    (lambda (filepath) (if aproject-project aproject-rootdir filepath)))
+  (global-set-key (kbd "M-?") 'ag-project))
 
 (provide 'init-grep)
