@@ -105,7 +105,9 @@ If there's a string at point, offer that as a default."
 
 (define-derived-mode agtags-global-mode grep-mode "Global"
   "A mode for showing outputs from gnu global."
-  (setq compilation-error-regexp-alist agtags-global-regexp-alist))
+  (setq-local grep-scroll-output nil)
+  (setq-local grep-highlight-matches nil)
+  (setq-local compilation-error-regexp-alist agtags-global-regexp-alist))
 
 (define-minor-mode agtags-mode nil
   :lighter " G"
@@ -113,8 +115,8 @@ If there's a string at point, offer that as a default."
       (add-hook 'before-save-hook 'agtags/auto-update nil 'local)
     (remove-hook 'before-save-hook 'agtags/auto-update 'local)))
 
-(defun agtags-bind-key()
-  "Set global key bind for agtags."
+(defun agtags-bind-keys()
+  "Set global key bindings for agtags."
   (dolist (pair '(("b" . agtags/update-tags)
                   ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
