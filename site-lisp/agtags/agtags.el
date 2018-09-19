@@ -7,6 +7,7 @@
 ;;; Code:
 (require 'grep)
 
+(defvar agtags-mode)
 (defvar agtags-key-prefix "C-x w")
 
 (defun agtags/get-root ()
@@ -26,7 +27,7 @@
 (defun agtags/build-tags ()
   "Create tag files (e.g. GTAGS) in directory `GTAGSROOT`."
   (interactive)
-  (let ((rootpath (agtags/get-rootpath)))
+  (let ((rootpath (agtags/get-root)))
     (dolist (file (list "GRTAGS" "GPATH" "GTAGS"))
       (ignore-errors
         (delete-file (expand-file-name file rootpath))))
@@ -93,22 +94,18 @@ If there's a string at point, offer that as a default."
     map))
 
 (define-derived-mode agtags-global-mode grep-mode "Global"
-  "A mode for showing outputs from gnu global."
-  (agtags-mode -1))
-
-(defun agtags/build-keymap()
-  (let ((map (make-sparse-keymap)))
-    (dolist (pair '(("b" . agtags/build-tags)
-                    ("p" . agtags/search)))
-      (define-key map (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair)))
-    map))
+  "A mode for showing outputs from gnu global.")
 
 (define-minor-mode agtags-mode nil
-  :global t
   :lighter " G"
-  :keymap (agtags/build-keymap)
   (if agtags-mode
       (add-hook 'before-save-hook 'agtags/auto-update nil 'local)
     (remove-hook 'before-save-hook 'agtags/auto-update 'local)))
 
+(defun agtags-bind-key()
+  (dolist (pair '(("b" . agtags/build-tags)
+                  ("p" . agtags/search)))
+    (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
+
 (provide 'agtags)
+;;; agtags.el ends here
