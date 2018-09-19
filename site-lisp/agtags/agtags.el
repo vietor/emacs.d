@@ -18,13 +18,13 @@
     path))
 
 (defun agtags/auto-update()
-  "Auto update tags file, when buffer was save"
+  "Auto update tags file, when buffer was save."
   (when (and agtags-mode
              buffer-file-name
              (string-prefix-p (agtags/get-root) buffer-file-name))
     (call-process "global" nil nil nil "-u" (concat "--single-update=" buffer-file-name))))
 
-(defun agtags/build-tags ()
+(defun agtags/update-tags ()
   "Create tag files (e.g. GTAGS) in directory `GTAGSROOT`."
   (interactive)
   (let ((rootpath (agtags/get-root)))
@@ -40,6 +40,7 @@
   "Execute the global command, use ARGUMENTS."
   (let ((command-string
          (mapconcat #'shell-quote-argument (append (list "global" "--result=grep") arguments) " ")))
+    (setq default-directory (agtags/get-root))
     (compilation-start command-string 'agtags-global-mode)))
 
 (defun agtags/dwim-at-point ()
@@ -70,10 +71,10 @@ If there's a string at point, offer that as a default."
         user-input
       suggested)))
 
-(defun agtags/search (string)
-  "Input pattern (STRING), search with grep(1) and move to the locations."
+(defun agtags/find-with-grep (pattern)
+  "Input pattern (PATTERN), search with grep(1) and move to the locations."
   (interactive (list (agtags/read-input "Search string")))
-  (agtags/global-start (list "-g" string)))
+  (agtags/global-start (list "-g" pattern)))
 
 (defvar agtags-global-mode-font-lock-keywords
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
@@ -93,8 +94,18 @@ If there's a string at point, offer that as a default."
     (define-key map [backtab] 'compilation-previous-error)
     map))
 
+(defconst agtags-global-regexp-alist
+  `((,"^\\(.+?\\):\\([0-9]+\\):\\(?:$\\|[^0-9\n]\\|[0-9][^0-9\n]\\|[0-9][0-9].\\)"
+     1 2
+     (,(lambda ()
+         (let* ((start (1+ (match-end 2)))
+                (mbeg (text-property-any start (line-end-position) 'global-color t)))
+           (and mbeg (- mbeg start)))))
+     nil 1)))
+
 (define-derived-mode agtags-global-mode grep-mode "Global"
-  "A mode for showing outputs from gnu global.")
+  "A mode for showing outputs from gnu global."
+  (setq compilation-error-regexp-alist agtags-global-regexp-alist))
 
 (define-minor-mode agtags-mode nil
   :lighter " G"
@@ -103,8 +114,9 @@ If there's a string at point, offer that as a default."
     (remove-hook 'before-save-hook 'agtags/auto-update 'local)))
 
 (defun agtags-bind-key()
-  (dolist (pair '(("b" . agtags/build-tags)
-                  ("p" . agtags/search)))
+  "Set global key bind for agtags."
+  (dolist (pair '(("b" . agtags/update-tags)
+                  ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
 
 (provide 'agtags)
