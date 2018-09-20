@@ -8,7 +8,29 @@
 (require 'grep)
 
 (defvar agtags-mode)
-(defvar agtags-key-prefix "C-x w")
+
+(defgroup agtags nil
+  "GNU Global source code tagging system."
+  :group 'tools)
+
+(defcustom agtags-key-prefix "C-x w"
+  "*If non-nil, it is used for the prefix key of agtags's command."
+  :safe 'stringp
+  :type 'string
+  :group 'agtags)
+
+(defcustom agtags-global-ignore-case nil
+  "Non-nil if Global should ignore case in the search pattern."
+  :safe 'booleanp
+  :type 'boolean
+  :group 'agtags)
+
+(defcustom agtags-global-treat-text nil
+  "Non-nil if Global should include matches from text files.
+This affects `agtags-find-file' and `agtags-find-grep'."
+  :safe 'booleanp
+  :type 'boolean
+  :group 'agtags)
 
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
@@ -38,9 +60,12 @@
 
 (defun agtags/global-start (arguments)
   "Execute the global command, use ARGUMENTS."
-  (let ((command-string
-         (mapconcat #'shell-quote-argument (append (list "global" "--result=grep") arguments) " ")))
-    (setq default-directory (agtags/get-root))
+  (let* ((xs (append (list "global"
+                           "--result=grep"
+                           (and agtags-global-ignore-case "--ignore-case")
+                           (and agtags-global-treat-text "--other"))
+                     arguments))
+         (command-string (mapconcat #'identity (delq nil xs) " ")))
     (compilation-start command-string 'agtags-global-mode)))
 
 (defun agtags/dwim-at-point ()
@@ -74,7 +99,7 @@ If there's a string at point, offer that as a default."
 (defun agtags/find-with-grep (pattern)
   "Input pattern (PATTERN), search with grep(1) and move to the locations."
   (interactive (list (agtags/read-input "Search string")))
-  (agtags/global-start (list "-g" pattern)))
+  (agtags/global-start (list "--grep" pattern)))
 
 (defvar agtags-global-mode-font-lock-keywords
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
