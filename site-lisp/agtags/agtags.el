@@ -58,17 +58,19 @@ This affects `agtags-find-file' and `agtags-find-grep'."
       (when (zerop (call-process (executable-find "gtags") nil t nil "-i"))
         (message "Tags create or update by GTAGS")))))
 
-(defun agtags/global-start (arguments)
-  "Execute the global command, use ARGUMENTS."
-  (let* ((xs (append (list "global"
-                           "--result=grep"
+(defun agtags/global-start (arguments &optional result)
+  "Execute the global command, use ARGUMENTS; output format use RESULT."
+  (let* ((xr (or result "grep"))
+         (xs (append (list "global"
+                           "-v"
+                           (format "--result=%s" xr)
                            (and agtags-global-ignore-case "--ignore-case")
                            (and agtags-global-treat-text "--other"))
-                     arguments))
-         (command-string (mapconcat #'identity (delq nil xs) " ")))
-    (compilation-start command-string 'agtags-global-mode)))
+                     arguments)))
+    (compilation-start (mapconcat #'identity (delq nil xs) " ")
+                       (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
-(defun agtags/dwim-at-point ()
+(defun agtags/current-token ()
   "If there's an active selection, return that.
 Otherwise, get the symbol at point, as a string."
   (cond ((use-region-p)
@@ -78,9 +80,14 @@ Otherwise, get the symbol at point, as a string."
           (symbol-name (symbol-at-point))))))
 
 (defun agtags/read-input (prompt)
+  "Read a value from the minibuffer with PROMPT."
+  (let* ((final-prompt (format "%s: " prompt)))
+    (read-from-minibuffer final-prompt)))
+
+(defun agtags/read-input-dwim (prompt)
   "Read a value from the minibuffer with PROMPT.
 If there's a string at point, offer that as a default."
-  (let* ((suggested (agtags/dwim-at-point))
+  (let* ((suggested (agtags/current-token))
          (final-prompt
           (if suggested
               (format "%s (default %s): " prompt suggested)
@@ -96,18 +103,23 @@ If there's a string at point, offer that as a default."
         user-input
       suggested)))
 
+(defun agtags/find-file (pattern)
+  "Input pattern (PATTERN), search with grep(1) and move to the locations."
+  (interactive (list (agtags/read-input "Find files")))
+  (agtags/global-start (list "--path" pattern) "path"))
+
 (defun agtags/find-with-grep (pattern)
   "Input pattern (PATTERN), search with grep(1) and move to the locations."
-  (interactive (list (agtags/read-input "Search string")))
+  (interactive (list (agtags/read-input-dwim "Search string")))
   (agtags/global-start (list "--grep" pattern)))
 
-(defvar agtags-global-mode-font-lock-keywords
+(defconst agtags/global-mode-font-lock-keywords
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
      (1 'compilation-error)
      (2 'compilation-error nil t))
     ("^Global found \\([0-9]+\\)" (1 compilation-info-face))))
 
-(defvar agtags-global-mode-map
+(defconst agtags/global-mode-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map compilation-minor-mode-map)
     (define-key map "\r" 'compile-goto-error)
@@ -119,7 +131,10 @@ If there's a string at point, offer that as a default."
     (define-key map [backtab] 'compilation-previous-error)
     map))
 
-(defconst agtags-global-regexp-alist
+(defconst agtags/path-regexp-alist
+  `((,"^\\(?:[^\"'\n]*/\\)?[^ )\t\n]+$" 0)))
+
+(defconst agtags/grep-regexp-alist
   `((,"^\\(.+?\\):\\([0-9]+\\):\\(?:$\\|[^0-9\n]\\|[0-9][^0-9\n]\\|[0-9][0-9].\\)"
      1 2
      (,(lambda ()
@@ -128,11 +143,42 @@ If there's a string at point, offer that as a default."
            (and mbeg (- mbeg start)))))
      nil 1)))
 
-(define-derived-mode agtags-global-mode grep-mode "Global"
+(defun agtags/global-mode-finished (buffer status)
+  "Function to call when a gun global process finishes.
+BUFFER is the global's mode buffer, STATUS was the finish status."
+  (when (string-match-p "^finished" status)
+    (let ((num-found 0))
+      (with-current-buffer buffer
+        (goto-char (point-min))
+        (when (re-search-forward "^\\([0-9]+\\)\\ \\(file\\|files\\|object\\|objects\\)\\ located" nil t)
+          (setq num-found (string-to-number (buffer-substring-no-properties (match-beginning 1) (match-end 1))))))
+      ;; dwim
+      (cond ((< num-found 1)
+             (kill-buffer-and-window))
+            ((= num-found 1)
+             (next-error-no-select)
+             (kill-buffer-and-window))
+            (t (pop-to-buffer  buffer))))))
+
+(defvar agtags-grep-mode-map agtags/global-mode-map)
+(defvar agtags-grep-mode-font-lock-keywords agtags/global-mode-font-lock-keywords)
+
+;;;###autoload
+(define-derived-mode agtags-grep-mode grep-mode "Global Grep"
   "A mode for showing outputs from gnu global."
   (setq-local grep-scroll-output nil)
   (setq-local grep-highlight-matches nil)
-  (setq-local compilation-error-regexp-alist agtags-global-regexp-alist))
+  (setq-local compilation-error-regexp-alist agtags/grep-regexp-alist)
+  (setq-local compilation-finish-functions #'agtags/global-mode-finished))
+
+(defvar agtags-path-mode-map agtags/global-mode-map)
+(defvar agtags-path-mode-font-lock-keywords agtags/global-mode-font-lock-keywords)
+
+;;;###autoload
+(define-compilation-mode agtags-path-mode "Global Files"
+  "A mode for showing files from gnu global."
+  (setq-local compilation-error-regexp-alist agtags/path-regexp-alist)
+  (setq-local compilation-finish-functions #'agtags/global-mode-finished))
 
 (define-minor-mode agtags-mode nil
   :lighter " G"
@@ -140,9 +186,11 @@ If there's a string at point, offer that as a default."
       (add-hook 'before-save-hook 'agtags/auto-update nil 'local)
     (remove-hook 'before-save-hook 'agtags/auto-update 'local)))
 
+;;;###autoload
 (defun agtags-bind-keys()
   "Set global key bindings for agtags."
   (dolist (pair '(("b" . agtags/update-tags)
+                  ("f" . agtags/find-file)
                   ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
 
