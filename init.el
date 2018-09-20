@@ -1,5 +1,5 @@
-;; Disaple emacs fool
-;; (package-initialize)
+;; -*- lexical-binding: t -*-
+(setq debug-on-error t)
 
 (when (version< emacs-version "24.4")
   (error "You must run emacs 24.4 or later!"))
