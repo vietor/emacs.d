@@ -149,12 +149,10 @@ If there's a string at point, offer that as a default."
     (define-key map "q" 'agtags/kill-window)
     (define-key map "g" 'recompile)
     (define-key map "\r" 'compile-goto-error)
-    (define-key map "n" 'next-error-no-select)
-    (define-key map "p" 'previous-error-no-select)
+    (define-key map "n" 'compilation-next-error)
+    (define-key map "p" 'compilation-previous-error)
     (define-key map "{" 'compilation-previous-file)
     (define-key map "}" 'compilation-next-file)
-    (define-key map "\t" 'compilation-next-error)
-    (define-key map [backtab] 'compilation-previous-error)
     map))
 
 (defconst agtags/path-regexp-alist
@@ -204,6 +202,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-compilation-mode agtags-path-mode "Global Files"
   "A mode for showing files from gnu global."
+  (setq-local compilation-error-face grep-hit-face)
   (setq-local compilation-scroll-output 'first-error)
   (setq-local compilation-error-regexp-alist agtags/path-regexp-alist)
   (setq-local compilation-finish-functions #'agtags/global-mode-finished))
