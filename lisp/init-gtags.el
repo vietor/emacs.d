@@ -2,6 +2,7 @@
 
 (when (executable-find "global")
   (agtags-bind-keys)
+  (setq agtags-auto-dwim t)
   (setq agtags-global-treat-text t)
   (add-hook 'prog-mode-hook
             (lambda ()
