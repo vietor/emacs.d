@@ -76,6 +76,29 @@ This affects `agtags-find-file' and `agtags-find-grep'."
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
+(defun agtags/completing (flag string predicate code)
+  "Completion function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
+  (let ((option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
+                      ((eq flag 'grtags)  "-cr")
+                      ((eq flag 'gsyms)   "-cs")
+                      (t                  "-c")))
+        (complete-list (make-vector 63 0)))
+    (if agtags-global-ignore-case
+        (setq option (concat option "i")))
+    (with-temp-buffer
+      (call-process "global" nil t nil option string)
+      (goto-char (point-min))
+      (while (not (eobp))
+        (looking-at ".*")
+        (intern (buffer-substring (match-beginning 0) (match-end 0)) complete-list)
+        (forward-line)))
+    (cond ((eq code nil)
+           (try-completion string complete-list predicate))
+          ((eq code t)
+           (all-completions string complete-list predicate))
+          ((eq code 'lambda)
+           (if (intern-soft string complete-list) t nil)))))
+
 (defun agtags/current-token ()
   "If there's an active selection, return that.
 Otherwise, get the symbol at point, as a string."
@@ -108,6 +131,18 @@ If there's a string at point, offer that as a default."
     (if (> (length user-input) 0)
         user-input
       suggested)))
+
+(defun agtags/open-file ()
+  "Input pattern (PATTERN), search with grep(1) and move to the locations."
+  (interactive)
+  (let ((default-directory (agtags/get-root))
+        (user-input (completing-read
+                     "Open File: "
+                     (lambda (string predicate code)
+                       (agtags/completing 'files string predicate code))
+                     nil t)))
+    (when (> (length user-input) 0)
+      (find-file user-input))))
 
 (defun agtags/find-file (pattern)
   "Input pattern (PATTERN), search with grep(1) and move to the locations."
@@ -186,6 +221,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   (setq-local compilation-error-regexp-alist agtags/path-regexp-alist)
   (setq-local compilation-finish-functions #'agtags/global-mode-finished))
 
+;;;###autoload
 (define-minor-mode agtags-mode nil
   :lighter " G"
   (if agtags-mode
@@ -196,7 +232,8 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 (defun agtags-bind-keys()
   "Set global key bindings for agtags."
   (dolist (pair '(("b" . agtags/update-tags)
-                  ("f" . agtags/find-file)
+                  ("f" . agtags/open-file)
+                  ("F" . agtags/find-file)
                   ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
 
