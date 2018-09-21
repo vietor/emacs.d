@@ -51,7 +51,8 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 
 (defun agtags/run-global (arguments &optional result)
   "Execute the global command, use ARGUMENTS; output format use RESULT."
-  (let* ((xr (or result "grep"))
+  (let* ((default-directory (agtags/get-root))
+         (xr (or result "grep"))
          (xs (append (list "global"
                            "-v"
                            (format "--result=%s" xr)
@@ -63,7 +64,8 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 
 (defun agtags/run-completing (flag string predicate code)
   "Completion function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
-  (let ((option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
+  (let ((default-directory (agtags/get-root))
+        (option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
                       ((eq flag 'grtags)  "-cr")
                       ((eq flag 'gsyms)   "-cs")
                       (t                  "-c")))
