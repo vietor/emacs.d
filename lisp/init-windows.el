@@ -12,7 +12,8 @@
 (defun kill-current-buffer ()
   (interactive)
   (kill-buffer (current-buffer))
-  (delete-window))
+  (ignore-errors
+    (delete-window)))
 (global-set-key (kbd "C-x C-k") 'kill-current-buffer)
 
 (defun kill-buffers-exclude-current ()
