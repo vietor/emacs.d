@@ -63,7 +63,7 @@ This affects `agtags-find-file' and `agtags-find-grep'."
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
 (defun agtags/run-completing (flag string predicate code)
-  "Completion function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
+  "Completion Function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
   (let ((default-directory (agtags/get-root))
         (option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
                       ((eq flag 'grtags)  "-cr")
@@ -97,7 +97,7 @@ Otherwise, get the symbol at point, as a string."
 
 (defun agtags/read-input (prompt)
   "Read a value from the minibuffer with PROMPT."
-  (let* ((final-prompt (format "%s: " prompt)))
+  (let ((final-prompt (format "%s: " prompt)))
     (read-from-minibuffer final-prompt)))
 
 (defun agtags/read-input-dwim (prompt)
@@ -108,13 +108,33 @@ If there's a string at point, offer that as a default."
           (if suggested
               (format "%s (default %s): " prompt suggested)
             (format "%s: " prompt)))
-         ;; Ask the user for input, but add `suggested' to the history
-         ;; so they can use M-n if they want to modify it.
          (user-input (read-from-minibuffer
                       final-prompt
                       nil nil nil nil suggested)))
-    ;; Return the input provided by the user, or use `suggested' if
-    ;; the input was empty.
+    (if (> (length user-input) 0)
+        user-input
+      suggested)))
+
+(defun agtags/read-completing (flag prompt)
+  "Read a value from the Completion by FLAG with PROMPT."
+  (let ((final-prompt (format "%s: " prompt)))
+    (completing-read
+     final-prompt
+     (lambda (string predicate code)
+       (agtags/run-completing flag string predicate code)))))
+
+(defun agtags/read-completing-dwim (flag prompt)
+  "Read a value from the Completion by FLAG with PROMPT.
+If there's a string at point, offer that as a default."
+  (let* ((suggested (agtags/read-dwim))
+         (final-prompt
+          (if suggested
+              (format "%s (default %s): " prompt suggested)
+            (format "%s: " prompt)))
+         (user-input (completing-read
+                      final-prompt
+                      (lambda (string predicate code)
+                        (agtags/run-completing flag string predicate code)))))
     (if (> (length user-input) 0)
         user-input
       suggested)))
@@ -231,26 +251,30 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
         (message "Tags create or update by GTAGS")))))
 
 (defun agtags/open-file ()
-  "Input pattern (PATTERN), search with grep(1) and move to the locations."
+  "Input pattern and move to the top of the file."
   (interactive)
-  (let ((default-directory (agtags/get-root))
-        (user-input (completing-read
-                     "Open File: "
-                     (lambda (string predicate code)
-                       (agtags/run-completing 'files string predicate code))
-                     nil t)))
+  (let ((user-input (agtags/read-completing 'files "Open file")))
     (when (> (length user-input) 0)
-      (find-file user-input))))
+      (find-file (expand-file-name user-input (agtags/get-root))))))
 
-(defun agtags/find-file (pattern)
-  "Input pattern (PATTERN), search with grep(1) and move to the locations."
-  (interactive (list (agtags/read-input "Find files")))
-  (agtags/run-global (list "--path" pattern) "path"))
+(defun agtags/find-symbol ()
+  "Input symbol and move to the locations."
+  (interactive)
+  (let ((user-input (agtags/read-completing-dwim 'gsyms "Find symbol")))
+    (when (> (length user-input) 0)
+      (agtags/run-global (list "--symbol" (shell-quote-argument (regexp-quote user-input)))))))
 
-(defun agtags/find-with-grep (pattern)
-  "Input pattern (PATTERN), search with grep(1) and move to the locations."
-  (interactive (list (agtags/read-input-dwim "Search string")))
-  (agtags/run-global (list "--grep" pattern)))
+(defun agtags/find-file ()
+  "Input pattern, search file and move to the top of the file."
+  (interactive)
+  (let ((input (agtags/read-input "Find files")))
+    (agtags/run-global (list "--path" input) "path")))
+
+(defun agtags/find-with-grep ()
+  "Input pattern, search with grep(1) and move to the locations."
+  (interactive)
+  (let ((input (agtags/read-input-dwim "Search string")))
+    (agtags/run-global (list "--grep" (shell-quote-argument input)))))
 
 ;;;###autoload
 (defun agtags-bind-keys()
@@ -258,6 +282,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   (dolist (pair '(("b" . agtags/update-tags)
                   ("f" . agtags/open-file)
                   ("F" . agtags/find-file)
+                  ("s" . agtags/find-symbol)
                   ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
 
