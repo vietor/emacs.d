@@ -45,6 +45,8 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 ;; The private functions
 ;;
 
+(defvar agtags/button-map)
+
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
   (let ((dir (getenv "GTAGSROOT")))
@@ -69,12 +71,12 @@ This affects `agtags-find-file' and `agtags-find-grep'."
   "Execute the global command to agtags-*-mode, use ARGUMENTS; output format use RESULT."
   (let* ((xr (or result "grep"))
          (xs (append (list "global"
-                           "-v"
                            (format "--result=%s" xr)
                            (and agtags-global-ignore-case "--ignore-case")
                            (and agtags-global-treat-text "--other"))
                      arguments))
          (default-directory (agtags/get-root)))
+    (fset 'compilation-button-map agtags/button-map)
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
@@ -165,20 +167,34 @@ If there's a string at point, offer that as a default."
   (interactive)
   (quit-window t))
 
+(defun agtags/goto-selected ()
+  "Go to selected item and kill window and kill its buffer."
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (compile-goto-error)
+    (print "ddddddddddddd")
+    (delete-windows-on buffer)))
+
 (defconst agtags/global-mode-font-lock-keywords
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
      (1 'compilation-error)
      (2 'compilation-error nil t))
     ("^Global found \\([0-9]+\\)" (1 compilation-info-face))))
 
+(defconst agtags/button-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [follow-link] 'mouse-face)
+    (define-key map [mouse-2] 'agtags/goto-selected)
+    map))
+
 (defconst agtags/global-mode-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map special-mode-map)
     (define-key map [follow-link] 'mouse-face)
-    (define-key map [mouse-2] 'compile-goto-error)
+    (define-key map [mouse-2] 'agtags/goto-selected)
     (define-key map "q" 'agtags/kill-window)
     (define-key map "g" 'recompile)
-    (define-key map "\r" 'compile-goto-error)
+    (define-key map "\r" 'agtags/goto-selected)
     (define-key map "n" 'compilation-next-error)
     (define-key map "p" 'compilation-previous-error)
     (define-key map "{" 'compilation-previous-file)
@@ -201,18 +217,7 @@ If there's a string at point, offer that as a default."
   "Function to call when a gun global process finishes.
 BUFFER is the global's mode buffer, STATUS was the finish status."
   (when (and agtags-auto-dwim (string-match-p "^finished" status))
-    (let ((num-found 0))
-      (with-current-buffer buffer
-        (goto-char (point-min))
-        (when (re-search-forward "^\\([0-9]+\\)\\ \\(file\\|files\\|object\\|objects\\)\\ located" nil t)
-          (setq num-found (string-to-number (buffer-substring-no-properties (match-beginning 1) (match-end 1))))))
-      ;; dwim
-      (cond ((< num-found 1)
-             (kill-buffer-and-window))
-            ((= num-found 1)
-             (first-error)
-             (kill-buffer-and-window))
-            (t (pop-to-buffer  buffer))))))
+    (pop-to-buffer  buffer)))
 
 (defvar agtags-grep-mode-map agtags/global-mode-map)
 (defvar agtags-grep-mode-font-lock-keywords agtags/global-mode-font-lock-keywords)
@@ -222,6 +227,8 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   "A mode for showing outputs from gnu global."
   (setq-local grep-scroll-output nil)
   (setq-local grep-highlight-matches nil)
+  (setq-local compilation-always-kill t)
+  (setq-local compilation-error-screen-columns nil)
   (setq-local compilation-scroll-output 'first-error)
   (setq-local compilation-error-regexp-alist agtags/grep-regexp-alist)
   (setq-local compilation-finish-functions #'agtags/global-mode-finished))
@@ -232,7 +239,9 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-compilation-mode agtags-path-mode "Global Files"
   "A mode for showing files from gnu global."
+  (setq-local compilation-always-kill t)
   (setq-local compilation-error-face grep-hit-face)
+  (setq-local compilation-error-screen-columns nil)
   (setq-local compilation-scroll-output 'first-error)
   (setq-local compilation-error-regexp-alist agtags/path-regexp-alist)
   (setq-local compilation-finish-functions #'agtags/global-mode-finished))
