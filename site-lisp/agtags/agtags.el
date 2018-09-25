@@ -52,6 +52,11 @@ This affects `agtags-find-file' and `agtags-find-grep'."
       (error "No env `GTAGSROOT` provided"))
     path))
 
+(defun agtags/is-active ()
+  "Test global was created."
+  (let ((dir (agtags/get-root)))
+    (file-regular-p (expand-file-name "GTAGS" dir))))
+
 (defun agtags/run-global (arguments &optional result)
   "Execute the global command, use ARGUMENTS; output format use RESULT."
   (let* ((default-directory (agtags/get-root))
@@ -152,7 +157,8 @@ If there's a string at point, offer that as a default."
   "Auto update tags file, when buffer was save."
   (when (and agtags-mode
              buffer-file-name
-             (string-prefix-p (agtags/get-root) buffer-file-name))
+             (string-prefix-p (agtags/get-root) buffer-file-name)
+             (agtags/is-active))
     (call-process "global" nil nil nil "-u" (concat "--single-update=" buffer-file-name))))
 
 (defun agtags/kill-window ()
