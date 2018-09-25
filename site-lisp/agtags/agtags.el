@@ -1,4 +1,4 @@
-;;; agtags.el --- emacs frontend to GNU Global source code tagging system  -*- lexical-binding: t; -*-
+;;; agtags.el --- emacs frontend to GNU Global -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;; A package to integrate GNU Global source code tagging system
@@ -47,18 +47,26 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
-  (let ((path (getenv "GTAGSROOT")))
-    (when (zerop (length path))
+  (let ((dir (getenv "GTAGSROOT")))
+    (when (zerop (length dir))
       (error "No env `GTAGSROOT` provided"))
-    path))
+    dir))
 
 (defun agtags/is-active ()
   "Test global was created."
-  (let ((dir (agtags/get-root)))
-    (file-regular-p (expand-file-name "GTAGS" dir))))
+  (let ((dir (getenv "GTAGSROOT")))
+    (and (> (length dir) 0)
+         (file-regular-p (expand-file-name "GTAGS" dir)))))
 
-(defun agtags/run-global (arguments &optional result)
-  "Execute the global command, use ARGUMENTS; output format use RESULT."
+(defun agtags/run-global-to-list (arguments)
+  "Execute the global command to list, use ARGUMENTS; Return nil if an error occured."
+  (let ((default-directory (agtags/get-root)))
+    (condition-case nil
+        (apply #'process-lines "global" arguments)
+      (error nil))))
+
+(defun agtags/run-global-to-mode (arguments &optional result)
+  "Execute the global command to agtags-*-mode, use ARGUMENTS; output format use RESULT."
   (let* ((default-directory (agtags/get-root))
          (xr (or result "grep"))
          (xs (append (list "global"
@@ -70,12 +78,11 @@ This affects `agtags-find-file' and `agtags-find-grep'."
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
-(defun agtags/run-completing (flag string predicate code)
+(defun agtags/run-global-completing (flag string predicate code)
   "Completion Function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
   (let ((default-directory (agtags/get-root))
         (option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
                       ((eq flag 'rtags)   "-cr")
-                      ((eq flag 'symbols) "-cs")
                       (t                  "-c")))
         (complete-list (make-vector 63 0)))
     (if agtags-global-ignore-case
@@ -129,7 +136,7 @@ If there's a string at point, offer that as a default."
     (completing-read
      final-prompt
      (lambda (string predicate code)
-       (agtags/run-completing flag string predicate code))
+       (agtags/run-global-completing flag string predicate code))
      nil nil nil agtags/history-list)))
 
 (defun agtags/read-completing-dwim (flag prompt)
@@ -143,7 +150,7 @@ If there's a string at point, offer that as a default."
          (user-input (completing-read
                       final-prompt
                       (lambda (string predicate code)
-                        (agtags/run-completing flag string predicate code))
+                        (agtags/run-global-completing flag string predicate code))
                       nil nil nil agtags/history-list suggested)))
     (if (> (length user-input) 0)
         user-input
@@ -157,8 +164,8 @@ If there's a string at point, offer that as a default."
   "Auto update tags file, when buffer was save."
   (when (and agtags-mode
              buffer-file-name
-             (string-prefix-p (agtags/get-root) buffer-file-name)
-             (agtags/is-active))
+             (agtags/is-active)
+             (string-prefix-p (agtags/get-root) buffer-file-name))
     (call-process "global" nil nil nil "-u" (concat "--single-update=" buffer-file-name))))
 
 (defun agtags/kill-window ()
@@ -272,34 +279,27 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   "Input pattern, search file and move to the top of the file."
   (interactive)
   (let ((user-input (agtags/read-input "Find files")))
-    (agtags/run-global (list "--path" user-input) "path")))
+    (agtags/run-global-to-mode (list "--path" user-input) "path")))
 
 (defun agtags/find-tag ()
   "Input tag and move to the locations."
   (interactive)
   (let ((user-input (agtags/read-completing-dwim 'tags "Find tag")))
     (when (> (length user-input) 0)
-      (agtags/run-global (list (shell-quote-argument user-input))))))
+      (agtags/run-global-to-mode (list (shell-quote-argument user-input))))))
 
 (defun agtags/find-rtag ()
   "Input rtags and move to the locations."
   (interactive)
   (let ((user-input (agtags/read-completing-dwim 'rtags "Find rtag")))
     (when (> (length user-input) 0)
-      (agtags/run-global (list "--reference" (shell-quote-argument user-input))))))
-
-(defun agtags/find-symbol ()
-  "Input symbol and move to the locations."
-  (interactive)
-  (let ((user-input (agtags/read-completing-dwim 'symbols "Find symbol")))
-    (when (> (length user-input) 0)
-      (agtags/run-global (list "--symbol" (shell-quote-argument (regexp-quote user-input)))))))
+      (agtags/run-global-to-mode (list "--reference" (shell-quote-argument user-input))))))
 
 (defun agtags/find-with-grep ()
   "Input pattern, search with grep(1) and move to the locations."
   (interactive)
   (let ((user-input (agtags/read-input-dwim "Search string")))
-    (agtags/run-global (list "--grep" (shell-quote-argument user-input)))))
+    (agtags/run-global-to-mode (list "--grep" (shell-quote-argument user-input)))))
 
 ;;;###autoload
 (defun agtags-bind-keys()
@@ -309,7 +309,6 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
                   ("F" . agtags/find-file)
                   ("t" . agtags/find-tag)
                   ("r" . agtags/find-rtag)
-                  ("s" . agtags/find-symbol)
                   ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
 

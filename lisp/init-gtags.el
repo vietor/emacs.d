@@ -22,4 +22,7 @@
 (gtags-label-parser)
 (add-hook 'aproject-environ-change-hook 'gtags-label-parser)
 
+(require 'agtags-xref)
+(add-to-list 'xref-backend-functions 'agtags-xref-backend)
+
 (provide 'init-gtags)
