@@ -50,7 +50,7 @@ any additional command line arguments to pass to GNU Global."
   (agtags-xref/find-symbol symbol "-g"))
 
 (cl-defmethod xref-backend-identifier-completion-table ((_backend (eql agtags)))
-  (agtags/run-global-to-list '("-c")))
+  (agtags/run-global-to-list (list "-c")))
 
 (provide 'agtags-xref)
 ;;; agtags-xref.el ends here

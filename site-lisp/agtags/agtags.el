@@ -67,33 +67,25 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 
 (defun agtags/run-global-to-mode (arguments &optional result)
   "Execute the global command to agtags-*-mode, use ARGUMENTS; output format use RESULT."
-  (let* ((default-directory (agtags/get-root))
-         (xr (or result "grep"))
+  (let* ((xr (or result "grep"))
          (xs (append (list "global"
                            "-v"
                            (format "--result=%s" xr)
                            (and agtags-global-ignore-case "--ignore-case")
                            (and agtags-global-treat-text "--other"))
-                     arguments)))
+                     arguments))
+         (default-directory (agtags/get-root)))
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
 (defun agtags/run-global-completing (flag string predicate code)
   "Completion Function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
-  (let ((default-directory (agtags/get-root))
-        (option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
-                      ((eq flag 'rtags)   "-cr")
-                      (t                  "-c")))
-        (complete-list (make-vector 63 0)))
-    (if agtags-global-ignore-case
-        (setq option (concat option "i")))
-    (with-temp-buffer
-      (call-process "global" nil t nil option string)
-      (goto-char (point-min))
-      (while (not (eobp))
-        (looking-at ".*")
-        (intern (buffer-substring (match-beginning 0) (match-end 0)) complete-list)
-        (forward-line)))
+  (let* ((xs (append (list "-c"
+                           (and (eq flag 'files) "--path")
+                           (and (eq flag 'rtags) "--reference")
+                           (and agtags-global-ignore-case "--ignore-case")
+                           (and agtags-global-treat-text "--other"))))
+         (complete-list (agtags/run-global-to-list (delq nil xs))))
     (cond ((eq code nil)
            (try-completion string complete-list predicate))
           ((eq code t)
