@@ -74,8 +74,8 @@ This affects `agtags-find-file' and `agtags-find-grep'."
   "Completion Function with FLAG for `completing-read'. Require: STRING PREDICATE CODE."
   (let ((default-directory (agtags/get-root))
         (option (cond ((eq flag 'files)   (if agtags-global-treat-text "-cPo" "-cP"))
-                      ((eq flag 'grtags)   "-cr")
-                      ((eq flag 'gsymbol)  "-cs")
+                      ((eq flag 'rtags)   "-cr")
+                      ((eq flag 'symbols) "-cs")
                       (t                  "-c")))
         (complete-list (make-vector 63 0)))
     (if agtags-global-ignore-case
@@ -277,21 +277,21 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 (defun agtags/find-tag ()
   "Input tag and move to the locations."
   (interactive)
-  (let ((user-input (agtags/read-completing-dwim 'gtags "Find tag")))
+  (let ((user-input (agtags/read-completing-dwim 'tags "Find tag")))
     (when (> (length user-input) 0)
       (agtags/run-global (list (shell-quote-argument user-input))))))
 
 (defun agtags/find-rtag ()
   "Input rtags and move to the locations."
   (interactive)
-  (let ((user-input (agtags/read-completing-dwim 'grtags "Find rtag")))
+  (let ((user-input (agtags/read-completing-dwim 'rtags "Find rtag")))
     (when (> (length user-input) 0)
       (agtags/run-global (list "--reference" (shell-quote-argument user-input))))))
 
 (defun agtags/find-symbol ()
   "Input symbol and move to the locations."
   (interactive)
-  (let ((user-input (agtags/read-completing-dwim 'gsymbol "Find symbol")))
+  (let ((user-input (agtags/read-completing-dwim 'symbols "Find symbol")))
     (when (> (length user-input) 0)
       (agtags/run-global (list "--symbol" (shell-quote-argument (regexp-quote user-input)))))))
 
