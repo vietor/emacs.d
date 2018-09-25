@@ -11,7 +11,7 @@
 (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
 (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
 
-(defvar web-mode-standard-indent 2)
+(defvar web-mode-standard-indent 4)
 (add-hook 'web-mode-hook
           (lambda ()
             (setq web-mode-css-indent-offset web-mode-standard-indent)
