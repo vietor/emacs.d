@@ -9,6 +9,9 @@
 ;; javascript
 (require-package 'js2-mode)
 
+(after-load 'js2-mode
+  (define-key js2-mode-map (kbd "M-.") nil))
+
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
