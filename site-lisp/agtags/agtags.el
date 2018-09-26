@@ -162,7 +162,8 @@ If there's a string at point, offer that as a default."
   "Delete window after goto selected."
   (let ((buffer (current-buffer)))
     ad-do-it
-    (when (or (eq major-mode 'agtags-grep-mode) (eq major-mode 'agtags-path-mode))
+    (when (or (eq major-mode 'agtags-grep-mode)
+              (eq major-mode 'agtags-path-mode))
       (delete-windows-on buffer))))
 
 (defconst agtags/global-mode-font-lock-keywords
@@ -219,6 +220,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   (setq-local grep-scroll-output nil)
   (setq-local grep-highlight-matches nil)
   (setq-local compilation-always-kill t)
+  (setq-local compilation-disable-input t)
   (setq-local compilation-error-screen-columns nil)
   (setq-local compilation-scroll-output 'first-error)
   (setq-local compilation-error-regexp-alist agtags/grep-regexp-alist)
@@ -230,8 +232,9 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-compilation-mode agtags-path-mode "Global Files"
   "A mode for showing files from gnu global."
-  (setq-local compilation-always-kill t)
   (setq-local compilation-error-face grep-hit-face)
+  (setq-local compilation-always-kill t)
+  (setq-local compilation-disable-input t)
   (setq-local compilation-error-screen-columns nil)
   (setq-local compilation-scroll-output 'first-error)
   (setq-local compilation-error-regexp-alist agtags/path-regexp-alist)
