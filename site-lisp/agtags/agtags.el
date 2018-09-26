@@ -45,8 +45,6 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 ;; The private functions
 ;;
 
-(defvar agtags/button-map)
-
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
   (let ((dir (getenv "GTAGSROOT")))
@@ -76,7 +74,6 @@ This affects `agtags-find-file' and `agtags-find-grep'."
                            (and agtags-global-treat-text "--other"))
                      arguments))
          (default-directory (agtags/get-root)))
-    (fset 'compilation-button-map agtags/button-map)
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
@@ -172,7 +169,6 @@ If there's a string at point, offer that as a default."
   (interactive)
   (let ((buffer (current-buffer)))
     (compile-goto-error)
-    (print "ddddddddddddd")
     (delete-windows-on buffer)))
 
 (defconst agtags/global-mode-font-lock-keywords
@@ -225,6 +221,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-derived-mode agtags-grep-mode grep-mode "Global Grep"
   "A mode for showing outputs from gnu global."
+  (fset 'compilation-button-map nil)
   (setq-local grep-scroll-output nil)
   (setq-local grep-highlight-matches nil)
   (setq-local compilation-always-kill t)
@@ -239,6 +236,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-compilation-mode agtags-path-mode "Global Files"
   "A mode for showing files from gnu global."
+  (fset 'compilation-button-map nil)
   (setq-local compilation-always-kill t)
   (setq-local compilation-error-face grep-hit-face)
   (setq-local compilation-error-screen-columns nil)
