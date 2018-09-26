@@ -19,12 +19,6 @@
   :type 'string
   :group 'agtags)
 
-(defcustom agtags-auto-dwim nil
-  "Non-nil if `dwim' in agtags-*-mode when Global finished."
-  :safe 'booleanp
-  :type 'boolean
-  :group 'agtags)
-
 (defcustom agtags-global-ignore-case nil
   "Non-nil if Global should ignore case in the search pattern."
   :safe 'booleanp
@@ -213,7 +207,7 @@ If there's a string at point, offer that as a default."
 (defun agtags/global-mode-finished (buffer status)
   "Function to call when a gun global process finishes.
 BUFFER is the global's mode buffer, STATUS was the finish status."
-  (when (and agtags-auto-dwim (string-match-p "^finished" status))
+  (when (string-match-p "^finished" status)
     (pop-to-buffer  buffer)))
 
 (defvar agtags-grep-mode-map agtags/global-mode-map)
