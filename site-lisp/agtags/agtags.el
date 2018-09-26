@@ -164,12 +164,12 @@ If there's a string at point, offer that as a default."
   (interactive)
   (quit-window t))
 
-(defun agtags/goto-selected ()
-  "Go to selected item and kill window and kill its buffer."
-  (interactive)
+(defadvice compile-goto-error (around delete-window activate)
+  "Delete window after goto selected."
   (let ((buffer (current-buffer)))
-    (compile-goto-error)
-    (delete-windows-on buffer)))
+    ad-do-it
+    (when (or (eq major-mode 'agtags-grep-mode) (eq major-mode 'agtags-path-mode))
+      (delete-windows-on buffer))))
 
 (defconst agtags/global-mode-font-lock-keywords
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
@@ -187,10 +187,11 @@ If there's a string at point, offer that as a default."
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map special-mode-map)
     (define-key map [follow-link] 'mouse-face)
-    (define-key map [mouse-2] 'agtags/goto-selected)
+    (define-key map [mouse-2] 'compile-goto-error)
+    (define-key map "\r" 'compile-goto-error)
+    (define-key map "\C-m" 'compile-goto-error)
     (define-key map "q" 'agtags/kill-window)
     (define-key map "g" 'recompile)
-    (define-key map "\r" 'agtags/goto-selected)
     (define-key map "n" 'compilation-next-error)
     (define-key map "p" 'compilation-previous-error)
     (define-key map "{" 'compilation-previous-file)
@@ -221,7 +222,6 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-derived-mode agtags-grep-mode grep-mode "Global Grep"
   "A mode for showing outputs from gnu global."
-  (fset 'compilation-button-map nil)
   (setq-local grep-scroll-output nil)
   (setq-local grep-highlight-matches nil)
   (setq-local compilation-always-kill t)
@@ -236,7 +236,6 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (define-compilation-mode agtags-path-mode "Global Files"
   "A mode for showing files from gnu global."
-  (fset 'compilation-button-map nil)
   (setq-local compilation-always-kill t)
   (setq-local compilation-error-face grep-hit-face)
   (setq-local compilation-error-screen-columns nil)
