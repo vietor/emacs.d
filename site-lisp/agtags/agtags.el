@@ -308,7 +308,8 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   "Switch to last agtags-*-mode buffer."
   (interactive)
   (let ((buffer (or (get-buffer "*agtags-grep*")
-                    (get-buffer "*agtags-path*"))))
+                    (get-buffer "*agtags-path*")
+                    (other-buffer (current-buffer) 1))))
     (when buffer
       (switch-to-buffer buffer))))
 
