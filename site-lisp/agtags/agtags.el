@@ -154,7 +154,7 @@ If there's a string at point, offer that as a default."
     (call-process "global" nil nil nil "-u" (concat "--single-update=" buffer-file-name))))
 
 (defun agtags/kill-window ()
-  "Quit selected window and kill its buffer."
+  "Quit agtags-*-mode window and kill its buffer."
   (interactive)
   (quit-window t))
 
@@ -208,8 +208,16 @@ If there's a string at point, offer that as a default."
 (defun agtags/global-mode-finished (buffer status)
   "Function to call when a gun global process finishes.
 BUFFER is the global's mode buffer, STATUS was the finish status."
-  (when (string-match-p "^finished" status)
-    (pop-to-buffer  buffer)))
+  (let* ((name (buffer-name buffer))
+         (dname (if (string= name "*agtags-grep*")
+                    "*agtags-path*"
+                  "*agtags-grep*"))
+         (dbuffer (get-buffer dname)))
+    (when dbuffer
+      (delete-windows-on dbuffer)
+      (kill-buffer dbuffer))
+    (when (string-match-p "^finished" status)
+      (pop-to-buffer buffer))))
 
 (defvar agtags-grep-mode-map agtags/global-mode-map)
 (defvar agtags-grep-mode-font-lock-keywords agtags/global-mode-font-lock-keywords)
@@ -296,10 +304,19 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   (let ((user-input (agtags/read-input-dwim "Search string")))
     (agtags/run-global-to-mode (list "--grep" (shell-quote-argument user-input)))))
 
+(defun agtags/switch-dwim ()
+  "Switch to last agtags-*-mode buffer."
+  (interactive)
+  (let ((buffer (or (get-buffer "*agtags-grep*")
+                    (get-buffer "*agtags-path*"))))
+    (when buffer
+      (switch-to-buffer buffer))))
+
 ;;;###autoload
 (defun agtags-bind-keys()
   "Set global key bindings for agtags."
-  (dolist (pair '(("b" . agtags/update-tags)
+  (dolist (pair '(("q" . agtags/switch-dwim)
+                  ("b" . agtags/update-tags)
                   ("f" . agtags/open-file)
                   ("F" . agtags/find-file)
                   ("t" . agtags/find-tag)
