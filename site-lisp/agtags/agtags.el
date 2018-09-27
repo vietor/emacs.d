@@ -218,9 +218,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
          (dbuffer (get-buffer dname)))
     (when dbuffer
       (delete-windows-on dbuffer)
-      (kill-buffer dbuffer))
-    (when (string-match-p "^finished" status)
-      (pop-to-buffer buffer))))
+      (kill-buffer dbuffer))))
 
 (defvar agtags-grep-mode-map agtags/global-mode-map)
 (defvar agtags-grep-mode-font-lock-keywords agtags/global-mode-font-lock-keywords)
