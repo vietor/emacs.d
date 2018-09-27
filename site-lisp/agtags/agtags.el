@@ -67,7 +67,10 @@ This affects `agtags-find-file' and `agtags-find-grep'."
                            (and agtags-global-ignore-case "--ignore-case")
                            (and agtags-global-treat-text "--other"))
                      arguments))
-         (default-directory (agtags/get-root)))
+         (default-directory (agtags/get-root))
+         (display-buffer-overriding-action '((display-buffer-reuse-window
+                                              display-buffer-same-window)
+                                             (inhibit-same-window . nil))))
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
