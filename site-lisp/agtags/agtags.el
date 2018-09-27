@@ -282,7 +282,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   "Input pattern, search file and move to the top of the file."
   (interactive)
   (let ((user-input (agtags/read-input "Find files")))
-    (agtags/run-global-to-mode (list "--path" user-input) "path")))
+    (agtags/run-global-to-mode (list "--path" (shell-quote-argument user-input)) "path")))
 
 (defun agtags/find-tag ()
   "Input tag and move to the locations."
