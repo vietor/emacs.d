@@ -35,6 +35,10 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 (defvar agtags/history-list nil
   "Gtags history list.")
 
+(defconst agtags/display-buffer-dwim '((display-buffer-reuse-window
+                                        display-buffer-same-window)
+                                       (inhibit-same-window . nil)))
+
 ;;
 ;; The private functions
 ;;
@@ -68,9 +72,7 @@ This affects `agtags-find-file' and `agtags-find-grep'."
                            (and agtags-global-treat-text "--other"))
                      arguments))
          (default-directory (agtags/get-root))
-         (display-buffer-overriding-action '((display-buffer-reuse-window
-                                              display-buffer-same-window)
-                                             (inhibit-same-window . nil))))
+         (display-buffer-overriding-action agtags/display-buffer-dwim))
     (compilation-start (mapconcat #'identity (delq nil xs) " ")
                        (if (string= xr "path") 'agtags-path-mode 'agtags-grep-mode))))
 
@@ -161,13 +163,10 @@ If there's a string at point, offer that as a default."
   (interactive)
   (quit-window t))
 
-(defadvice compile-goto-error (around delete-window activate)
-  "Delete window after goto selected."
-  (let ((buffer (current-buffer)))
-    ad-do-it
-    (when (or (eq major-mode 'agtags-grep-mode)
-              (eq major-mode 'agtags-path-mode))
-      (delete-windows-on buffer))))
+(defadvice compile-goto-error (around use-same-window activate)
+  "Use same window when goto selected."
+  (let ((display-buffer-overriding-action agtags/display-buffer-dwim))
+    ad-do-it))
 
 (defconst agtags/global-mode-font-lock-keywords
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
