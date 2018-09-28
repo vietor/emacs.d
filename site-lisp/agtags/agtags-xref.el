@@ -8,6 +8,13 @@
 (require 'xref)
 (require 'agtags)
 
+(defun agtags-xref/quote (string)
+  "Returns a regular expression whose only exact match is STRING."
+  (let ((s string))
+    (when (not (string-match-p "\\\\" s))
+      (setq s (regexp-quote s)))
+    s))
+
 (defun agtags-xref/make-xref (ctags-x-line)
   "Create and return an xref object pointing to a file location.
 This uses the output of a based on global -x output line provided
@@ -27,7 +34,7 @@ Return the results as a list of xref location objects.  ARGS are
 any additional command line arguments to pass to GNU Global."
   (let* ((process-args (append
                         args
-                        (list "-x" "-a" symbol)))
+                        (list "-x" "-a" (agtags-xref/quote symbol))))
          (global-output (agtags/run-global-to-list process-args)))
     (remove nil (mapcar #'agtags-xref/make-xref global-output))))
 
