@@ -102,49 +102,45 @@ Otherwise, get the symbol at point, as a string."
 
 (defun agtags/read-input (prompt)
   "Read a value from the minibuffer with PROMPT."
-  (let ((final-prompt (format "%s: " prompt)))
-    (read-from-minibuffer final-prompt nil nil nil agtags/history-list)))
+  (let* ((final-prompt (format "%s: " prompt))
+         (user-input (read-from-minibuffer final-prompt nil nil nil agtags/history-list)))
+    user-input))
 
 (defun agtags/read-input-dwim (prompt)
   "Read a value from the minibuffer with PROMPT.
 If there's a string at point, offer that as a default."
   (let* ((suggested (agtags/read-dwim))
-         (final-prompt
-          (if suggested
-              (format "%s (default %s): " prompt suggested)
-            (format "%s: " prompt)))
+         (final-prompt (if suggested
+                           (format "%s (default %s): " prompt suggested)
+                         (format "%s: " prompt)))
          (user-input (read-from-minibuffer
                       final-prompt
                       nil nil nil agtags/history-list suggested)))
-    (if (> (length user-input) 0)
-        user-input
-      suggested)))
+    (if (> (length user-input) 0) user-input suggested)))
 
 (defun agtags/read-completing (flag prompt)
   "Read a value from the Completion by FLAG with PROMPT."
-  (let ((final-prompt (format "%s: " prompt)))
-    (completing-read
-     final-prompt
-     (lambda (string predicate code)
-       (agtags/run-global-completing flag string predicate code))
-     nil nil nil agtags/history-list)))
+  (let* ((final-prompt (format "%s: " prompt))
+         (user-input (completing-read
+                      final-prompt
+                      (lambda (string predicate code)
+                        (agtags/run-global-completing flag string predicate code))
+                      nil nil nil agtags/history-list)))
+    user-input))
 
 (defun agtags/read-completing-dwim (flag prompt)
   "Read a value from the Completion by FLAG with PROMPT.
 If there's a string at point, offer that as a default."
   (let* ((suggested (agtags/read-dwim))
-         (final-prompt
-          (if suggested
-              (format "%s (default %s): " prompt suggested)
-            (format "%s: " prompt)))
+         (final-prompt (if suggested
+                           (format "%s (default %s): " prompt suggested)
+                         (format "%s: " prompt)))
          (user-input (completing-read
                       final-prompt
                       (lambda (string predicate code)
                         (agtags/run-global-completing flag string predicate code))
                       nil nil nil agtags/history-list suggested)))
-    (if (> (length user-input) 0)
-        user-input
-      suggested)))
+    (if (> (length user-input) 0) user-input suggested)))
 
 ;;
 ;; The agtags-*-mode support
