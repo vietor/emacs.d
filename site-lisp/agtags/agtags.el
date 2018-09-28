@@ -44,11 +44,12 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 ;;
 
 (defun agtags/quote (string)
+  "Returns a regular expression whose only exact match is STRING."
+  (if (string-match-p "\\\\" string) string (regexp-quote string)))
+
+(defun agtags/shell-quote (string)
   "Returns a regular expression whose only exact match is STRING for shell."
-  (let ((s string))
-    (when (not (string-match-p "\\\\" s))
-      (setq s (regexp-quote s)))
-    (shell-quote-argument s)))
+  (shell-quote-argument (agtags/quote string)))
 
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
@@ -285,27 +286,27 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   "Input pattern, search file and move to the top of the file."
   (interactive)
   (let ((user-input (agtags/read-input "Find files")))
-    (agtags/run-global-to-mode (list "--path" (agtags/quote user-input)) "path")))
+    (agtags/run-global-to-mode (list "--path" (agtags/shell-quote user-input)) "path")))
 
 (defun agtags/find-tag ()
   "Input tag and move to the locations."
   (interactive)
   (let ((user-input (agtags/read-completing-dwim 'tags "Find tag")))
     (when (> (length user-input) 0)
-      (agtags/run-global-to-mode (list (agtags/quote user-input))))))
+      (agtags/run-global-to-mode (list (agtags/shell-quote user-input))))))
 
 (defun agtags/find-rtag ()
   "Input rtags and move to the locations."
   (interactive)
   (let ((user-input (agtags/read-completing-dwim 'rtags "Find rtag")))
     (when (> (length user-input) 0)
-      (agtags/run-global-to-mode (list "--reference" (agtags/quote user-input))))))
+      (agtags/run-global-to-mode (list "--reference" (agtags/shell-quote user-input))))))
 
 (defun agtags/find-with-grep ()
   "Input pattern, search with grep(1) and move to the locations."
   (interactive)
   (let ((user-input (agtags/read-input-dwim "Search string")))
-    (agtags/run-global-to-mode (list "--grep" (agtags/quote user-input)))))
+    (agtags/run-global-to-mode (list "--grep" (agtags/shell-quote user-input)))))
 
 (defun agtags/switch-dwim ()
   "Switch to last agtags-*-mode buffer."
