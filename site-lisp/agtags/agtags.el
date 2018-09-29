@@ -49,7 +49,8 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 
 (defun agtags/shell-quote (string)
   "Returns a regular expression whose only exact match is STRING for shell."
-  (shell-quote-argument (agtags/quote string)))
+  (let ((s (shell-quote-argument (agtags/quote string))))
+    (if (string-match-p "^\\\"" s) s (concat "\"" s "\""))))
 
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
