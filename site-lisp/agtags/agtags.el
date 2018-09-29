@@ -45,12 +45,16 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 
 (defun agtags/quote (string)
   "Returns a regular expression whose only exact match is STRING."
-  (if (string-match-p "\\\\" string) string (regexp-quote string)))
+  (let ((s string))
+    (when (not (string-match-p "\\\\" s))
+      (setq s (regexp-quote s)))
+    (when (string-match-p "^-" s)
+      (setq s (concat "\\" s)))
+    s))
 
 (defun agtags/shell-quote (string)
   "Returns a regular expression whose only exact match is STRING for shell."
-  (let ((s (shell-quote-argument (agtags/quote string))))
-    (if (string-match-p "^\\\"" s) s (concat "\"" s "\""))))
+  (shell-quote-argument (agtags/quote string)))
 
 (defun agtags/get-root ()
   "Get and validate env  `GTAGSROOT`."
