@@ -351,10 +351,11 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   (if (and (stringp parser)(> (length parser) 0))
       (setenv "GTAGSLABEL" parser)
     (let* ((exe-ctags (executable-find "ctags"))
-           (exe-uctags (and exe-ctags (with-temp-buffer
-                                        (call-process "ctags" nil t nil "--version")
-                                        (goto-char (point-min))
-                                        (looking-at "Universal Ctags"))))
+           (exe-uctags (and exe-ctags
+                            (with-temp-buffer
+                              (call-process "ctags" nil t nil "--version")
+                              (goto-char (point-min))
+                              (looking-at "Universal Ctags"))))
            (label (cond (exe-uctags "new-ctags")
                         ((and exe-ctags (executable-find "pygmentize")) "pygments")
                         (exe-ctags "ctags")
