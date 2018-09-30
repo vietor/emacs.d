@@ -1,34 +1,32 @@
 (require 'agtags)
 (require 'agtags-xref)
 
-(defun executable-universal-ctags()
-  (with-temp-buffer
-    (call-process "ctags" nil t nil "--version")
-    (goto-char (point-min))
-    (looking-at "Universal Ctags")))
-
-(defun gtags-label-parser ()
-  (cond
-   ((and (executable-find "ctags") (executable-universal-ctags))
-    (setenv "GTAGSLABEL" "new-ctags"))
-   ((and (executable-find "ctags") (executable-find "pygmentize"))
-    (setenv "GTAGSLABEL" "pygments"))
-   ((executable-find "ctags")
-    (setenv "GTAGSLABEL" "ctags"))))
+(defun gtags-update-label ()
+  (let* ((exe-ctags (executable-find "ctags"))
+         (exe-uctags (and ctags (with-temp-buffer
+                                  (call-process "ctags" nil t nil "--version")
+                                  (goto-char (point-min))
+                                  (looking-at "Universal Ctags"))))
+         (label (cond (exe-uctags "new-ctags")
+                      ((and exe-ctags (executable-find "pygmentize")) "pygments")
+                      (exe-ctags "ctags")
+                      (t "default"))))
+    (setenv "GTAGSLABEL" label)))
 
 (when (executable-find "global")
-  (agtags-bind-keys)
+  (defun agtags-mode-on()
+    (agtags-mode 1)
+    (diminish 'agtags-mode))
+
   (setq agtags-global-treat-text t)
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              (agtags-mode 1)
-              (diminish 'agtags-mode)))
+
+  (agtags-bind-keys)
+  (add-hook 'text-mode-hook 'agtags-mode-on)
+  (add-hook 'prog-mode-hook 'agtags-mode-on)
   (add-to-list 'xref-backend-functions 'agtags-xref-backend)
 
-  (after-aproject-change
-   (setenv "GTAGSROOT" aproject-rootdir))
-
-  (gtags-label-parser)
-  (add-hook 'aproject-environ-change-hook 'gtags-label-parser))
+  (agtags-update-parser)
+  (add-hook 'aproject-environ-change-hook 'agtags-update-parser)
+  (after-aproject-change (agtags-update-root aproject-rootdir)))
 
 (provide 'init-gtags)

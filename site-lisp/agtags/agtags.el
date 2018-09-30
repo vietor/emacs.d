@@ -324,6 +324,10 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
     (when buffer
       (switch-to-buffer buffer))))
 
+;;
+;; The public functions
+;;
+
 ;;;###autoload
 (defun agtags-bind-keys()
   "Set global key bindings for agtags."
@@ -335,6 +339,27 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
                   ("r" . agtags/find-rtag)
                   ("p" . agtags/find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
+
+;;;###autoload
+(defun agtags-update-root (root)
+  "Set ROOT directory of the project for agtags."
+  (setenv "GTAGSROOT" root))
+
+;;;###autoload
+(defun agtags-update-parser (&optional parser)
+  "Set parser to PARSER for agtags."
+  (if (and (stringp parser)(> (length parser) 0))
+      (setenv "GTAGSLABEL" parser)
+    (let* ((exe-ctags (executable-find "ctags"))
+           (exe-uctags (and exe-ctags (with-temp-buffer
+                                        (call-process "ctags" nil t nil "--version")
+                                        (goto-char (point-min))
+                                        (looking-at "Universal Ctags"))))
+           (label (cond (exe-uctags "new-ctags")
+                        ((and exe-ctags (executable-find "pygmentize")) "pygments")
+                        (exe-ctags "ctags")
+                        (t "default"))))
+      (setenv "GTAGSLABEL" label))))
 
 (provide 'agtags)
 ;;; agtags.el ends here
