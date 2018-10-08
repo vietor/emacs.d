@@ -1,9 +1,13 @@
 ;; -*- lexical-binding: t -*-
 (setq debug-on-error t)
 
-(when (version< emacs-version "24.4")
-  (error "You must run emacs 24.4 or later!"))
+(let ((minver "24.4"))
+  (when (version< emacs-version minver)
+    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+(defconst *is-os-mac* (eq system-type 'darwin))
+(defconst *is-os-win* (eq system-type 'windows-nt))
 
 (let ((normal-gc-cons-threshold (* 20 1024 1024))
       (init-gc-cons-threshold (* 128 1024 1024)))
