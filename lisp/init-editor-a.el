@@ -26,6 +26,7 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
+(setq vc-handled-backends nil)
 
 (when (fboundp 'menu-bar-mode)
   (menu-bar-mode -1))
@@ -42,24 +43,23 @@
 (setq echo-keystrokes 0.1)
 (setq-default case-fold-search t)
 
-(setq-default column-number-mode t)
 (when (fboundp 'electric-pair-mode)
   (add-hook 'after-init-hook 'electric-pair-mode))
 (when (fboundp 'electric-indent-mode)
   (add-hook 'after-init-hook 'electric-indent-mode))
-(setq-default indent-tabs-mode nil)
-(global-set-key (kbd "RET") 'newline-and-indent)
 
-(add-hook 'after-init-hook 'show-paren-mode)
 (setq-default
+ column-number-mode t
  delete-selection-mode t
  shift-select-mode nil
  sentence-end-double-space nil
  indicate-empty-lines t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t)
+(add-hook 'after-init-hook 'show-paren-mode)
 
-(setq vc-handled-backends nil)
+(setq-default indent-tabs-mode nil)
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 (when window-system
   (tooltip-mode -1)
