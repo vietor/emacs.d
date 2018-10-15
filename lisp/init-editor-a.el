@@ -27,7 +27,8 @@
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
 
-(menu-bar-mode -1)
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
@@ -41,17 +42,17 @@
 (setq echo-keystrokes 0.1)
 (setq-default case-fold-search t)
 
-(column-number-mode t)
+(setq-default column-number-mode t)
 (when (fboundp 'electric-pair-mode)
-  (electric-pair-mode))
+  (add-hook 'after-init-hook 'electric-pair-mode))
 (when (fboundp 'electric-indent-mode)
-  (electric-indent-mode 1))
+  (add-hook 'after-init-hook 'electric-indent-mode))
 (setq-default indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-(show-paren-mode 1)
-(delete-selection-mode t)
+(add-hook 'after-init-hook 'show-paren-mode)
 (setq-default
+ delete-selection-mode t
  shift-select-mode nil
  sentence-end-double-space nil
  indicate-empty-lines t
@@ -83,7 +84,7 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-(global-auto-revert-mode)
+(add-hook 'after-init-hook 'global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 (after-load 'autorevert

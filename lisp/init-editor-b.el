@@ -7,21 +7,16 @@
   (require-package 'dracula-theme)
   (load-theme 'dracula t))
 
-(require-package 'undo-tree)
-(global-undo-tree-mode)
-(after-load 'undo-tree
-  (diminish 'undo-tree-mode))
-
 (require-package 'page-break-lines)
-(global-page-break-lines-mode)
+(add-hook 'after-init-hook 'global-page-break-lines-mode)
 (after-load 'page-break-lines
-    (diminish 'page-break-lines-mode))
+  (diminish 'page-break-lines-mode))
 
 (require-package 'highlight-escape-sequences)
-(hes-mode)
+(add-hook 'after-init-hook 'hes-mode)
 
 (require-package 'whole-line-or-region)
-(whole-line-or-region-mode t)
+(add-hook 'after-init-hook 'whole-line-or-region-mode)
 (after-load 'whole-line-or-region
   (diminish 'whole-line-or-region-local-mode))
 
@@ -67,15 +62,17 @@
                                            (woman . "^")))
   (setq-default counsel-mode-override-describe-bindings t)
 
-  (ivy-mode 1)
-  (diminish 'ivy-mode)
+  (add-hook 'after-init-hook 'ivy-mode)
+  (after-load 'ivy
+    (diminish 'ivy-mode))
 
-  (counsel-mode 1)
-  (diminish 'counsel-mode))
+  (add-hook 'after-init-hook 'counsel-mode)
+  (after-load 'counsel
+    (diminish 'counsel-mode)))
 
 (when (maybe-require-package 'smex)
   (after-aproject-change
-    (setq smex-save-file (aproject-store-file "smex")))
+   (setq smex-save-file (aproject-store-file "smex")))
   (global-set-key [remap execute-extended-command] 'smex))
 
 (provide 'init-editor-b)

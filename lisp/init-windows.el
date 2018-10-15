@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (setq winner-dont-bind-my-keys 5)
-(winner-mode 1)
+(add-hook 'after-init-hook 'winner-mode)
 
 (require-package 'switch-window)
 (setq-default
