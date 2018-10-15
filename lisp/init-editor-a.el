@@ -50,12 +50,12 @@
 
 (setq-default
  column-number-mode t
- delete-selection-mode t
  shift-select-mode nil
  sentence-end-double-space nil
  indicate-empty-lines t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t)
+(delete-selection-mode t)
 (add-hook 'after-init-hook 'show-paren-mode)
 
 (setq-default indent-tabs-mode nil)
