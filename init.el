@@ -15,6 +15,8 @@
   (add-hook 'emacs-startup-hook
             (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
 (require 'init-preinit nil t)
 (require 'init-compat)
 (require 'init-package)
@@ -43,6 +45,7 @@
 (require 'init-javascript)
 (require 'init-markdown)
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(provide 'init)
