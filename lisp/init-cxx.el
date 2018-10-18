@@ -11,9 +11,15 @@
 (defvar cxx-style "kernel")
 
 (defun cxx-mode-setup ()
-    (c-set-style cxx-style))
+  (c-set-style cxx-style))
 
 (add-hook 'c-mode-hook 'cxx-mode-setup)
 (add-hook 'c++-mode-hook 'cxx-mode-setup)
+
+(after-load 'flycheck
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (setq flycheck-gcc-language-standard "c++11")
+              (setq flycheck-clang-language-standard "c++11"))))
 
 (provide 'init-cxx)
