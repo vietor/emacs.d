@@ -36,8 +36,6 @@
 (setq-default
  truncate-lines nil
  truncate-partial-width-windows nil)
-(when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
-  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
@@ -105,6 +103,9 @@
   (set-fontset-font
    t 'symbol
    (font-spec :family "Apple Color Emoji") nil 'prepend))
+
+(when (and *is-os-mac* (fboundp 'toggle-frame-fullscreen))
+  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
 (after-aproject-change
  (setq frame-title-format '("Emacs @ " aproject-rootdir))
