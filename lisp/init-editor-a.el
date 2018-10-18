@@ -104,8 +104,8 @@
    t 'symbol
    (font-spec :family "Apple Color Emoji") nil 'prepend))
 
-(when (and *is-os-mac* (fboundp 'toggle-frame-fullscreen))
-  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
+(when (fboundp 'toggle-frame-fullscreen)
+  (global-set-key (kbd "C-<f10>") 'toggle-frame-fullscreen))
 
 (after-aproject-change
  (setq frame-title-format '("Emacs @ " aproject-rootdir))
