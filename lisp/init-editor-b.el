@@ -7,6 +7,10 @@
   (require-package 'dracula-theme)
   (load-theme 'dracula t))
 
+(when (maybe-require-package 'dimmer)
+  (setq-default dimmer-fraction 0.15)
+  (add-hook 'after-init-hook 'dimmer-mode))
+
 (require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
 
