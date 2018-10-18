@@ -7,11 +7,6 @@
   (require-package 'dracula-theme)
   (load-theme 'dracula t))
 
-(require-package 'page-break-lines)
-(add-hook 'after-init-hook 'global-page-break-lines-mode)
-(after-load 'page-break-lines
-  (diminish 'page-break-lines-mode))
-
 (require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
 
@@ -27,8 +22,6 @@
   (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
   (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
   (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
-(after-load 'page-break-lines
-  (push 'browse-kill-ring-mode page-break-lines-modes))
 
 (when (maybe-require-package 'avy)
   (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
