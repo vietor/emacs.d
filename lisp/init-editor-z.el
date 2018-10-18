@@ -35,7 +35,7 @@
                    name (file-name-nondirectory new-name)))))))
 
 (defvar buffer-indent-ignore-modes
-  '(sql-mode))
+  '(sql-mode text-mode))
 (defvar-local buffer-indent-function nil)
 (defun indent-current-buffer ()
   (interactive)

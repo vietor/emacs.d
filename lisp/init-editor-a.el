@@ -36,6 +36,8 @@
 (setq-default
  truncate-lines nil
  truncate-partial-width-windows nil)
+(when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
+  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
