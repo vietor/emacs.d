@@ -72,9 +72,6 @@
                                     ((shift) . 5)
                                     ((control)))))
 
-(when (fboundp 'pixel-scroll-mode)
-  (pixel-scroll-mode 1))
-
 (setq-default blink-cursor-interval 0.4)
 (setq default-frame-alist '((vertical-scroll-bars . nil)
                             (tool-bar-lines . 0)
