@@ -9,6 +9,7 @@ GTAGS
 /server/
 
 *.swp
+/tramp
 /setenv
 /custom.el*
 /lisp/init-preinit.el
