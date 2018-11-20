@@ -50,22 +50,21 @@
 (when (maybe-require-package 'ivy)
   (require-package 'counsel)
 
-  (setq-default ivy-use-virtual-buffers t
-                ivy-virtual-abbreviate 'fullpath
-                ivy-count-format ""
-                ivy-magic-tilde nil
-                ivy-dynamic-exhibit-delay-ms 150
-                ivy-initial-inputs-alist '((man . "^")
-                                           (woman . "^")))
-  (setq-default counsel-mode-override-describe-bindings t)
-
   (add-hook 'after-init-hook 'ivy-mode)
   (after-load 'ivy
-    (diminish 'ivy-mode))
+    (diminish 'ivy-mode)
+    (setq-default ivy-use-virtual-buffers t
+                  ivy-virtual-abbreviate 'fullpath
+                  ivy-count-format ""
+                  ivy-magic-tilde nil
+                  ivy-dynamic-exhibit-delay-ms 150
+                  ivy-initial-inputs-alist '((Man-completion-table . "^")
+                                             (woman . "^"))))
 
   (add-hook 'after-init-hook 'counsel-mode)
   (after-load 'counsel
-    (diminish 'counsel-mode)))
+    (diminish 'counsel-mode)
+    (setq-default counsel-mode-override-describe-bindings t)))
 
 (when (maybe-require-package 'smex)
   (after-aproject-change
