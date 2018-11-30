@@ -9,7 +9,9 @@
 
 (when (maybe-require-package 'dimmer)
   (setq-default dimmer-fraction 0.15)
-  (add-hook 'after-init-hook 'dimmer-mode))
+  (add-hook 'after-init-hook 'dimmer-mode)
+  (after-load 'dimmer
+    (advice-add 'frame-set-background-mode :after (lambda (&rest args) (dimmer-process-all)))))
 
 (require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
