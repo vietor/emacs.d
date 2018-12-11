@@ -33,6 +33,7 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
+(setq initial-scratch-message "")
 (setq-default
  truncate-lines nil
  truncate-partial-width-windows nil)
