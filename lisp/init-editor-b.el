@@ -74,7 +74,8 @@
   (global-set-key [remap execute-extended-command] 'smex))
 
 (unless (fboundp 'display-line-numbers-mode)
-  (require-package 'nlinum))
+  (require-package 'nlinum)
+  (defalias 'display-line-numbers-mode 'nlinum-mode))
 (global-set-key (kbd "M-g l") 'display-line-numbers-mode)
 
 (provide 'init-editor-b)
