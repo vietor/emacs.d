@@ -22,21 +22,22 @@
 (setq-default major-mode 'text-mode)
 (setq initial-major-mode 'text-mode)
 
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message "")
+
 (setq create-lockfiles nil)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
 (setq vc-handled-backends nil)
 
-(when (fboundp 'menu-bar-mode)
-  (menu-bar-mode -1))
-(setq use-file-dialog nil)
 (setq use-dialog-box nil)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message "")
+(setq use-file-dialog nil)
 (setq-default
  truncate-lines nil
  truncate-partial-width-windows nil)
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
 
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
