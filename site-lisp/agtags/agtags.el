@@ -44,7 +44,7 @@ This affects `agtags-find-file' and `agtags-find-grep'."
 ;;
 
 (defun agtags/quote (string)
-  "Returns a regular expression whose only exact match is STRING."
+  "Return a regular expression whose only exact match is STRING."
   (let ((s string))
     (when (not (string-match-p "\\\\" s))
       (setq s (regexp-quote s)))
@@ -53,7 +53,7 @@ This affects `agtags-find-file' and `agtags-find-grep'."
     s))
 
 (defun agtags/shell-quote (string)
-  "Returns a regular expression whose only exact match is STRING for shell."
+  "Return a regular expression whose only exact match is STRING for shell."
   (shell-quote-argument (agtags/quote string)))
 
 (defun agtags/get-root ()
@@ -172,7 +172,7 @@ If there's a string at point, offer that as a default."
   (interactive)
   (quit-window t))
 
-(defadvice compile-goto-error (around use-same-window activate)
+(defadvice compile-goto-error (around agtags activate)
   "Use same window when goto selected."
   (let ((display-buffer-overriding-action agtags/display-buffer-dwim))
     ad-do-it))
