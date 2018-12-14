@@ -1,18 +1,6 @@
 (require 'agtags)
 (require 'agtags-xref)
 
-(defun gtags-update-label ()
-  (let* ((exe-ctags (executable-find "ctags"))
-         (exe-uctags (and ctags (with-temp-buffer
-                                  (call-process "ctags" nil t nil "--version")
-                                  (goto-char (point-min))
-                                  (looking-at "Universal Ctags"))))
-         (label (cond (exe-uctags "new-ctags")
-                      ((and exe-ctags (executable-find "pygmentize")) "pygments")
-                      (exe-ctags "ctags")
-                      (t "default"))))
-    (setenv "GTAGSLABEL" label)))
-
 (when (executable-find "global")
   (defun agtags-mode-on()
     (agtags-mode 1)
