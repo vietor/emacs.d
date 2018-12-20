@@ -29,7 +29,6 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
-(setq vc-handled-backends nil)
 
 (setq use-dialog-box nil)
 (setq use-file-dialog nil)
