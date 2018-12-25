@@ -5,7 +5,7 @@
   (or (eq major-mode 'c-mode)
       (eq major-mode 'c++-mode)))
 
-(add-hook 'c-mode-hook
+(add-hook 'c-mode-common-hook
           (lambda ()
             (when (is-cxx-mode)
               (kernel-set-c-style))
@@ -13,7 +13,7 @@
               (setq tab-width c-basic-offset))))
 
 (after-load 'flycheck
-  (add-hook 'c-mode-hook
+  (add-hook 'c-mode-common-hook
             (lambda ()
               (when (is-cxx-mode)
                 (setq flycheck-gcc-language-standard "c++11")
