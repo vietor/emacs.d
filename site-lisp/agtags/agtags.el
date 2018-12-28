@@ -1,4 +1,4 @@
-;;; agtags.el --- emacs frontend to GNU Global -*- lexical-binding: t; -*-
+;;; agtags.el --- A frontend to GNU Global -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 Vietor Liu
 
@@ -9,12 +9,27 @@
 ;; URL: https://github.com/vietor/agtags
 ;; Package-Requires: ((emacs "25"))
 
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Commentary:
 ;; A package to integrate GNU Global source code tagging system
 ;; (http://www.gnu.org/software/global) with Emacs.
 
 ;;; Code:
 (require 'grep)
+(require 'compile)
+(require 'subr-x)
 
 (defvar agtags-mode)
 
@@ -46,7 +61,8 @@ This affects 'agtags--find-file' and 'agtags--find-grep'."
 
 (defconst agtags--display-buffer-dwim '((display-buffer-reuse-window
                                          display-buffer-same-window)
-                                        (inhibit-same-window . nil)))
+                                        (inhibit-same-window . nil))
+  "Custom 'display-buffer-overriding-action' in agtags-*-mode.")
 
 ;;
 ;; The private functions
@@ -68,7 +84,7 @@ This affects 'agtags--find-file' and 'agtags--find-grep'."
 (defun agtags--get-root ()
   "Get and validate env  `GTAGSROOT`."
   (let ((dir (getenv "GTAGSROOT")))
-    (when (zerop (length dir))
+    (when (string-empty-p dir)
       (error "No env `GTAGSROOT` provided"))
     dir))
 
@@ -124,9 +140,8 @@ Otherwise, get the symbol at point, as a string."
 
 (defun agtags--read-input (prompt)
   "Read a value from the minibuffer with PROMPT."
-  (let* ((final-prompt (format "%s: " prompt))
-         (user-input (read-from-minibuffer final-prompt nil nil nil agtags--history-list)))
-    user-input))
+  (let ((final-prompt (format "%s: " prompt)))
+    (read-from-minibuffer final-prompt nil nil nil agtags--history-list)))
 
 (defun agtags--read-input-dwim (prompt)
   "Read a value from the minibuffer with PROMPT.
@@ -176,11 +191,6 @@ If there's a string at point, offer that as a default."
              (string-prefix-p (agtags--get-root) buffer-file-name))
     (call-process "global" nil nil nil "-u" (concat "--single-update=" buffer-file-name))))
 
-(defun agtags--kill-window ()
-  "Quit agtags-*-mode window and kill its buffer."
-  (interactive)
-  (quit-window t))
-
 (defadvice compile-goto-error (around agtags activate)
   "Use same window when goto selected."
   (let ((display-buffer-overriding-action agtags--display-buffer-dwim))
@@ -190,13 +200,8 @@ If there's a string at point, offer that as a default."
   '(("^Global \\(exited abnormally\\|interrupt\\|killed\\|terminated\\)\\(?:.*with code \\([0-9]+\\)\\)?.*"
      (1 'compilation-error)
      (2 'compilation-error nil t))
-    ("^Global found \\([0-9]+\\)" (1 compilation-info-face))))
-
-(defconst agtags--button-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map [follow-link] 'mouse-face)
-    (define-key map [mouse-2] 'agtags--goto-selected)
-    map))
+    ("^Global found \\([0-9]+\\)" (1 compilation-info-face)))
+  "Common highlighting expressions for agtags-*-mode.")
 
 (defconst agtags--global-mode-map
   (let ((map (make-sparse-keymap)))
@@ -205,16 +210,17 @@ If there's a string at point, offer that as a default."
     (define-key map [mouse-2] 'compile-goto-error)
     (define-key map "\r" 'compile-goto-error)
     (define-key map "\C-m" 'compile-goto-error)
-    (define-key map "q" 'agtags--kill-window)
     (define-key map "g" 'recompile)
     (define-key map "n" 'compilation-next-error)
     (define-key map "p" 'compilation-previous-error)
     (define-key map "{" 'compilation-previous-file)
     (define-key map "}" 'compilation-next-file)
-    map))
+    map)
+  "Common keymap for agtags-*-mode.")
 
 (defconst agtags--path-regexp-alist
-  `((,"^\\(?:[^\"'\n]*/\\)?[^ )\t\n]+$" 0)))
+  `((,"^\\(?:[^\"'\n]*/\\)?[^ )\t\n]+$" 0))
+  "Custom 'compilation-error-regexp-alist' for agtags-path-mode.")
 
 (defconst agtags--grep-regexp-alist
   `((,"^\\(.+?\\):\\([0-9]+\\):\\(?:$\\|[^0-9\n]\\|[0-9][^0-9\n]\\|[0-9][0-9].\\)"
@@ -223,9 +229,10 @@ If there's a string at point, offer that as a default."
          (let* ((start (1+ (match-end 2)))
                 (mbeg (text-property-any start (line-end-position) 'global-color t)))
            (and mbeg (- mbeg start)))))
-     nil 1)))
+     nil 1))
+  "Custom 'compilation-error-regexp-alist' for agtags-grep-mode.")
 
-(defun agtags--global-mode-finished (buffer status)
+(defun agtags--global-mode-finished (buffer _tatus)
   "Function to call when a gun global process finishes.
 BUFFER is the global's mode buffer, STATUS was the finish status."
   (let* ((name (buffer-name buffer))
@@ -236,6 +243,10 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
     (when dbuffer
       (delete-windows-on dbuffer)
       (kill-buffer dbuffer))))
+
+;;
+;; The agtags-grep-mode
+;;
 
 (defvar agtags-grep-mode-map agtags--global-mode-map)
 (defvar agtags-grep-mode-font-lock-keywords agtags--global-mode-font-lock-keywords)
@@ -251,6 +262,10 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
   (setq-local compilation-scroll-output 'first-error)
   (setq-local compilation-error-regexp-alist agtags--grep-regexp-alist)
   (setq-local compilation-finish-functions #'agtags--global-mode-finished))
+
+;;
+;; The agtags-path-mode
+;;
 
 (defvar agtags-path-mode-map agtags--global-mode-map)
 (defvar agtags-path-mode-font-lock-keywords agtags--global-mode-font-lock-keywords)
@@ -268,7 +283,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 
 ;;;###autoload
 (define-minor-mode agtags-mode nil
-  :lighter " G"
+  :lighter " Gtags"
   (if agtags-mode
       (add-hook 'before-save-hook 'agtags--auto-update nil 'local)
     (remove-hook 'before-save-hook 'agtags--auto-update 'local)))
@@ -277,7 +292,7 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;; The interactive functions
 ;;
 
-(defun agtags--update-tags ()
+(defun agtags-update-tags ()
   "Create or Update tag files (e.g. GTAGS) in directory `GTAGSROOT`."
   (interactive)
   (let ((rootpath (agtags--get-root)))
@@ -289,42 +304,42 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
       (when (zerop (call-process (executable-find "gtags") nil t nil "-i"))
         (message "Tags create or update by GTAGS")))))
 
-(defun agtags--open-file ()
+(defun agtags-open-file ()
   "Input pattern and move to the top of the file."
   (interactive)
   (let ((user-input (agtags--read-completing 'files "Open file")))
     (when (> (length user-input) 0)
       (find-file (expand-file-name user-input (agtags--get-root))))))
 
-(defun agtags--find-file ()
+(defun agtags-find-file ()
   "Input pattern, search file and move to the top of the file."
   (interactive)
   (let ((user-input (agtags--read-input "Find files")))
     (when (> (length user-input) 0)
       (agtags--run-global-to-mode (list "--path" (agtags--shell-quote user-input)) "path"))))
 
-(defun agtags--find-tag ()
+(defun agtags-find-tag ()
   "Input tag and move to the locations."
   (interactive)
   (let ((user-input (agtags--read-completing-dwim 'tags "Find tag")))
     (when (> (length user-input) 0)
       (agtags--run-global-to-mode (list (agtags--shell-quote user-input))))))
 
-(defun agtags--find-rtag ()
+(defun agtags-find-rtag ()
   "Input rtags and move to the locations."
   (interactive)
   (let ((user-input (agtags--read-completing-dwim 'rtags "Find rtag")))
     (when (> (length user-input) 0)
       (agtags--run-global-to-mode (list "--reference" (agtags--shell-quote user-input))))))
 
-(defun agtags--find-with-grep ()
+(defun agtags-find-with-grep ()
   "Input pattern, search with grep(1) and move to the locations."
   (interactive)
   (let ((user-input (agtags--read-input-dwim "Search string")))
     (when (> (length user-input) 0)
       (agtags--run-global-to-mode (list "--grep" (agtags--shell-quote user-input))))))
 
-(defun agtags--switch-dwim ()
+(defun agtags-switch-dwim ()
   "Switch to last agtags-*-mode buffer."
   (interactive)
   (let ((buffer (or (get-buffer "*agtags-grep*")
@@ -340,13 +355,13 @@ BUFFER is the global's mode buffer, STATUS was the finish status."
 ;;;###autoload
 (defun agtags-bind-keys()
   "Set global key bindings for agtags."
-  (dolist (pair '(("q" . agtags--switch-dwim)
-                  ("b" . agtags--update-tags)
-                  ("f" . agtags--open-file)
-                  ("F" . agtags--find-file)
-                  ("t" . agtags--find-tag)
-                  ("r" . agtags--find-rtag)
-                  ("p" . agtags--find-with-grep)))
+  (dolist (pair '(("q" . agtags-switch-dwim)
+                  ("b" . agtags-update-tags)
+                  ("f" . agtags-open-file)
+                  ("F" . agtags-find-file)
+                  ("t" . agtags-find-tag)
+                  ("r" . agtags-find-rtag)
+                  ("p" . agtags-find-with-grep)))
     (global-set-key (kbd (concat agtags-key-prefix " " (car pair))) (cdr pair))))
 
 ;;;###autoload
