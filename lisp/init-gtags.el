@@ -1,7 +1,7 @@
-(require 'agtags)
-(require 'agtags-xref)
-
 (when (executable-find "global")
+  (require-package 'agtags)
+  (require 'agtags-xref)
+
   (defun agtags-mode-on()
     (agtags-mode 1)
     (diminish 'agtags-mode))
