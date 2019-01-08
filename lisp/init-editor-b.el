@@ -42,7 +42,7 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 (require-package 'multiple-cursors)
-(defun mc/save-lists ())
+(defun mc/save-lists () "Ignore save history.")
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-unset-key (kbd "M-<down-mouse-1>"))
@@ -73,9 +73,7 @@
    (setq smex-save-file (aproject-store-file "smex")))
   (global-set-key [remap execute-extended-command] 'smex))
 
-(unless (fboundp 'display-line-numbers-mode)
-  (require-package 'nlinum)
-  (defalias 'display-line-numbers-mode 'nlinum-mode))
-(global-set-key (kbd "M-g l") 'display-line-numbers-mode)
+(when (fboundp 'display-line-numbers-mode)
+  (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
 
 (provide 'init-editor-b)
