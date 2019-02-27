@@ -88,9 +88,9 @@
 (after-load 'autorevert
   (diminish 'auto-revert-mode))
 
-(setq-default show-trailing-whitespace t)
-(dolist (hook '(compilation-mode-hook minibuffer-setup-hook))
-  (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
+(setq-default show-trailing-whitespace nil)
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook (lambda () (setq show-trailing-whitespace t))))
 
 (when *is-os-win*
   (setq w32-get-true-file-attributes nil))

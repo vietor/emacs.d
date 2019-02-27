@@ -74,6 +74,7 @@
   (global-set-key [remap execute-extended-command] 'smex))
 
 (when (fboundp 'display-line-numbers-mode)
+  (setq display-line-numbers-width 3)
   (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
 
 (provide 'init-editor-b)
