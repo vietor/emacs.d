@@ -56,6 +56,7 @@
  indicate-empty-lines t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t)
+(blink-cursor-mode 0)
 (delete-selection-mode t)
 (add-hook 'after-init-hook 'show-paren-mode)
 
@@ -67,13 +68,11 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (set-scroll-bar-mode nil)
-  (set-default 'cursor-type 'bar)
   (mouse-wheel-mode t)
   (setq mouse-wheel-scroll-amount '(1
                                     ((shift) . 5)
                                     ((control)))))
 
-(setq-default blink-cursor-interval 0.4)
 (setq default-frame-alist '((vertical-scroll-bars . nil)
                             (tool-bar-lines . 0)
                             (menu-bar-lines . 0)
