@@ -13,7 +13,6 @@
   (require-package 'web-beautify))
 
 (after-load 'js2-mode
-  (js2-imenu-extras-setup)
   (define-key js2-mode-map (kbd "M-.") nil)
   (setq-default js2-bounce-indent-p nil)
   (setq-default js2-mode-show-parse-errors nil
@@ -21,6 +20,7 @@
   (add-hook 'js2-mode-hook
             (lambda ()
               (setq mode-name "JS2")
+              (setq blink-matching-paren nil)
               (when (fboundp 'web-beautify-js)
                 (setq deep-buffer-indent-function 'web-beautify-js))
               (unless (flycheck-get-checker-for-buffer)
