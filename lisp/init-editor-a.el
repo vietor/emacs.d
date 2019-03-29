@@ -92,7 +92,8 @@
   (add-hook hook (lambda () (setq show-trailing-whitespace t))))
 
 (when *is-os-win*
-  (setq w32-get-true-file-attributes nil))
+  (setq w32-get-true-file-attributes nil)
+  (setq inhibit-compacting-font-caches t))
 
 (when *is-os-mac*
   (setq mac-command-modifier 'meta)
