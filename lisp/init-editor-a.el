@@ -63,6 +63,10 @@
 (setq-default indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
+(setq-default
+  bidi-display-reordering nil
+  bidi-paragraph-direction (quote left-to-right))
+
 (when window-system
   (tooltip-mode -1)
   (tool-bar-mode -1)
