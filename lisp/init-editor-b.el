@@ -17,7 +17,7 @@
 (add-hook 'after-init-hook 'hes-mode)
 
 (require-package 'whole-line-or-region)
-(add-hook 'after-init-hook 'whole-line-or-region-mode)
+(add-hook 'after-init-hook 'whole-line-or-region-global-mode)
 (after-load 'whole-line-or-region
   (diminish 'whole-line-or-region-local-mode))
 
@@ -33,10 +33,10 @@
   (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
 
 (require-package 'move-dup)
-(global-set-key [M-up] 'md/move-lines-up)
-(global-set-key [M-down] 'md/move-lines-down)
-(global-set-key [M-S-up] 'md/move-lines-up)
-(global-set-key [M-S-down] 'md/move-lines-down)
+(global-set-key [M-up] 'md-move-lines-up)
+(global-set-key [M-down] 'md-move-lines-down)
+(global-set-key [M-S-up] 'md-move-lines-up)
+(global-set-key [M-S-down] 'md-move-lines-down)
 
 (require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -75,7 +75,7 @@
   (global-set-key [remap execute-extended-command] 'smex))
 
 (when (fboundp 'display-line-numbers-mode)
-  (setq display-line-numbers-width 3)
+  (setq-default display-line-numbers-width 3)
   (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
 
 (provide 'init-editor-b)
