@@ -6,15 +6,14 @@
 
 (when (and (executable-find "php")
            (maybe-require-package 'php-mode))
-  (maybe-require-package 'smarty-mode)
+
   (after-load 'php-mode
     (define-key php-mode-map (kbd "C-.") nil)))
 
-;;; python
+;; python
 
 (when (executable-find "python")
   (require-package 'py-autopep8)
-  (require-package 'pip-requirements)
 
   (setq auto-mode-alist
         (append '(("SConstruct\\'" . python-mode)

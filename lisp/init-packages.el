@@ -36,7 +36,12 @@
 
 (unless (featurep 'subr-x)
   (require 'subr-x))
+
 (defalias 'after-load 'with-eval-after-load)
+
+(unless (fboundp 'buffer-major-mode)
+  (defun buffer-major-mode (buffer)
+    (buffer-local-value 'major-mode buffer)))
 
 ;;; necessary packages
 

@@ -47,10 +47,9 @@
     (diminish 'counsel-mode)
     (setq-default counsel-mode-override-describe-bindings t)))
 
-;; powerful functions
+;; buffer and file
 
 (defun delete-current-buffer-file ()
-  "Delete current buffer and file."
   (interactive)
   (let ((filename (buffer-file-name))
         (buffer (current-buffer)))
@@ -62,7 +61,6 @@
         (message "File '%s' successfully removed" filename)))))
 
 (defun rename-current-buffer-file ()
-  "Rename current buffer and file."
   (interactive)
   (let ((name (buffer-name))
         (filename (buffer-file-name)))
@@ -79,11 +77,14 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
+;; buffer indent
+
 (defvar buffer-indent-ignore-modes
   '(sql-mode text-mode))
 (defvar-local buffer-indent-function nil)
+(defvar-local deep-buffer-indent-function nil)
+
 (defun indent-current-buffer ()
-  "Indent current buffer."
   (interactive)
   (if (functionp buffer-indent-function)
       (funcall buffer-indent-function)
@@ -93,17 +94,16 @@
         (indent-region (point-min) (point-max))))))
 (global-set-key (kbd "<f12>")   'indent-current-buffer)
 
-(defvar-local deep-buffer-indent-function nil)
 (defun deep-indent-current-buffer ()
-  "Deep indent current buffer."
   (interactive)
   (if (functionp deep-buffer-indent-function)
       (funcall deep-buffer-indent-function)
     (indent-current-buffer)))
 (global-set-key (kbd "M-<f12>") 'deep-indent-current-buffer)
 
-(defun comment-eclipse ()
-  "Elipse like comment."
+;; comment
+
+(defun comment-like-eclipse ()
   (interactive)
   (let ((start (line-beginning-position))
         (end (line-end-position)))
@@ -117,10 +117,11 @@
                   (end-of-line)
                   (point))))
     (comment-or-uncomment-region start end)))
-(global-set-key (kbd "M-;")     'comment-eclipse)
+(global-set-key (kbd "M-;")     'comment-like-eclipse)
+
+;; move line
 
 (defun smart-beginning-of-line ()
-  "Smart implementation for `move-beginning-of-line`."
   (interactive)
   (let ((oldpos (point)))
     (beginning-of-line)
@@ -129,7 +130,6 @@
 (global-set-key [remap move-beginning-of-line] 'smart-beginning-of-line)
 
 (defun smart-end-of-line ()
-  "Smart implementation for `move-end-of-line`."
   (interactive)
   (let ((oldpos (point)))
     (beginning-of-line)
@@ -142,5 +142,6 @@
 (provide 'init-enhance)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; init-enhance.el ends here

@@ -11,6 +11,7 @@
   (setq-default locate-command "mdfind"))
 
 ;; wgrep
+
 (require-package 'wgrep)
 (setq wgrep-enable-key "e")
 (setq wgrep-auto-save-buffer t)
@@ -33,8 +34,8 @@
   (add-to-list 'xref-backend-functions 'agtags-xref-backend)
 
   (agtags-update-parser)
-  (add-hook 'aproject-environ-change-hook 'agtags-update-parser)
-  (after-aproject-change (agtags-update-root aproject-rootdir)))
+  (after-aproject-change (agtags-update-root aproject-rootdir))
+  (add-hook 'aproject-environ-change-hook 'agtags-update-parser))
 
 (provide 'init-searches)
 ;; Local Variables:
