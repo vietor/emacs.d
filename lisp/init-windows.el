@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t -*-
+;;; init-windows.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 (setq winner-dont-bind-my-keys 5)
 (add-hook 'after-init-hook 'winner-mode)
@@ -121,3 +123,8 @@
 (global-set-key (kbd "M-<f8>")  'switch-to-shell-buffer)
 
 (provide 'init-windows)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:
+;;; init-windows.el ends here

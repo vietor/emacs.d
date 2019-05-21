@@ -1,4 +1,8 @@
-;; -*- lexical-binding: t -*-
+;;; init.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+(setq debug-on-error t)
 
 (let ((minver "24.4"))
   (when (version< emacs-version minver)
@@ -15,35 +19,31 @@
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-(require 'init-preinit nil t)
-(require 'init-compat)
-(require 'init-package)
-(require 'init-preload)
-(require 'init-environ)
-
-(require 'init-editor-a)
-(require 'init-editor-b)
-(require 'init-editor-z)
-(require 'init-sessions)
+(require 'init-packages)
+(require 'init-environs)
 (require 'init-locales)
+
+(require 'init-builtin)
+(require 'init-enhance)
 (require 'init-windows)
 
-(require 'init-git)
-(require 'init-grep)
-(require 'init-gtags)
-(require 'init-company)
 (require 'init-flycheck)
+(require 'init-company)
+(require 'init-git)
+(require 'init-searches)
 
 (require 'init-cxx)
 (require 'init-jvm)
-(require 'init-python)
-(require 'init-golang)
 (require 'init-web)
-(require 'init-php)
 (require 'init-javascript)
-(require 'init-markdown)
+(require 'init-programmes)
 
 (when (file-exists-p custom-file)
   (load custom-file))
 
 (provide 'init)
+;; Local Variables:
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
+;;; init.el ends here

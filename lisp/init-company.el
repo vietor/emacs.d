@@ -1,3 +1,7 @@
+;;; init-company.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
 (setq completion-cycle-threshold 5)
@@ -16,3 +20,7 @@
                 company-tooltip-align-annotations t))
 
 (provide 'init-company)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init-company.el ends here

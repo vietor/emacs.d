@@ -1,15 +1,59 @@
-(defun kill-back-to-indentation ()
-  (interactive)
-  (let ((prev-pos (point)))
-    (back-to-indentation)
-    (kill-region (point) prev-pos)))
-(global-set-key (kbd "C-M-<backspace>") 'kill-back-to-indentation)
+;;; init-enhance.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+(when window-system
+  (require-package 'dracula-theme)
+  (load-theme 'dracula t))
+
+(require-package 'highlight-escape-sequences)
+(add-hook 'after-init-hook 'hes-mode)
+
+(require-package 'move-dup)
+(global-set-key [M-up] 'md-move-lines-up)
+(global-set-key [M-down] 'md-move-lines-down)
+(global-set-key [M-S-up] 'md-move-lines-up)
+(global-set-key [M-S-down] 'md-move-lines-down)
+
+(require-package 'multiple-cursors)
+(defun mc/save-lists () "Ignore save history.")
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+
+(when (maybe-require-package 'smex)
+  (after-aproject-change
+   (setq smex-save-file (aproject-store-file "smex")))
+  (global-set-key [remap execute-extended-command] 'smex))
+
+(when (maybe-require-package 'ivy)
+  (require-package 'counsel)
+
+  (add-hook 'after-init-hook 'ivy-mode)
+  (after-load 'ivy
+    (diminish 'ivy-mode)
+    (setq-default ivy-use-virtual-buffers t
+                  ivy-virtual-abbreviate 'fullpath
+                  ivy-count-format ""
+                  ivy-magic-tilde nil
+                  ivy-dynamic-exhibit-delay-ms 150
+                  ivy-use-selectable-prompt t
+                  ivy-initial-inputs-alist '((Man-completion-table . "^")
+                                             (woman . "^"))))
+
+  (add-hook 'after-init-hook 'counsel-mode)
+  (after-load 'counsel
+    (diminish 'counsel-mode)
+    (setq-default counsel-mode-override-describe-bindings t)))
+
+;; powerful functions
 
 (defun delete-current-buffer-file ()
+  "Delete current buffer and file."
   (interactive)
   (let ((filename (buffer-file-name))
-        (buffer (current-buffer))
-        (name (buffer-name)))
+        (buffer (current-buffer)))
     (if (not (and filename (file-exists-p filename)))
         (ido-kill-buffer)
       (when (yes-or-no-p "Are you sure you want to remove this file? ")
@@ -18,6 +62,7 @@
         (message "File '%s' successfully removed" filename)))))
 
 (defun rename-current-buffer-file ()
+  "Rename current buffer and file."
   (interactive)
   (let ((name (buffer-name))
         (filename (buffer-file-name)))
@@ -38,6 +83,7 @@
   '(sql-mode text-mode))
 (defvar-local buffer-indent-function nil)
 (defun indent-current-buffer ()
+  "Indent current buffer."
   (interactive)
   (if (functionp buffer-indent-function)
       (funcall buffer-indent-function)
@@ -49,6 +95,7 @@
 
 (defvar-local deep-buffer-indent-function nil)
 (defun deep-indent-current-buffer ()
+  "Deep indent current buffer."
   (interactive)
   (if (functionp deep-buffer-indent-function)
       (funcall deep-buffer-indent-function)
@@ -56,6 +103,7 @@
 (global-set-key (kbd "M-<f12>") 'deep-indent-current-buffer)
 
 (defun comment-eclipse ()
+  "Elipse like comment."
   (interactive)
   (let ((start (line-beginning-position))
         (end (line-end-position)))
@@ -72,6 +120,7 @@
 (global-set-key (kbd "M-;")     'comment-eclipse)
 
 (defun smart-beginning-of-line ()
+  "Smart implementation for `move-beginning-of-line`."
   (interactive)
   (let ((oldpos (point)))
     (beginning-of-line)
@@ -80,6 +129,7 @@
 (global-set-key [remap move-beginning-of-line] 'smart-beginning-of-line)
 
 (defun smart-end-of-line ()
+  "Smart implementation for `move-end-of-line`."
   (interactive)
   (let ((oldpos (point)))
     (beginning-of-line)
@@ -89,4 +139,8 @@
       (end-of-line))))
 (global-set-key [remap move-end-of-line] 'smart-end-of-line)
 
-(provide 'init-editor-z)
+(provide 'init-enhance)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init-enhance.el ends here

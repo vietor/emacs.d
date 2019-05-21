@@ -1,4 +1,9 @@
+;;; init-javascript.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; json
+
 (require-package 'json-mode)
 
 (add-hook 'json-mode-hook
@@ -7,6 +12,7 @@
             (setq deep-buffer-indent-function 'json-mode-beautify)))
 
 ;; javascript
+
 (require-package 'js2-mode)
 (require-package 'rjsx-mode)
 (when (executable-find "js-beautify")
@@ -36,6 +42,8 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
 
+;; helper for company-mode
+
 (after-load 'company-gtags
   (add-to-list 'company-gtags-modes 'js2-mode))
 
@@ -43,3 +51,7 @@
   (add-to-list 'company-dabbrev-code-modes 'js2-mode))
 
 (provide 'init-javascript)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init-javascript.el ends here

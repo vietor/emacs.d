@@ -1,4 +1,7 @@
-(require-package 'git-blamed)
+;;; init-git.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 
@@ -9,7 +12,8 @@
 (after-load 'magit
   (fullframe magit-status magit-mode-quit-window))
 
-(when (maybe-require-package 'git-commit)
-  (add-hook 'git-commit-mode-hook 'goto-address-mode))
-
 (provide 'init-git)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init-git.el ends here

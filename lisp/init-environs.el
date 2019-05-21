@@ -1,13 +1,24 @@
+;;; init-environs.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+;; from shell
+
 (require-package 'exec-path-from-shell)
+
 (after-load 'exec-path-from-shell
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var)))
+
 (when (or (memq window-system '(mac ns x))
           (unless (memq system-type '(ms-dos windows-nt))
             (daemonp)))
   (exec-path-from-shell-initialize))
 
+;; from file
+
 (defun smart-setenv (name value)
+  "Set exec path by NAME & VALUE."
   (if (not (string-equal "PATH" name))
       (setenv name value)
     (let ((this-path) (paths (remove "" (split-string value path-separator))))
@@ -16,6 +27,7 @@
       (setenv "PATH" (mapconcat 'identity (delete-dups (split-string this-path path-separator)) path-separator)))))
 
 (defun startup-environ (file)
+  "Load exec path from FILE."
   (when (file-exists-p file)
     (dolist (line (with-temp-buffer
                     (insert-file-contents file)
@@ -34,4 +46,8 @@
 
 (startup-environ (expand-file-name "setenv" user-emacs-directory))
 
-(provide 'init-environ)
+(provide 'init-environs)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init-environs.el ends here
