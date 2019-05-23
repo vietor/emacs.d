@@ -19,9 +19,9 @@
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+(require 'init-locales)
 (require 'init-packages)
 (require 'init-environs)
-(require 'init-locales)
 
 (require 'init-builtin)
 (require 'init-enhance)
