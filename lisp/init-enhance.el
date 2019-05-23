@@ -3,8 +3,10 @@
 ;;; Code:
 
 (when window-system
-  (require-package 'dracula-theme)
-  (load-theme 'dracula t))
+  (require-package 'doom-themes)
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-one t))
 
 (require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
