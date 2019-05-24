@@ -138,12 +138,14 @@
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 (global-set-key (kbd "M-g q")   'keyboard-escape-quit)
 
-(define-key global-map [remap list-buffers] 'ibuffer)
-
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-SPC"))
-(global-set-key (kbd "<f1>") 'help-command)
-(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "<f1>")    'help-command)
+(global-set-key (kbd "C-h")     'delete-backward-char)
+
+(global-set-key (kbd "M-g r")   'replace-string)
+
+(define-key global-map [remap list-buffers] 'ibuffer)
 
 ;; fix render slow
 
