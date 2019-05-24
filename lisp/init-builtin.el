@@ -82,8 +82,8 @@
 
 ;; initial editor
 
-(setq-default indent-tabs-mode nil
-              tab-width 8)
+(setq-default tab-width 4
+              indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 (setq inhibit-startup-screen t)

@@ -4,20 +4,21 @@
 
 ;; (setq debug-on-error t)
 
-(let ((minver "24.4"))
+(let ((minver "25.1"))
   (when (version< emacs-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+(let ((init-threshold  (* 128 1024 1024))
+      (target-threshold  (* 20 1024 1024)))
+  (setq gc-cons-threshold init-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold target-threshold))))
 
 (defconst *is-os-mac* (eq system-type 'darwin))
 (defconst *is-os-win* (eq system-type 'windows-nt))
 
-(setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 20 1024 1024))))
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'init-locales)
 (require 'init-packages)
