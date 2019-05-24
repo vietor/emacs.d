@@ -25,10 +25,10 @@
 
 ;; disable files
 
-(setq create-lockfiles nil)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-(setq auto-save-list-file-prefix nil)
+(setq create-lockfiles nil
+      make-backup-files nil
+      auto-save-default nil
+      auto-save-list-file-prefix nil)
 (when *is-os-win*
   (setq w32-get-true-file-attributes nil))
 
@@ -102,6 +102,8 @@
               column-number-mode t
               shift-select-mode nil
               sentence-end-double-space nil
+              mouse-yank-at-point t
+              save-interprogram-paste-before-kill t
               scroll-preserve-screen-position 'always
               set-mark-command-repeat-pop t)
 
