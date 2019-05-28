@@ -72,6 +72,7 @@
   (add-to-list 'initial-frame-alist no-border))
 
 (when *is-os-mac*
+  (setq ns-pop-up-frames nil)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
   (set-fontset-font t 'symbol
