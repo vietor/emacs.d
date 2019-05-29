@@ -23,7 +23,7 @@
   (defun python-deep-buffer-indent ()
     "Deep indent for python."
     (py-autopep8)
-    (when *is-os-win*
+    (when system-is-win
       (goto-char (point-min))
       (while (search-forward "\r" nil t) (replace-match ""))))
 

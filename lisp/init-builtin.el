@@ -29,7 +29,7 @@
       make-backup-files nil
       auto-save-default nil
       auto-save-list-file-prefix nil)
-(when *is-os-win*
+(when system-is-win
   (setq w32-get-true-file-attributes nil))
 
 ;; disable gui
@@ -71,7 +71,7 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-(when *is-os-mac*
+(when system-is-mac
   (setq ns-pop-up-frames nil)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
@@ -152,7 +152,7 @@
 
 ;; fix render slow
 
-(when *is-os-win*
+(when system-is-win
   (setq inhibit-compacting-font-caches t))
 (setq-default  bidi-display-reordering nil
                bidi-paragraph-direction (quote left-to-right))

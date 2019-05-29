@@ -16,7 +16,7 @@
 (when (or window-system (locale-is-utf8-p))
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
-  (set-selection-coding-system (if *is-os-win* 'utf-16-le 'utf-8))
+  (set-selection-coding-system (if system-is-win 'utf-16-le 'utf-8))
   (prefer-coding-system 'utf-8))
 
 (provide 'init-locales)

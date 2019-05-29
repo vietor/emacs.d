@@ -7,7 +7,7 @@
 (setq-default grep-highlight-matches t
               grep-scroll-output t)
 
-(when *is-os-mac*
+(when system-is-mac
   (setq-default locate-command "mdfind"))
 
 ;; wgrep

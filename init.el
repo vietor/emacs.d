@@ -14,8 +14,8 @@
   (add-hook 'emacs-startup-hook
             (lambda () (setq gc-cons-threshold target-threshold))))
 
-(defconst *is-os-mac* (eq system-type 'darwin))
-(defconst *is-os-win* (eq system-type 'windows-nt))
+(defconst system-is-mac (eq system-type 'darwin))
+(defconst system-is-win (eq system-type 'windows-nt))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
