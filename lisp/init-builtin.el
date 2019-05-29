@@ -94,8 +94,10 @@
 
 (setq track-eol nil)
 (setq-default case-fold-search t)
+(cua-selection-mode t)
 (delete-selection-mode t)
 (add-hook 'after-init-hook 'show-paren-mode)
+(add-hook 'after-init-hook 'transient-mark-mode)
 
 (setq-default truncate-lines nil
               truncate-partial-width-windows nil
