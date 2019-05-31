@@ -37,7 +37,8 @@
 (require 'init-jvm)
 (require 'init-web)
 (require 'init-javascript)
-(require 'init-programmes)
+(require 'init-textmodes)
+(require 'init-progmodes)
 
 (when (file-exists-p custom-file)
   (load custom-file))

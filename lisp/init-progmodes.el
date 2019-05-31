@@ -1,4 +1,4 @@
-;;; init-programmes.el --- -*- lexical-binding: t -*-
+;;; init-progmodes.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -40,8 +40,8 @@
    (setenv "GOPATH" aproject-rootdir))
   (add-hook 'before-save-hook 'gofmt-before-save))
 
-(provide 'init-programmes)
+(provide 'init-progmodes)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init-programmes.el ends here
+;;; init-progmodes.el ends here
