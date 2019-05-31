@@ -46,6 +46,22 @@
 
 (startup-environ (expand-file-name "setenv" user-emacs-directory))
 
+;; open emacs
+
+(when window-system
+  (defun open-new-emacs()
+    "Open a new Emacs process."
+    (interactive)
+    (let ((program (car command-line-args)))
+      (cond
+       (system-is-mac
+        (shell-command (concat "open -n -a " program)))
+       (system-is-win
+        (w32-shell-execute "open" (concat (file-name-directory program) "runemacs.exe")))
+       (t (message "Couldn't support to start a new Emacs")))))
+
+  (global-set-key (kbd "M-g z") 'open-new-emacs))
+
 (provide 'init-environs)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
