@@ -93,13 +93,13 @@
 (setq initial-major-mode 'text-mode)
 
 (setq track-eol nil)
-(setq-default case-fold-search t)
 (cua-selection-mode t)
 (delete-selection-mode t)
 (add-hook 'after-init-hook 'show-paren-mode)
 (add-hook 'after-init-hook 'transient-mark-mode)
 
-(setq-default truncate-lines nil
+(setq-default case-fold-search t
+              truncate-lines nil
               truncate-partial-width-windows nil
               indicate-empty-lines t
               column-number-mode t
@@ -109,9 +109,6 @@
               save-interprogram-paste-before-kill t
               scroll-preserve-screen-position 'always
               set-mark-command-repeat-pop t)
-
-(delete-selection-mode t)
-(add-hook 'after-init-hook 'show-paren-mode)
 
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
