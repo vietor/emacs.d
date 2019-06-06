@@ -92,7 +92,6 @@
 (setq-default major-mode 'text-mode)
 (setq initial-major-mode 'text-mode)
 
-(setq track-eol nil)
 (cua-selection-mode t)
 (delete-selection-mode t)
 (add-hook 'after-init-hook 'show-paren-mode)
