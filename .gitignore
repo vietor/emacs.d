@@ -7,10 +7,10 @@ GTAGS
 /.aproject/
 /auto-save-list/
 /server/
+/transient
 
 *.swp
 /tramp
 /setenv
 /custom.el*
-/lisp/init-preinit.el
 
