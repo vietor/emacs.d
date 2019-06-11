@@ -33,9 +33,8 @@
 (package-initialize)
 
 ;;; necessary functons
-
-(unless (featurep 'subr-x)
-  (require 'subr-x))
+(require 'seq)
+(require 'subr-x)
 
 (defalias 'after-load 'with-eval-after-load)
 

@@ -27,7 +27,7 @@
 (defun kill-buffers-switch-scratch ()
   (interactive)
   (delete-other-windows)
-  (switch-to-scratch-buffer)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
   (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
 (global-set-key (kbd "C-x 4 0") 'kill-buffers-switch-scratch)
 
@@ -89,6 +89,21 @@
       (setq buffer (get-buffer "*shell*")))
     (switch-to-buffer buffer)))
 (global-set-key (kbd "M-<f8>")  'switch-to-shell-buffer)
+
+(defun candidate-buffer-p(buffer)
+  (let ((name (buffer-name buffer)))
+    (and (not (get-buffer-window buffer))
+         (or (not (or (string-prefix-p " " name)
+                      (string-prefix-p "*" name)))
+             (seq-contains '("*scratch*" "*shell*") name)))))
+
+(defun switch-to-candidate-buffer ()
+  (interactive)
+  (let ((buffer nil))
+    (setq buffer (seq-find 'candidate-buffer-p (cdr (buffer-list))))
+    (when buffer
+      (switch-to-buffer buffer))))
+(global-set-key (kbd "<f7>")  'switch-to-candidate-buffer)
 
 (provide 'init-windows)
 ;; Local Variables:
