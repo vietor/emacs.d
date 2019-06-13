@@ -123,6 +123,13 @@
   (setq-default display-line-numbers-width 3)
   (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
 
+(when (fboundp 'global-prettify-symbols-mode)
+  (add-hook 'after-init-hook 'global-prettify-symbols-mode))
+
+(when window-system
+  (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+    (add-hook hook 'hl-line-mode)))
+
 ;; helper for aproject
 
 (after-aproject-change

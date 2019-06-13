@@ -29,8 +29,8 @@
   (setq agtags-global-treat-text t)
 
   (agtags-bind-keys)
-  (add-hook 'text-mode-hook 'agtags-mode-on)
-  (add-hook 'prog-mode-hook 'agtags-mode-on)
+  (dolist (hook '(prog-mode-hook text-mode-hook))
+    (add-hook hook 'agtags-mode-on))
   (add-to-list 'xref-backend-functions 'agtags-xref-backend)
 
   (agtags-update-parser)

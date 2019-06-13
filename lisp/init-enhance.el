@@ -30,8 +30,7 @@
   (global-set-key [remap execute-extended-command] 'smex))
 
 (when (maybe-require-package 'ivy)
-  (require-package 'counsel)
-
+  (require-package 'swiper)
   (add-hook 'after-init-hook 'ivy-mode)
   (after-load 'ivy
     (diminish 'ivy-mode)
@@ -42,8 +41,13 @@
                   ivy-dynamic-exhibit-delay-ms 150
                   ivy-use-selectable-prompt t
                   ivy-initial-inputs-alist '((Man-completion-table . "^")
-                                             (woman . "^"))))
+                                             (woman . "^")))
+    (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point)
+    (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+    (dolist (k '("C-j" "C-RET"))
+      (define-key ivy-minibuffer-map (kbd k) #'ivy-immediate-done)))
 
+  (require-package 'counsel)
   (add-hook 'after-init-hook 'counsel-mode)
   (after-load 'counsel
     (diminish 'counsel-mode)
