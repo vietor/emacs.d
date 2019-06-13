@@ -5,11 +5,10 @@
 (setq winner-dont-bind-my-keys 5)
 (add-hook 'after-init-hook 'winner-mode)
 
-(require-package 'switch-window)
-(setq-default
- switch-window-shortcut-style 'alphabet
- switch-window-timeout nil)
-(global-set-key (kbd "C-x o")   'switch-window)
+(require-package 'ace-window)
+(setq aw-scope 'frame
+      aw-background nil)
+(global-set-key (kbd "C-x o") 'ace-window)
 
 (defun kill-current-buffer ()
   (interactive)

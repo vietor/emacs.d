@@ -17,6 +17,9 @@
 (global-set-key [M-S-up] 'md-move-lines-up)
 (global-set-key [M-S-down] 'md-move-lines-down)
 
+(require-package 'avy)
+(global-set-key (kbd "C-;") 'avy-goto-char-timer)
+
 (require-package 'multiple-cursors)
 (defun mc/save-lists () "Ignore save history.")
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
