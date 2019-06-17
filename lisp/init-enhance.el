@@ -54,7 +54,10 @@
   (add-hook 'after-init-hook 'counsel-mode)
   (after-load 'counsel
     (diminish 'counsel-mode)
-    (setq-default counsel-mode-override-describe-bindings t)))
+    (setq-default counsel-mode-override-describe-bindings t))
+
+  (require-package 'ivy-xref)
+  (setq xref-show-xrefs-function 'ivy-xref-show-xrefs))
 
 ;; buffer and file
 
