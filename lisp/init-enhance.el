@@ -94,7 +94,7 @@
 ;; buffer indent
 
 (defvar buffer-indent-ignore-modes
-  '(sql-mode text-mode))
+  '(sql-mode text-mode shell-mode eshell-mode term-mode))
 (defvar-local buffer-indent-function nil)
 (defvar-local deep-buffer-indent-function nil)
 
