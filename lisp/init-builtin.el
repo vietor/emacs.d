@@ -23,6 +23,10 @@
 (global-unset-key (kbd "<f11>"))
 (global-unset-key (kbd "<f12>"))
 
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-SPC"))
+
 ;; disable files
 
 (setq create-lockfiles nil
@@ -146,8 +150,6 @@
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 (global-set-key (kbd "M-g q")   'keyboard-escape-quit)
 
-(global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "<f1>")    'help-command)
 (global-set-key (kbd "C-h")     'delete-backward-char)
 
@@ -159,8 +161,7 @@
 
 (when system-is-win
   (setq inhibit-compacting-font-caches t))
-(setq-default  bidi-display-reordering nil
-               bidi-paragraph-direction (quote left-to-right))
+(setq-default  bidi-display-reordering nil)
 
 (provide 'init-builtin)
 ;; Local Variables:
