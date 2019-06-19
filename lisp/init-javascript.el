@@ -34,7 +34,10 @@
                 (setq-local js2-mode-show-strict-warnings t)))))
 
 (after-load 'rjsx-mode
-  (add-hook 'js2-jsx-mode-hook
+  (define-key rjsx-mode-map "<" nil)
+  (define-key rjsx-mode-map ">" nil)
+  (define-key rjsx-mode-map (kbd "C-d") nil)
+  (add-hook 'rjsx-mode-hook
             (lambda ()
               (setq mode-name "JS2-JSX")
               (setq deep-buffer-indent-function nil))))
