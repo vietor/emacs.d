@@ -4,7 +4,7 @@
 
 (defun utf8-locale-p (v)
   "Test string V match UTF-8."
-  (and v (string-match "UTF-8" v)))
+  (and v (string-match-p "UTF-8" v)))
 
 (defun locale-is-utf8-p ()
   "Test local strings match UTF-8."
