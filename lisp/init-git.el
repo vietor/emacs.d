@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq vc-handled-backends '(Git))
+
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 

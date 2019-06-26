@@ -132,14 +132,6 @@
 (when (fboundp 'global-prettify-symbols-mode)
   (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
-;; helper for aproject
-
-(after-aproject-change
- (setq frame-title-format '("Emacs @ " aproject-rootdir))
- (setq save-place-file (aproject-store-file "saved-places"))
- (setq eshell-directory-name (aproject-store-file "eshell/"))
- (setq url-configuration-directory (aproject-store-file "url/")))
-
 ;; key binds
 
 (global-set-key (kbd "C-.")     'set-mark-command)
@@ -158,6 +150,14 @@
 (when system-is-win
   (setq inhibit-compacting-font-caches t))
 (setq-default  bidi-display-reordering nil)
+
+;; helper for aproject
+
+(after-aproject-change
+ (setq frame-title-format '("Emacs @ " aproject-rootdir))
+ (setq save-place-file (aproject-store-file "saved-places"))
+ (setq eshell-directory-name (aproject-store-file "eshell/"))
+ (setq url-configuration-directory (aproject-store-file "url/")))
 
 (provide 'init-builtin)
 ;; Local Variables:
