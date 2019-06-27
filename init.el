@@ -6,10 +6,9 @@
 
 (let ((minver "25.1"))
   (when (version< emacs-version minver)
-    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
-
-(unless (memq system-type '(darwin windows-nt gnu/linux))
-  (error "I don't work on the operating system, bye"))
+    (error "Your Emacs is too old -- this config requires v%s or higher" minver))
+  (unless (memq system-type '(darwin windows-nt gnu/linux))
+    (error "I am not working on the current operating system, bye")))
 
 (let ((init-threshold  (* 128 1024 1024))
       (target-threshold  (* 20 1024 1024)))
