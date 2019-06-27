@@ -141,6 +141,7 @@
 (global-set-key (kbd "<f1>")    'help-command)
 (global-set-key (kbd "C-h")     'delete-backward-char)
 
+(global-set-key (kbd "M-g j")   'imenu)
 (global-set-key (kbd "M-g r")   'replace-string)
 
 (define-key global-map [remap list-buffers] 'ibuffer)

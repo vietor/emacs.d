@@ -24,7 +24,9 @@
 (after-load 'company-dabbrev-code
   (add-to-list 'company-dabbrev-code-modes 'web-mode))
 
-;; more css
+;; css
+
+(setq-default css-fontify-colors nil)
 
 (require-package 'sass-mode)
 (unless (fboundp 'scss-mode)
