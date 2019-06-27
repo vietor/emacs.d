@@ -11,7 +11,7 @@
     (add-to-list 'exec-path-from-shell-variables var)))
 
 (when (or (memq window-system '(mac ns x))
-          (unless (memq system-type '(ms-dos windows-nt))
+          (unless (memq system-type '(windows-nt))
             (daemonp)))
   (exec-path-from-shell-initialize))
 
