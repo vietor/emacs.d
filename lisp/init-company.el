@@ -18,6 +18,14 @@
   (setq-default company-dabbrev-other-buffers 'all
                 company-tooltip-align-annotations t))
 
+(setq hippie-expand-try-functions-list
+      '(try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill))
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 (provide 'init-company)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
