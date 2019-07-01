@@ -24,10 +24,10 @@
     (let ((new-path (split-string value path-separator))
           (env-path (split-string (getenv "PATH") path-separator)))
       (setq exec-path (delete-dups (append new-path exec-path)))
-      (setenv "PATH" (mapconcat 'identity (delete-dups (append new-path env-path)) path-separator)))))
+      (setenv "PATH" (string-join (delete-dups (append new-path env-path)) path-separator)))))
 
 (defun custom-environ (file)
-  "Load exec path from FILE."
+  "Load environment from FILE."
   (when (file-exists-p file)
     (dolist (line (with-temp-buffer
                     (insert-file-contents file)
