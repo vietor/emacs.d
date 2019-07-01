@@ -44,6 +44,7 @@
         (delete-file filename)
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
+(global-set-key (kbd "M-g f d") 'delete-current-buffer-file)
 
 (defun rename-current-buffer-file ()
   (interactive)
@@ -61,6 +62,7 @@
           (set-buffer-modified-p nil)
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
+(global-set-key (kbd "M-g f r") 'rename-current-buffer-file)
 
 ;; buffer indent
 
