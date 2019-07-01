@@ -30,6 +30,7 @@
 (require 'init-enhance)
 (require 'init-windows)
 
+(require 'init-ivy)
 (require 'init-flycheck)
 (require 'init-company)
 (require 'init-git)
