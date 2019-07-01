@@ -18,15 +18,15 @@
 ;; from file
 
 (defun smart-setenv (name value)
-  "Set exec path by NAME & VALUE."
+  "Smart set env by NAME & VALUE."
   (if (not (string-equal "PATH" name))
       (setenv name value)
-    (let ((this-path) (paths (remove "" (split-string value path-separator))))
-      (setq exec-path (delete-dups (append paths exec-path)))
-      (setq this-path (concat (mapconcat 'identity paths path-separator) path-separator (getenv "PATH")))
-      (setenv "PATH" (mapconcat 'identity (delete-dups (split-string this-path path-separator)) path-separator)))))
+    (let ((new-path (split-string value path-separator))
+          (env-path (split-string (getenv "PATH") path-separator)))
+      (setq exec-path (delete-dups (append new-path exec-path)))
+      (setenv "PATH" (mapconcat 'identity (delete-dups (append new-path env-path)) path-separator)))))
 
-(defun startup-environ (file)
+(defun custom-environ (file)
   "Load exec path from FILE."
   (when (file-exists-p file)
     (dolist (line (with-temp-buffer
@@ -44,7 +44,7 @@
            (substring line right))))
        (t nil)))))
 
-(startup-environ (expand-file-name "setenv" user-emacs-directory))
+(custom-environ (expand-file-name "setenv" user-emacs-directory))
 
 ;; open emacs
 
