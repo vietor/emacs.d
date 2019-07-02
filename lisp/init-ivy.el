@@ -29,7 +29,9 @@
   (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point))
 
 (need-package 'ivy-xref)
-(setq xref-show-xrefs-function 'ivy-xref-show-xrefs)
+(if (< emacs-major-version 27)
+    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+  (setq xref-show-definitions-function #'ivy-xref-show-defs)))
 
 (provide 'init-ivy)
 ;; Local Variables:
