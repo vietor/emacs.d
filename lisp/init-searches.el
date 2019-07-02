@@ -12,14 +12,14 @@
 
 ;; wgrep
 
-(want-package 'wgrep)
+(need-package 'wgrep)
 (setq wgrep-enable-key "e")
 (setq wgrep-auto-save-buffer t)
 
 ;; gtags
 
 (when (executable-find "global")
-  (want-package 'agtags)
+  (need-package 'agtags)
   (require 'agtags-xref)
 
   (defun agtags-mode-on()

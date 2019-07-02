@@ -5,7 +5,7 @@
 ;; php
 
 (when (and (executable-find "php")
-           (try-want-package 'php-mode))
+           (want-package 'php-mode))
 
   (after-load 'php-mode
     (define-key php-mode-map (kbd "C-.") nil)))
@@ -13,7 +13,7 @@
 ;; python
 
 (when (executable-find "python")
-  (want-package 'py-autopep8)
+  (need-package 'py-autopep8)
 
   (setq auto-mode-alist
         (append '(("SConstruct\\'" . python-mode)
@@ -34,7 +34,7 @@
 ;; golang
 
 (when (executable-find "go")
-  (want-package 'go-mode)
+  (need-package 'go-mode)
 
   (after-aproject-change
    (setenv "GOPATH" aproject-rootdir))

@@ -4,7 +4,7 @@
 
 ;; json
 
-(want-package 'json-mode)
+(need-package 'json-mode)
 
 (add-hook 'json-mode-hook
           (lambda ()
@@ -13,10 +13,10 @@
 
 ;; javascript
 
-(want-package 'js2-mode)
-(want-package 'rjsx-mode)
+(need-package 'js2-mode)
+(need-package 'rjsx-mode)
 (when (executable-find "js-beautify")
-  (want-package 'web-beautify))
+  (need-package 'web-beautify))
 
 (after-load 'js2-mode
   (define-key js2-mode-map (kbd "M-.") nil)
