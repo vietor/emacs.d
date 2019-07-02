@@ -31,7 +31,7 @@
 (need-package 'ivy-xref)
 (if (< emacs-major-version 27)
     (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
-  (setq xref-show-definitions-function #'ivy-xref-show-defs)))
+  (setq xref-show-definitions-function #'ivy-xref-show-defs))
 
 (provide 'init-ivy)
 ;; Local Variables:
