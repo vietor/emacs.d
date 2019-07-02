@@ -4,7 +4,7 @@
 
 ;; html
 
-(require-package 'web-mode t)
+(want-package 'web-mode t)
 
 (add-to-list 'auto-mode-alist '("\\.njk?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -28,9 +28,9 @@
 
 (setq-default css-fontify-colors nil)
 
-(require-package 'sass-mode)
+(want-package 'sass-mode)
 (unless (fboundp 'scss-mode)
-  (require-package 'scss-mode))
+  (want-package 'scss-mode))
 (setq-default scss-compile-at-save nil)
 
 (provide 'init-web)

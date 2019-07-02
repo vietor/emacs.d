@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'ivy)
+(want-package 'ivy)
 (add-hook 'after-init-hook 'ivy-mode)
 (after-load 'ivy
   (diminish 'ivy-mode)
@@ -18,17 +18,17 @@
   (dolist (k '("C-j" "C-RET"))
     (define-key ivy-minibuffer-map (kbd k) #'ivy-immediate-done)))
 
-(require-package 'counsel)
+(want-package 'counsel)
 (add-hook 'after-init-hook 'counsel-mode)
 (after-load 'counsel
   (diminish 'counsel-mode)
   (setq-default counsel-mode-override-describe-bindings t))
 
-(require-package 'swiper)
+(want-package 'swiper)
 (after-load 'ivy
   (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point))
 
-(require-package 'ivy-xref)
+(want-package 'ivy-xref)
 (setq xref-show-xrefs-function 'ivy-xref-show-xrefs)
 
 (provide 'init-ivy)

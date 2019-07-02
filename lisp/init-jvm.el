@@ -2,10 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'scala-mode)
+(want-package 'scala-mode)
 
 (when (executable-find "gradle")
-  (require-package 'groovy-mode)
+  (want-package 'groovy-mode)
   (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode)))
 
 (provide 'init-jvm)

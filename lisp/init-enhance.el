@@ -3,31 +3,31 @@
 ;;; Code:
 
 (when window-system
-  (require-package 'doom-themes)
+  (want-package 'doom-themes)
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   (load-theme 'doom-one t))
 
-(require-package 'highlight-escape-sequences)
+(want-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
 
-(require-package 'move-dup)
+(want-package 'move-dup)
 (global-set-key [M-up] 'md-move-lines-up)
 (global-set-key [M-down] 'md-move-lines-down)
 (global-set-key [M-S-up] 'md-move-lines-up)
 (global-set-key [M-S-down] 'md-move-lines-down)
 
-(require-package 'avy)
+(want-package 'avy)
 (global-set-key (kbd "C-;") 'avy-goto-char-timer)
 
-(require-package 'multiple-cursors)
+(want-package 'multiple-cursors)
 (defun mc/save-lists () "Ignore save history.")
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
-(when (maybe-require-package 'smex)
+(when (try-want-package 'smex)
   (after-aproject-change
    (setq smex-save-file (aproject-store-file "smex")))
   (global-set-key [remap execute-extended-command] 'smex))

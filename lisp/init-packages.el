@@ -12,18 +12,18 @@
       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
                         user-emacs-directory))
 
-(defun require-package (package &optional force)
-  "Install given PACKAGE, required when FORCE."
+(defun want-package (package &optional req)
+  "Install given PACKAGE, require it when REQ."
   (when (not (package-installed-p package))
     (unless (assoc package package-archive-contents)
       (package-refresh-contents))
     (package-install package))
-  (if (not force) t (require package)))
+  (when req (require package)))
 
-(defun maybe-require-package (package &optional force)
-  "Try install given PACKAGE, required when FORCE."
+(defun try-want-package (package &optional req)
+  "Try install given PACKAGE, require it when REQ."
   (condition-case err
-      (require-package package force)
+      (want-package package req)
     (error
      (message "Couldn't install optional package `%s': %S" package err)
      nil)))
@@ -44,9 +44,9 @@
 
 ;;; necessary packages
 
-(require-package 'aproject)
-(require-package 'diminish)
-(require-package 'fullframe)
+(want-package 'aproject)
+(want-package 'diminish)
+(want-package 'fullframe)
 
 (global-set-key (kbd "C-x p") 'aproject-change-project)
 

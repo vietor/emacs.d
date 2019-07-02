@@ -4,10 +4,10 @@
 
 (setq vc-handled-backends '(Git))
 
-(require-package 'gitignore-mode)
-(require-package 'gitconfig-mode)
+(want-package 'gitignore-mode)
+(want-package 'gitconfig-mode)
 
-(when (maybe-require-package 'magit)
+(when (try-want-package 'magit)
   (setq-default magit-diff-refine-hunk t)
   (global-set-key (kbd "C-x g") 'magit-status)
 
