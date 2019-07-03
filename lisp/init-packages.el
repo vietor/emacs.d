@@ -23,7 +23,7 @@
 (defun want-package (package &optional req)
   "Try install given PACKAGE, require it when REQ."
   (condition-case err
-      (need-package package req)
+      (progn (need-package package req) t)
     (error
      (message "Couldn't install optional package `%s': %S" package err)
      nil)))
