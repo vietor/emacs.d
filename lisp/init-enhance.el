@@ -111,9 +111,9 @@
 (defun smart-beginning-of-line ()
   (interactive)
   (let ((oldpos (point)))
-    (beginning-of-line)
+    (back-to-indentation)
     (and (= oldpos (point))
-         (back-to-indentation))))
+         (beginning-of-line))))
 (global-set-key [remap move-beginning-of-line] 'smart-beginning-of-line)
 
 (defun smart-end-of-line ()
