@@ -143,7 +143,6 @@
 
 (global-set-key (kbd "M-g j")   'imenu)
 (global-set-key (kbd "M-g r")   'replace-string)
-(global-set-key (kbd "M-g f o") 'recentf-open-files)
 
 (define-key global-map [remap list-buffers] 'ibuffer)
 

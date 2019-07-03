@@ -22,6 +22,7 @@
 (add-hook 'after-init-hook 'counsel-mode)
 (after-load 'counsel
   (diminish 'counsel-mode)
+  (global-set-key (kbd "M-g f o") 'counsel-recentf)
   (setq-default counsel-mode-override-describe-bindings t))
 
 (need-package 'swiper)
