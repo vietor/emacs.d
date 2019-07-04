@@ -5,7 +5,7 @@
 (setq winner-dont-bind-my-keys 5)
 (add-hook 'after-init-hook 'winner-mode)
 
-(need-package 'ace-window)
+(use-package 'ace-window)
 (setq aw-scope 'frame
       aw-background nil)
 (global-set-key (kbd "C-x o") 'ace-window)

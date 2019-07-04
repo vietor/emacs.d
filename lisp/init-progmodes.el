@@ -4,21 +4,19 @@
 
 ;; php
 
-(when (and (executable-find "php")
-           (want-package 'php-mode))
-
-  (after-load 'php-mode
-    (define-key php-mode-map (kbd "C-.") nil)))
+(use-package 'php-mode)
+(after-load 'php-mode
+  (define-key php-mode-map (kbd "C-.") nil))
 
 ;; python
 
-(when (executable-find "python")
-  (need-package 'py-autopep8)
+(setq auto-mode-alist
+      (append '(("SConstruct\\'" . python-mode)
+                ("SConscript\\'" . python-mode))
+              auto-mode-alist))
 
-  (setq auto-mode-alist
-        (append '(("SConstruct\\'" . python-mode)
-                  ("SConscript\\'" . python-mode))
-                auto-mode-alist))
+(when (executable-find "autopep8")
+  (use-package 'py-autopep8)
 
   (defun python-deep-buffer-indent ()
     "Deep indent for python."
@@ -34,8 +32,7 @@
 ;; golang
 
 (when (executable-find "go")
-  (need-package 'go-mode)
-
+  (use-package 'go-mode)
   (after-aproject-change
    (setenv "GOPATH" aproject-rootdir))
   (add-hook 'before-save-hook 'gofmt-before-save))
