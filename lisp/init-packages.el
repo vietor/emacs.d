@@ -12,23 +12,23 @@
       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
                         user-emacs-directory))
 
-(defun use-package (package &optional req)
-  "Install given PACKAGE, require it when REQ."
-  (when (not (package-installed-p package))
-    (unless (assoc package package-archive-contents)
-      (package-refresh-contents))
-    (package-install package))
-  (when req (require package)))
+(defun use-package (package &optional no-refresh)
+  "Install given PACKAGE, If NO-REFRESH is non-nil, not refresh package lists."
+  (when (not(package-installed-p package))
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (use-package package t)))))
 
-(defun try-use-package (package &optional req)
-  "Try install given PACKAGE, require it when REQ."
+(defun try-use-package (package &optional no-refresh)
+  "Try install given PACKAGE, If NO-REFRESH is non-nil, not refresh package lists."
   (condition-case err
-      (progn (use-package package req) t)
+      (progn (use-package package no-refresh) t)
     (error
      (message "Couldn't install optional package `%s': %S" package err)
      nil)))
 
-(setq package-pinned-packages '())
 (setq package-enable-at-startup nil)
 (package-initialize)
 
