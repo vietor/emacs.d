@@ -90,6 +90,7 @@
 ;; initial editor
 
 (setq-default tab-width 4
+              standard-indent 4
               indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
 

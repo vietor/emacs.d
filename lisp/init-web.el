@@ -8,9 +8,6 @@
 (add-to-list 'auto-mode-alist '("\\.njk?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (after-load 'web-mode
-  (setq-default  web-mode-css-indent-offset 4
-                 web-mode-code-indent-offset 4
-                 web-mode-markup-indent-offset 4)
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
