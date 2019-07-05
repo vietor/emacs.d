@@ -18,16 +18,13 @@
 (when (executable-find "autopep8")
   (use-package 'py-autopep8)
 
-  (defun python-deep-buffer-indent ()
+  (defun python-mode-beautify ()
     "Deep indent for python."
     (py-autopep8)
     (when system-is-win
       (goto-char (point-min))
       (while (search-forward "\r" nil t) (replace-match ""))))
-
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (setq deep-buffer-indent-function 'python-deep-buffer-indent))))
+  (add-to-list 'buffer-beautify-alist '(python-mode . python-mode-beautify)))
 
 ;; golang
 

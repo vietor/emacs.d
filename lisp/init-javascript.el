@@ -5,11 +5,8 @@
 ;; json
 
 (use-package 'json-mode)
-
-(add-hook 'json-mode-hook
-          (lambda ()
-            (setq json-reformat:pretty-string? t)
-            (setq deep-buffer-indent-function 'json-mode-beautify)))
+(after-load 'json-mode
+  (add-to-list 'buffer-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
@@ -20,18 +17,19 @@
 
 (after-load 'js2-mode
   (define-key js2-mode-map (kbd "M-.") nil)
-  (setq-default js2-bounce-indent-p nil)
-  (setq-default js2-mode-show-parse-errors nil
+  (setq-default js2-bounce-indent-p nil
+                js2-mode-show-parse-errors nil
                 js2-mode-show-strict-warnings nil)
+
   (add-hook 'js2-mode-hook
             (lambda ()
               (setq mode-name "JS2")
-              (setq blink-matching-paren nil)
-              (when (fboundp 'web-beautify-js)
-                (setq deep-buffer-indent-function 'web-beautify-js))
               (unless (flycheck-get-checker-for-buffer)
                 (setq-local js2-mode-show-parse-errors t)
-                (setq-local js2-mode-show-strict-warnings t)))))
+                (setq-local js2-mode-show-strict-warnings t))))
+
+  (when (fboundp 'web-beautify-js)
+    (add-to-list 'buffer-beautify-alist '(js2-mode . web-beautify-js))))
 
 (after-load 'rjsx-mode
   (define-key rjsx-mode-map "<" nil)
@@ -39,8 +37,7 @@
   (define-key rjsx-mode-map (kbd "C-d") nil)
   (add-hook 'rjsx-mode-hook
             (lambda ()
-              (setq mode-name "JS2-JSX")
-              (setq deep-buffer-indent-function nil))))
+              (setq mode-name "JS2-JSX"))))
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))

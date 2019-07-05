@@ -64,30 +64,6 @@
                    name (file-name-nondirectory new-name)))))))
 (global-set-key (kbd "M-g f r") 'rename-current-buffer-file)
 
-;; buffer indent
-
-(defvar buffer-indent-ignore-modes
-  '(sql-mode text-mode shell-mode eshell-mode term-mode))
-(defvar-local buffer-indent-function nil)
-(defvar-local deep-buffer-indent-function nil)
-
-(defun indent-current-buffer ()
-  (interactive)
-  (if (functionp buffer-indent-function)
-      (funcall buffer-indent-function)
-    (unless (apply 'derived-mode-p buffer-indent-ignore-modes)
-      (save-excursion
-        (delete-trailing-whitespace)
-        (indent-region (point-min) (point-max))))))
-(global-set-key (kbd "<f12>")   'indent-current-buffer)
-
-(defun deep-indent-current-buffer ()
-  (interactive)
-  (if (functionp deep-buffer-indent-function)
-      (funcall deep-buffer-indent-function)
-    (indent-current-buffer)))
-(global-set-key (kbd "M-<f12>") 'deep-indent-current-buffer)
-
 ;; comment
 
 (defun comment-like-eclipse ()
@@ -125,6 +101,28 @@
     (when (= oldpos (point))
       (end-of-line))))
 (global-set-key [remap move-end-of-line] 'smart-end-of-line)
+
+;; buffer indent & beautify
+
+(defvar buffer-indent-disabled-modes
+  '(sql-mode text-mode shell-mode eshell-mode term-mode))
+(defun buffer-intent ()
+  (interactive)
+  (unless (apply 'derived-mode-p buffer-indent-disabled-modes)
+    (save-excursion
+      (delete-trailing-whitespace)
+      (indent-region (point-min) (point-max)))))
+(global-set-key (kbd "<f12>")  'buffer-intent)
+
+(defvar buffer-beautify-alist nil)
+(defun buffer-beautify ()
+  (interactive)
+  (let ((beautify (cdr (assoc major-mode buffer-beautify-alist))))
+    (if (not beautify)
+        (buffer-intent)
+      (save-excursion
+        (funcall beautify)))))
+(global-set-key (kbd "M-<f12>") 'buffer-beautify)
 
 (provide 'init-enhance)
 ;; Local Variables:
