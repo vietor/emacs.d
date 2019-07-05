@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'seq)
+(require 'subr-x)
+
 ;;; package
 
 (require 'package)
@@ -12,11 +15,15 @@
       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
                         user-emacs-directory))
 
+(defvar used-packages nil)
+
 (defun use-package (package &optional no-refresh)
   "Install given PACKAGE, If NO-REFRESH is non-nil, not refresh package lists."
   (when (not(package-installed-p package))
     (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
+        (progn
+          (package-install package)
+          (add-to-list 'used-packages package))
       (progn
         (package-refresh-contents)
         (use-package package t)))))
@@ -32,9 +39,12 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+(when (fboundp 'package--save-selected-packages)
+  (add-hook 'after-init-hook
+            (lambda () (package--save-selected-packages
+                   (seq-uniq (append used-packages package-selected-packages))))))
+
 ;;; necessary functons
-(require 'seq)
-(require 'subr-x)
 
 (defalias 'after-load 'with-eval-after-load)
 
