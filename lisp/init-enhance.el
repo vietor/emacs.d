@@ -120,8 +120,12 @@
   (let ((beautify (cdr (assoc major-mode buffer-beautify-alist))))
     (if (not beautify)
         (buffer-intent)
-      (save-excursion
-        (funcall beautify)))))
+      (let ((c-point (point))
+            (w-start (window-start)))
+        (funcall beautify)
+        (goto-char c-point)
+        (goto-char (line-beginning-position))
+        (set-window-start (selected-window) w-start)))))
 (global-set-key (kbd "M-<f12>") 'buffer-beautify)
 
 (provide 'init-enhance)
