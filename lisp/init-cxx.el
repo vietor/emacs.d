@@ -7,9 +7,9 @@
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces, IGNORED."
   (let* ((anchor (c-langelem-pos c-syntactic-element))
-	 (column (c-langelem-2nd-pos c-syntactic-element))
-	 (offset (- (1+ column) anchor))
-	 (steps (floor offset c-basic-offset)))
+         (column (c-langelem-2nd-pos c-syntactic-element))
+         (offset (- (1+ column) anchor))
+         (steps (floor offset c-basic-offset)))
     (* (max steps 1)
        c-basic-offset)))
 
@@ -44,11 +44,8 @@
               (setq tab-width c-basic-offset))))
 
 (after-load 'flycheck
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (is-cxx-mode)
-                (setq flycheck-gcc-language-standard "c++11")
-                (setq flycheck-clang-language-standard "c++11")))))
+  (setq-default flycheck-gcc-language-standard "c++11")
+  (setq-default flycheck-clang-language-standard "c++11"))
 
 (provide 'init-cxx)
 ;; Local Variables:
