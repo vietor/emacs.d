@@ -32,6 +32,11 @@
  (setq smex-save-file (aproject-store-file "smex")))
 (global-set-key [remap execute-extended-command] 'smex)
 
+(use-package 'which-key)
+(add-hook 'after-init-hook 'which-key-mode)
+(after-load 'which-key
+  (diminish 'which-key-mode))
+
 ;; buffer and file
 
 (defun browse-current-file ()
