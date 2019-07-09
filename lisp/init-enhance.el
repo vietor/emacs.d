@@ -109,9 +109,8 @@
 (defun buffer-intent ()
   (interactive)
   (unless (apply 'derived-mode-p buffer-indent-disabled-modes)
-    (save-excursion
-      (delete-trailing-whitespace)
-      (indent-region (point-min) (point-max)))))
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max))))
 (global-set-key (kbd "<f12>")  'buffer-intent)
 
 (defvar buffer-beautify-alist nil)
