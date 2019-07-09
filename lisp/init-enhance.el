@@ -34,6 +34,15 @@
 
 ;; buffer and file
 
+(defun browse-current-file ()
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if (and (fboundp 'tramp-tramp-file-p)
+             (tramp-tramp-file-p filename))
+        (error "Cannot open tramp file")
+      (browse-url (concat "file://" filename)))))
+(global-set-key (kbd "M-g f b") 'browse-current-file)
+
 (defun delete-current-buffer-file ()
   (interactive)
   (let ((filename (buffer-file-name))
