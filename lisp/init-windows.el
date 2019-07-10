@@ -69,17 +69,24 @@
 
 (defun switch-to-scratch-buffer ()
   (interactive)
-  (let ((buffer (get-buffer-create "*scratch*")))
-    (set-buffer-major-mode buffer)
+  (let ((exists (get-buffer "*scratch*"))
+        (buffer (get-buffer-create "*scratch*")))
+    (unless exists
+      (set-buffer-major-mode buffer))
     (switch-to-buffer buffer)))
 (global-set-key (kbd "<f8>")    'switch-to-scratch-buffer)
 
 (defun switch-to-empty-scratch-buffer ()
   (interactive)
-  (switch-to-scratch-buffer)
-  (buffer-disable-undo)
-  (erase-buffer)
-  (buffer-enable-undo))
+  (let ((buffer (get-buffer "*scratch*")))
+    (if buffer
+        (progn
+          (buffer-disable-undo)
+          (erase-buffer)
+          (buffer-enable-undo))
+      (setq buffer (get-buffer-create "*scratch*")))
+    (set-buffer-major-mode buffer)
+    (switch-to-buffer buffer)))
 (global-set-key (kbd "C-<f8>")  'switch-to-empty-scratch-buffer)
 
 (defun switch-to-shell-buffer ()
