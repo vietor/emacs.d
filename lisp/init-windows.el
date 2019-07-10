@@ -69,7 +69,9 @@
 
 (defun switch-to-scratch-buffer ()
   (interactive)
-  (switch-to-buffer (get-buffer-create "*scratch*")))
+  (let ((buffer (get-buffer-create "*scratch*")))
+    (set-buffer-major-mode buffer)
+    (switch-to-buffer buffer)))
 (global-set-key (kbd "<f8>")    'switch-to-scratch-buffer)
 
 (defun switch-to-empty-scratch-buffer ()
