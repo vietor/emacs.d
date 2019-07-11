@@ -17,15 +17,8 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (setq company-dabbrev-downcase nil)
   (setq-default company-dabbrev-other-buffers 'all
-                company-tooltip-align-annotations t))
-
-(setq hippie-expand-try-functions-list
-      '(try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-dabbrev
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill))
-(global-set-key (kbd "M-/") 'hippie-expand)
+                company-tooltip-align-annotations t)
+  (global-set-key (kbd "M-C-/") 'company-complete))
 
 (provide 'init-company)
 ;; Local Variables:
