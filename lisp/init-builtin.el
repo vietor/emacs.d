@@ -24,8 +24,9 @@
 (global-unset-key (kbd "<f12>"))
 
 (global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "C-SPC"))
+(global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-x C-e"))
 
 ;; disable files
 
