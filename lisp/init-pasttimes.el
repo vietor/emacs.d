@@ -9,8 +9,7 @@
               newsticker-automatically-mark-items-as-old nil
               newsticker-url-list-defaults nil
               newsticker-url-list '(("xkcd" "https://www.xkcd.com/rss.xml" nil nil nil)
-                                    ("slashdot" "http://rss.slashdot.org/Slashdot/slashdot" nil nil nil)
-                                    ("endlessparentheses" "http://endlessparentheses.com/atom.xml" nil nil nil)))
+                                    ("slashdot" "http://rss.slashdot.org/Slashdot/slashdot" nil nil nil)))
 
 (provide 'init-pasttimes)
 ;; Local Variables:
