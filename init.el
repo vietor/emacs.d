@@ -43,6 +43,8 @@
 (require 'init-textmodes)
 (require 'init-progmodes)
 
+(require 'init-pasttimes)
+
 (when (file-exists-p custom-file)
   (load custom-file))
 
