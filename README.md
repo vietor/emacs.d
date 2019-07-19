@@ -6,7 +6,7 @@ This repository contains my personal Emacs configuration. I don't recommend othe
 
 ## Bookmark
 
-|*Key*|*method*|
+|**Key**|**Function**|
 |---|---|
 |C-x r m|bookmark-set|
 |C-x r b|bookmark-jump|
@@ -14,6 +14,6 @@ This repository contains my personal Emacs configuration. I don't recommend othe
 
 ## Others
 
-|*Key*|*method*|
+|**Key**|**Function**|
 |---|---|
 |C-x \* q|quick-calc|
