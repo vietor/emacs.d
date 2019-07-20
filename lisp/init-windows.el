@@ -10,62 +10,7 @@
       aw-background nil)
 (global-set-key (kbd "C-x o") 'ace-window)
 
-(defun kill-current-buffer ()
-  (interactive)
-  (kill-buffer (current-buffer))
-  (ignore-errors
-    (delete-window)))
-(global-set-key (kbd "C-x C-k") 'kill-current-buffer)
-
-(defun kill-buffers-exclude-current ()
-  (interactive)
-  (delete-other-windows)
-  (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
-(global-set-key (kbd "C-x 4 1") 'kill-buffers-exclude-current)
-
-(defun kill-buffers-switch-scratch ()
-  (interactive)
-  (delete-other-windows)
-  (switch-to-buffer (get-buffer-create "*scratch*"))
-  (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
-(global-set-key (kbd "C-x 4 0") 'kill-buffers-switch-scratch)
-
-(defun toggle-delete-other-windows ()
-  (interactive)
-  (if (and winner-mode
-           (equal (selected-window) (next-window)))
-      (winner-undo)
-    (delete-other-windows)))
-(global-set-key (kbd "C-x 1") 'toggle-delete-other-windows)
-
-(defun split-window-func-with-other-buffer (split-function)
-  (lambda (&optional arg)
-    (interactive "P")
-    (funcall split-function)
-    (let ((target-window (next-window)))
-      (set-window-buffer target-window (other-buffer))
-      (unless arg
-        (select-window target-window)))))
-(global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
-
-(defun split-window-horizontally-instead ()
-  (interactive)
-  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
-    (delete-other-windows)
-    (split-window-horizontally)
-    (when other-buffer
-      (set-window-buffer (next-window) other-buffer))))
-(global-set-key (kbd "C-x 4 3") 'split-window-horizontally-instead)
-
-(defun split-window-vertically-instead ()
-  (interactive)
-  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
-    (delete-other-windows)
-    (split-window-vertically)
-    (when other-buffer
-      (set-window-buffer (next-window) other-buffer))))
-(global-set-key (kbd "C-x 4 2") 'split-window-vertically-instead)
+;; switch buffers
 
 (defun switch-to-scratch-buffer ()
   (interactive)
@@ -112,6 +57,67 @@
     (when buffer
       (switch-to-buffer buffer))))
 (global-set-key (kbd "<f7>")  'switch-to-candidate-buffer)
+
+;; kill buffers
+
+(defun kill-current-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer))
+  (ignore-errors
+    (delete-window)))
+(global-set-key (kbd "C-x C-k") 'kill-current-buffer)
+
+(defun kill-buffers-exclude-current ()
+  (interactive)
+  (delete-other-windows)
+  (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
+(global-set-key (kbd "C-x 4 1") 'kill-buffers-exclude-current)
+
+(defun kill-buffers-switch-scratch ()
+  (interactive)
+  (delete-other-windows)
+  (switch-to-empty-scratch-buffer)
+  (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
+(global-set-key (kbd "C-x 4 0") 'kill-buffers-switch-scratch)
+
+(defun toggle-delete-other-windows ()
+  (interactive)
+  (if (and winner-mode
+           (equal (selected-window) (next-window)))
+      (winner-undo)
+    (delete-other-windows)))
+(global-set-key (kbd "C-x 1") 'toggle-delete-other-windows)
+
+;; split windows
+
+(defun split-window-func-with-other-buffer (split-function)
+  (lambda (&optional arg)
+    (interactive "P")
+    (funcall split-function)
+    (let ((target-window (next-window)))
+      (set-window-buffer target-window (other-buffer))
+      (unless arg
+        (select-window target-window)))))
+(global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
+(global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
+
+(defun split-window-horizontally-instead ()
+  (interactive)
+  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
+    (delete-other-windows)
+    (split-window-horizontally)
+    (when other-buffer
+      (set-window-buffer (next-window) other-buffer))))
+(global-set-key (kbd "C-x 4 3") 'split-window-horizontally-instead)
+
+(defun split-window-vertically-instead ()
+  (interactive)
+  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
+    (delete-other-windows)
+    (split-window-vertically)
+    (when other-buffer
+      (set-window-buffer (next-window) other-buffer))))
+(global-set-key (kbd "C-x 4 2") 'split-window-vertically-instead)
 
 (provide 'init-windows)
 ;; Local Variables:
