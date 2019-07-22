@@ -127,12 +127,17 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace t))))
 
+(setq-default whitespace-style
+              '(face spaces tabs newline space-mark tab-mark newline-mark))
+(global-set-key (kbd "M-g w") 'whitespace-mode)
+
 (when (fboundp 'display-line-numbers-mode)
   (setq-default display-line-numbers-width 3)
   (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
 
 (when (fboundp 'global-prettify-symbols-mode)
   (add-hook 'after-init-hook 'global-prettify-symbols-mode))
+
 
 ;; key binds
 
