@@ -158,11 +158,13 @@
 
 (define-key global-map [remap list-buffers] 'ibuffer)
 
-;; fix render slow
+;; fix sometime slow
 
 (when system-is-win
-  (setq inhibit-compacting-font-caches t))
-(setq-default  bidi-display-reordering nil)
+  (setq w32-pipe-read-delay 0
+        w32-pipe-buffer-size (* 64 1024)
+        inhibit-compacting-font-caches t))
+(setq-default bidi-display-reordering nil)
 
 ;; helper for aproject
 
