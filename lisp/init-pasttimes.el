@@ -9,7 +9,6 @@
               newsticker-automatically-mark-items-as-old nil
               newsticker-url-list-defaults nil
               newsticker-url-list '(("xkcd" "https://www.xkcd.com/rss.xml" nil nil nil)
-                                    ("nixCraft" "https://www.cyberciti.biz/feed/" nil nil nil)
                                     ("Slashdot" "http://rss.slashdot.org/Slashdot/slashdot" nil nil nil)
                                     ("Linux Journal" "https://www.linuxjournal.com/node/feed" nil nil nil)))
 
