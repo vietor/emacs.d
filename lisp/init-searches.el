@@ -34,8 +34,7 @@
   (add-to-list 'xref-backend-functions 'agtags-xref-backend)
 
   (agtags-update-parser)
-  (after-aproject-change (agtags-update-root aproject-rootdir))
-  (add-hook 'aproject-environ-change-hook 'agtags-update-parser))
+  (after-aproject-change (agtags-update-root aproject-rootdir)))
 
 (provide 'init-searches)
 ;; Local Variables:
