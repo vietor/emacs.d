@@ -13,6 +13,7 @@
       (utf8-locale-p (getenv "LC_CTYPE"))
       (utf8-locale-p (getenv "LANG"))))
 
+(setq system-time-locale "C")
 (when (or window-system (locale-is-utf8-p))
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
