@@ -20,15 +20,17 @@
 
 (setq org-default-notes-file (concat org-directory "gtd.org")
       org-capture-templates
-      `(("t" "Todo" entry (file "")
+      '(("t" "Todo" entry (file "")
          "* TODO %?\n%U\n" :clock-resume t)
         ("j" "Journal" entry (file+datetree "journal.org")
          "* %U - %^{heading}\n  %?")))
 
 (setq org-todo-keywords
-      `((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)" "CANCELLED(c)"))
+      '((sequence "TODO(t)" "START(s)" "WAIT(w@/!)" "|" "DONE(d!/!)" "CANCELED(c@/!)"))
       org-todo-keyword-faces
-      `(("NEXT" :inherit warning)))
+      '(("TODO" :inherit warning)
+        ("START" :inherit font-lock-string-face)
+        ("WAIT" :inherit error)))
 
 ;; Agenda
 
