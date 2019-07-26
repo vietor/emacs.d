@@ -30,7 +30,9 @@
       org-todo-keyword-faces
       '(("TODO" :inherit warning)
         ("START" :inherit font-lock-string-face)
-        ("WAIT" :inherit error)))
+        ("WAIT" :inherit error))
+      org-enforce-todo-dependencies t
+      org-enforce-todo-checkbox-dependencies t)
 
 ;; Agenda
 
