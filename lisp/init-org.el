@@ -26,6 +26,7 @@
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "START(s!)" "WAIT(w@)" "|" "DONE(d!)" "CANCELED(c@)"))
+      org-todo-repeat-to-state "START"
       org-todo-keyword-faces
       '(("TODO" :inherit warning)
         ("START" :inherit font-lock-string-face)
@@ -33,7 +34,7 @@
       org-enforce-todo-dependencies t
       org-enforce-todo-checkbox-dependencies t)
 
-;; Agenda
+;; Agenda View
 
 (define-key global-map (kbd "M-g o a") 'org-agenda)
 
@@ -43,7 +44,12 @@
       org-agenda-sticky t
       org-agenda-start-on-weekday nil
       org-agenda-span 'day
-      org-agenda-include-diary nil)
+      org-agenda-include-diary nil
+      org-agenda-sorting-strategy
+      '((agenda habit-down time-up user-defined-up effort-up category-keep)
+        (todo category-up effort-up)
+        (tags category-up effort-up)
+        (search category-up)))
 (after-load 'org-agenda
   (add-to-list 'org-agenda-after-show-hook 'org-show-entry)
   (add-hook 'org-agenda-mode-hook
