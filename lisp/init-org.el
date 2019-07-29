@@ -25,7 +25,7 @@
          "* %U - %^{heading}\n  %?")))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "START(s!)" "WAIT(w@)" "|" "DONE(d!/!)" "CANCELED(c@/!)"))
+      '((sequence "TODO(t)" "START(s!)" "WAIT(w@)" "|" "DONE(d!)" "CANCELED(c@)"))
       org-todo-keyword-faces
       '(("TODO" :inherit warning)
         ("START" :inherit font-lock-string-face)
