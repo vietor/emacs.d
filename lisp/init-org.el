@@ -2,9 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq org-directory "~/org/")
-
-(setq org-log-done t
+(setq org-directory "~/org/"
+      org-log-done 'time
       org-edit-timestamp-down-means-later t
       org-hide-emphasis-markers t
       org-catch-invisible-edits 'show
@@ -21,12 +20,12 @@
 (setq org-default-notes-file (concat org-directory "gtd.org")
       org-capture-templates
       '(("t" "Todo" entry (file "")
-         "* TODO %?\n%U\n" :clock-resume t)
+         "* TODO %?\n%U\n")
         ("j" "Journal" entry (file+datetree "journal.org")
          "* %U - %^{heading}\n  %?")))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "START(s)" "WAIT(w@/!)" "|" "DONE(d!/!)" "CANCELED(c@/!)"))
+      '((sequence "TODO(t)" "START(s!)" "WAIT(w@)" "|" "DONE(d!/!)" "CANCELED(c@/!)"))
       org-todo-keyword-faces
       '(("TODO" :inherit warning)
         ("START" :inherit font-lock-string-face)
