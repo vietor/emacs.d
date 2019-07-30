@@ -18,6 +18,9 @@ This repository contains my personal Emacs configuration. I don't recommend othe
 |---|---|
 |C-c C-t|org-todo|
 |C-c C-d|org-deadline|
+|C-u C-c C-d|remove org-deadline|
+|C-c C-s|org-schedule|
+|C-u C-c C-s|remove org-schedule|
 |C-c / d|org-check-deadlines|
 
 
