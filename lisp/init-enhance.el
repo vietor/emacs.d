@@ -27,9 +27,12 @@
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
-(use-package 'smex)
+(use-package 'smex t)
+(before-aproject-change
+ (smex-save-to-file))
 (after-aproject-change
- (setq smex-save-file (aproject-store-file "smex")))
+ (setq smex-save-file (aproject-store-file "smex"))
+ (smex-load-save-file))
 (global-set-key [remap execute-extended-command] 'smex)
 
 (use-package 'which-key)

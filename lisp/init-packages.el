@@ -17,21 +17,23 @@
 
 (defvar used-packages nil)
 
-(defun use-package (package &optional no-refresh)
-  "Install given PACKAGE, If NO-REFRESH is non-nil, not refresh package lists."
-  (when (not(package-installed-p package))
+(defun use-package (package &optional do-require no-refresh)
+  "Install given PACKAGE, If DO-REQUIRE is non-nil `require` it, If NO-REFRESH is non-nil, not refresh package lists."
+  (if (package-installed-p package)
+      (when do-require (require package))
     (if (or (assoc package package-archive-contents) no-refresh)
         (progn
           (package-install package)
+          (when do-require (require package))
           (add-to-list 'used-packages package))
       (progn
         (package-refresh-contents)
-        (use-package package t)))))
+        (use-package package do-require t)))))
 
-(defun try-use-package (package &optional no-refresh)
-  "Try install given PACKAGE, If NO-REFRESH is non-nil, not refresh package lists."
+(defun try-use-package (package &optional do-require no-refresh)
+  "Try install given PACKAGE, If DO-REQUIRE is non-nil `require` it, If NO-REFRESH is non-nil, not refresh package lists."
   (condition-case err
-      (progn (use-package package no-refresh) t)
+      (progn (use-package package do-require no-refresh) t)
     (error
      (message "Couldn't install optional package `%s': %S" package err)
      nil)))
