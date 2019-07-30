@@ -11,7 +11,8 @@
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80)
+      org-tags-column 80
+      org-deadline-warning-days 7)
 
 ;; Capture
 
