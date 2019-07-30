@@ -27,12 +27,8 @@
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
-(use-package 'smex t)
-(before-aproject-change
- (smex-save-to-file))
-(after-aproject-change
- (setq smex-save-file (aproject-store-file "smex"))
- (smex-load-save-file))
+(use-package 'smex)
+(setq-default smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
 (global-set-key [remap execute-extended-command] 'smex)
 
 (use-package 'which-key)
