@@ -33,7 +33,6 @@
     (add-hook hook 'agtags-mode-on))
   (add-to-list 'xref-backend-functions 'agtags-xref-backend)
 
-  (agtags-update-parser)
   (after-aproject-change (agtags-update-root aproject-rootdir)))
 
 (provide 'init-searches)
