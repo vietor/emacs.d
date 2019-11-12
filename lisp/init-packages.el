@@ -60,6 +60,7 @@
 (use-package 'diminish)
 (use-package 'fullframe)
 
+(setq aproject-plugin-environ t)
 (global-set-key (kbd "C-x p") 'aproject-change-project)
 
 (provide 'init-packages)

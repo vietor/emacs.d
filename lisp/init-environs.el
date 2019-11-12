@@ -46,6 +46,12 @@
 
 (custom-environ (expand-file-name "setenv" user-emacs-directory))
 
+(after-aproject-change
+ (dolist (subdir '("node_modules/.bin/"))
+   (let ((bindir (concat aproject-rootdir "/" subdir)))
+     (when (file-directory-p bindir)
+       (smart-setenv "PATH" bindir)))))
+
 ;; open emacs
 
 (when window-system
