@@ -48,7 +48,7 @@
 
 (after-aproject-change
  (dolist (subdir '("node_modules/.bin/"))
-   (let ((bindir (concat aproject-rootdir "/" subdir)))
+   (let ((bindir (aproject-root-file subdir)))
      (when (file-directory-p bindir)
        (smart-setenv "PATH" bindir)))))
 
