@@ -11,9 +11,7 @@
                 ivy-count-format ""
                 ivy-magic-tilde nil
                 ivy-dynamic-exhibit-delay-ms 150
-                ivy-use-selectable-prompt t
-                ivy-initial-inputs-alist '((Man-completion-table . "^")
-                                           (woman . "^")))
+                ivy-use-selectable-prompt t)
   (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
   (dolist (k '("C-j" "C-RET"))
     (define-key ivy-minibuffer-map (kbd k) #'ivy-immediate-done)))
@@ -23,7 +21,9 @@
 (after-load 'counsel
   (diminish 'counsel-mode)
   (global-set-key (kbd "M-g f o") 'counsel-recentf)
-  (setq-default counsel-mode-override-describe-bindings t))
+  (setq-default counsel-mode-override-describe-bindings t
+                ivy-initial-inputs-alist '((Man-completion-table . "^")
+                                           (woman . "^"))))
 
 (use-package 'swiper)
 (after-load 'ivy
