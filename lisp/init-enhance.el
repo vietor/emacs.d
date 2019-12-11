@@ -118,11 +118,15 @@
 
 ;; buffer indent & beautify
 
+(defvar buffer-indent-enabled-modes
+  '(nxml-mode))
 (defvar buffer-indent-disabled-modes
   '(sql-mode text-mode shell-mode eshell-mode term-mode))
+
 (defun buffer-intent ()
   (interactive)
-  (unless (apply 'derived-mode-p buffer-indent-disabled-modes)
+  (when (or (apply 'derived-mode-p buffer-indent-enabled-modes)
+            (not (apply 'derived-mode-p buffer-indent-disabled-modes)))
     (delete-trailing-whitespace)
     (indent-region (point-min) (point-max))))
 (global-set-key (kbd "<f12>")  'buffer-intent)
