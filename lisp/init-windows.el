@@ -23,15 +23,10 @@
 
 (defun switch-to-empty-scratch-buffer ()
   (interactive)
-  (let ((buffer (get-buffer "*scratch*")))
-    (if buffer
-        (progn
-          (buffer-disable-undo)
-          (erase-buffer)
-          (buffer-enable-undo))
-      (setq buffer (get-buffer-create "*scratch*")))
-    (set-buffer-major-mode buffer)
-    (switch-to-buffer buffer)))
+  (switch-to-scratch-buffer)
+  (buffer-disable-undo)
+  (erase-buffer)
+  (buffer-enable-undo))
 (global-set-key (kbd "C-<f8>")  'switch-to-empty-scratch-buffer)
 
 (defun switch-to-shell-buffer ()
