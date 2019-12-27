@@ -2,23 +2,22 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq system-time-locale "C")
+
 (defun utf8-locale-p (v)
   "Test string V match UTF-8."
-  (and v (string-match-p "UTF-8" v)))
+  (and v (or (string-match-p "UTF8" v) (string-match-p "UTF-8" v))))
 
-(defun locale-is-utf8-p ()
-  "Test local strings match UTF-8."
-  (or (utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
-      (utf8-locale-p (getenv "LC_ALL"))
-      (utf8-locale-p (getenv "LC_CTYPE"))
-      (utf8-locale-p (getenv "LANG"))))
+(dolist (varname '("LC_ALL" "LANG" "LC_CTYPE"))
+  (unless (utf8-locale-p (getenv varname))
+    (message "Warning: non-UTF8 encoding in environment variable %s." varname)))
 
-(setq system-time-locale "C")
-(when (or window-system (locale-is-utf8-p))
-  (set-language-environment 'utf-8)
-  (setq locale-coding-system 'utf-8)
-  (set-selection-coding-system (if system-is-win 'utf-16-le 'utf-8))
-  (prefer-coding-system 'utf-8))
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(unless (eq system-type 'windows-nt)
+  (set-selection-coding-system 'utf-8))
 
 (provide 'init-locales)
 ;; Local Variables:
