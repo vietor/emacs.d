@@ -38,7 +38,7 @@
      (message "Couldn't install optional package `%s': %S" package err)
      nil)))
 
-(setq package-enable-at-startup nil)
+;; Fire up
 (package-initialize)
 
 (when (fboundp 'package--save-selected-packages)

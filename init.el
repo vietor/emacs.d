@@ -22,6 +22,9 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+(unless (boundp 'early-init-file)
+  (load (concat (file-name-directory load-file-name) "early-init") nil t))
+
 (require 'init-packages)
 (require 'init-environs)
 (require 'init-locales)
