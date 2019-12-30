@@ -17,10 +17,9 @@
 ;; The `load-path' config
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 (let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
-  (when (file-accessible-directory-p default-directory)
-    (normal-top-level-add-subdirs-to-load-path)))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;;----------------------------------------------------------------------------
 ;; Adjust garbage collection
