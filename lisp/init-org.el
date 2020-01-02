@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq org-directory "~/org/"
+(setq org-directory "~/Documents/org/"
       org-log-done 'time
       org-edit-timestamp-down-means-later t
       org-hide-emphasis-markers t
