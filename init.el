@@ -56,8 +56,8 @@
 (require 'init-searches)
 
 (require 'init-cxx)
-(require 'init-jvm)
 (require 'init-web)
+(require 'init-java)
 (require 'init-javascript)
 (require 'init-textmodes)
 (require 'init-progmodes)
