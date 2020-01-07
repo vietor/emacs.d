@@ -2,11 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'seq)
-(require 'subr-x)
-
-;;; package
-
 (require 'package)
 
 (add-to-list 'package-archives
@@ -42,17 +37,11 @@
 (package-initialize)
 
 (when (fboundp 'package--save-selected-packages)
-  (add-hook 'after-init-hook
-            (lambda () (package--save-selected-packages
-                   (seq-uniq (append used-packages package-selected-packages))))))
-
-;;; necessary functons
-
-(defalias 'after-load 'with-eval-after-load)
-
-(unless (fboundp 'buffer-major-mode)
-  (defun buffer-major-mode (buffer)
-    (buffer-local-value 'major-mode buffer)))
+  (defun fix-package-selected-packages()
+    (package--save-selected-packages
+     (seq-uniq (append used-packages
+                       package-selected-packages))))
+  (add-hook 'after-init-hook 'fix-package-selected-packages))
 
 ;;; necessary packages
 
