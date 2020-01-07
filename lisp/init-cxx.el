@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; linux kernel
+;; linux kernel style
 
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces, IGNORED."
@@ -31,17 +31,15 @@
 
 ;; cxx mode
 
-(defun is-cxx-mode ()
-  "Test current buffer was cxx mode."
-  (or (eq major-mode 'c-mode)
-      (eq major-mode 'c++-mode)))
+(defun cxx-mode-on ()
+  "Set current buffer to cxx mode."
+  (when (or (eq major-mode 'c-mode)
+            (eq major-mode 'c++-mode))
+    (kernel-set-c-style))
+  (when indent-tabs-mode
+    (setq tab-width c-basic-offset)))
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (is-cxx-mode)
-              (kernel-set-c-style))
-            (when indent-tabs-mode
-              (setq tab-width c-basic-offset))))
+(add-hook 'c-mode-common-hook 'cxx-mode-on)
 
 (after-load 'flycheck
   (setq-default flycheck-gcc-language-standard "c++11")
