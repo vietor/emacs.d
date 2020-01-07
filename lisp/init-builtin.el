@@ -34,8 +34,6 @@
       make-backup-files nil
       auto-save-default nil
       auto-save-list-file-prefix nil)
-(when system-is-win
-  (setq w32-get-true-file-attributes nil))
 
 ;; disable gui
 
@@ -163,9 +161,10 @@
 ;; fix sometime slow
 
 (when system-is-win
-  (setq w32-pipe-read-delay 0
-        w32-pipe-buffer-size (* 64 1024)
-        inhibit-compacting-font-caches t))
+  (setq  w32-pipe-read-delay 0
+         w32-pipe-buffer-size (* 64 1024)
+         w32-get-true-file-attributes nil
+         inhibit-compacting-font-caches t))
 (setq-default bidi-display-reordering nil)
 
 ;; helper for aproject
