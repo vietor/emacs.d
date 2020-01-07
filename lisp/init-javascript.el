@@ -10,11 +10,11 @@
 
 ;; javascript
 
-(use-package 'js2-mode)
-(use-package 'rjsx-mode)
 (when (executable-find "js-beautify")
   (use-package 'web-beautify))
 
+(use-package 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (after-load 'js2-mode
   (define-key js2-mode-map (kbd "M-.") nil)
   (setq-default js2-bounce-indent-p nil
@@ -31,6 +31,8 @@
   (when (fboundp 'web-beautify-js)
     (add-to-list 'buffer-beautify-alist '(js2-mode . web-beautify-js))))
 
+(use-package 'rjsx-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
 (after-load 'rjsx-mode
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map ">" nil)
@@ -38,9 +40,6 @@
   (add-hook 'rjsx-mode-hook
             (lambda ()
               (setq mode-name "JS2-JSX"))))
-
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
 
 ;; helper for company-mode
 

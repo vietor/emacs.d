@@ -17,8 +17,8 @@
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (setq-default company-dabbrev-other-buffers 'all
-                company-tooltip-align-annotations t)
-  (global-set-key (kbd "M-C-/") 'company-complete))
+                company-tooltip-align-annotations t))
+(global-set-key (kbd "M-C-/") 'company-complete)
 
 (provide 'init-company)
 ;; Local Variables:

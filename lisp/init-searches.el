@@ -13,8 +13,9 @@
 ;; wgrep
 
 (use-package 'wgrep)
-(setq wgrep-enable-key "e")
-(setq wgrep-auto-save-buffer t)
+(after-load 'wgrep
+  (setq wgrep-enable-key "e")
+  (setq wgrep-auto-save-buffer t))
 
 ;; gtags
 

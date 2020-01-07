@@ -25,15 +25,8 @@
         (package-refresh-contents)
         (use-package package do-require t)))))
 
-(defun try-use-package (package &optional do-require no-refresh)
-  "Try install given PACKAGE, If DO-REQUIRE is non-nil `require` it, If NO-REFRESH is non-nil, not refresh package lists."
-  (condition-case err
-      (progn (use-package package do-require no-refresh) t)
-    (error
-     (message "Couldn't install optional package `%s': %S" package err)
-     nil)))
-
 ;; Fire up
+
 (package-initialize)
 
 (when (fboundp 'package--save-selected-packages)
@@ -45,12 +38,13 @@
 
 ;;; necessary packages
 
-(use-package 'aproject)
 (use-package 'diminish)
 (use-package 'fullframe)
 
-(setq aproject-plugin-environ t)
-(global-set-key (kbd "C-x p") 'aproject-change-project)
+(use-package 'aproject)
+(after-load 'aproject
+  (setq aproject-plugin-environ t)
+  (global-set-key (kbd "C-x p") 'aproject-change-project))
 
 (provide 'init-packages)
 ;; Local Variables:

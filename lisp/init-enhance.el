@@ -28,7 +28,8 @@
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
 (use-package 'smex)
-(setq-default smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
+(after-load 'smex
+  (setq-default smex-save-file (expand-file-name ".smex-items" user-emacs-directory)))
 (global-set-key [remap execute-extended-command] 'smex)
 
 (use-package 'which-key)

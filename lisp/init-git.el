@@ -9,7 +9,8 @@
 
 (when (executable-find "git")
   (use-package 'magit)
-  (setq-default magit-diff-refine-hunk t)
+  (after-load 'magit
+    (setq-default magit-diff-refine-hunk t))
   (global-set-key (kbd "C-x g") 'magit-status)
 
   (defun magit-vc-print-log (&optional prompt)
@@ -20,6 +21,7 @@
             (magit-log-buffer-file-popup)
           (magit-log-buffer-file t))
       (vc-print-log)))
+
   (after-load 'vc
     (define-key vc-prefix-map (kbd "l") 'magit-vc-print-log)))
 
