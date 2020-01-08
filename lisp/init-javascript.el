@@ -29,7 +29,6 @@
   (add-to-list 'buffer-beautify-alist '(js2-mode . web-beautify-js)))
 
 (require-package 'rjsx-mode)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
 (with-eval-after-load 'rjsx-mode
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map ">" nil)
