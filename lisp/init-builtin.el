@@ -120,7 +120,7 @@
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
-(after-load 'autorevert
+(with-eval-after-load 'autorevert
   (diminish 'auto-revert-mode))
 
 (setq-default show-trailing-whitespace nil)

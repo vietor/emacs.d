@@ -10,7 +10,7 @@
 (when (executable-find "git")
   (require-package 'magit)
   (global-set-key (kbd "C-x g") 'magit-status)
-  (after-load 'magit
+  (with-eval-after-load 'magit
     (setq-default magit-diff-refine-hunk t)
     (fullframe magit-status magit-mode-quit-window))
 
@@ -22,7 +22,7 @@
             (magit-log-buffer-file-popup)
           (magit-log-buffer-file t))
       (vc-print-log)))
-  (after-load 'vc
+  (with-eval-after-load 'vc
     (define-key vc-prefix-map (kbd "l") 'magit-vc-print-log)))
 
 (provide 'init-git)

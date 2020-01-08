@@ -5,14 +5,14 @@
 ;; json
 
 (require-package 'json-mode)
-(after-load 'json-mode
+(with-eval-after-load 'json-mode
   (add-to-list 'buffer-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
 (require-package 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(after-load 'js2-mode
+(with-eval-after-load 'js2-mode
   (define-key js2-mode-map (kbd "M-.") nil)
   (setq-default js2-bounce-indent-p nil
                 js2-mode-show-parse-errors nil
@@ -31,7 +31,7 @@
 
 (require-package 'rjsx-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-(after-load 'rjsx-mode
+(with-eval-after-load 'rjsx-mode
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map ">" nil)
   (define-key rjsx-mode-map (kbd "C-d") nil)
@@ -41,10 +41,10 @@
 
 ;; helper for company-mode
 
-(after-load 'company-gtags
+(with-eval-after-load 'company-gtags
   (add-to-list 'company-gtags-modes 'js2-mode))
 
-(after-load 'company-dabbrev-code
+(with-eval-after-load 'company-dabbrev-code
   (add-to-list 'company-dabbrev-code-modes 'js2-mode))
 
 (provide 'init-javascript)

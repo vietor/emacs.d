@@ -13,7 +13,7 @@
 ;; wgrep
 
 (require-package 'wgrep)
-(after-load 'wgrep
+(with-eval-after-load 'wgrep
   (setq wgrep-enable-key "e")
   (setq wgrep-auto-save-buffer t))
 

@@ -51,7 +51,7 @@
         (todo category-up effort-up)
         (tags category-up effort-up)
         (search category-up)))
-(after-load 'org-agenda
+(with-eval-after-load 'org-agenda
   (add-to-list 'org-agenda-after-show-hook 'org-show-entry)
   (add-hook 'org-agenda-mode-hook
             (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t))))

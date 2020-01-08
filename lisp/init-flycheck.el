@@ -4,7 +4,7 @@
 
 (require-package 'flycheck)
 (add-hook 'after-init-hook 'global-flycheck-mode)
-(after-load 'flycheck
+(with-eval-after-load 'flycheck
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
 
 (require-package 'flycheck-color-mode-line)

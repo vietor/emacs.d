@@ -8,7 +8,7 @@
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "M-C-/") 'company-complete)
-(after-load 'company
+(with-eval-after-load 'company
   (setq company-dabbrev-downcase nil
         company-backends '((company-dabbrev-code company-gtags company-keywords)
                            company-files company-dabbrev))

@@ -40,7 +40,6 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs
 
-(require 'init-preload)
 (require 'init-packages)
 (require 'init-environs)
 (require 'init-locales)

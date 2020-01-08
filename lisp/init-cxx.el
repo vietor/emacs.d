@@ -41,7 +41,7 @@
 
 (add-hook 'c-mode-common-hook 'cxx-mode-on)
 
-(after-load 'flycheck
+(with-eval-after-load 'flycheck
   (setq-default flycheck-gcc-language-standard "c++11")
   (setq-default flycheck-clang-language-standard "c++11"))
 

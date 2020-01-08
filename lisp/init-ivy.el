@@ -4,7 +4,7 @@
 
 (require-package 'ivy)
 (add-hook 'after-init-hook 'ivy-mode)
-(after-load 'ivy
+(with-eval-after-load 'ivy
   (diminish 'ivy-mode)
   (setq-default ivy-use-virtual-buffers t
                 ivy-virtual-abbreviate 'fullpath
@@ -18,7 +18,7 @@
 
 (require-package 'counsel)
 (add-hook 'after-init-hook 'counsel-mode)
-(after-load 'counsel
+(with-eval-after-load 'counsel
   (diminish 'counsel-mode)
   (global-set-key (kbd "M-g f o") 'counsel-recentf)
   (setq-default counsel-mode-override-describe-bindings t
@@ -26,7 +26,7 @@
                                            (woman . "^"))))
 
 (require-package 'swiper)
-(after-load 'ivy
+(with-eval-after-load 'ivy
   (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point))
 
 (require-package 'ivy-xref)

@@ -7,13 +7,13 @@
 (require-package 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.njk?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(after-load 'web-mode
+(with-eval-after-load 'web-mode
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil)))
 
-(after-load 'company-dabbrev-code
+(with-eval-after-load 'company-dabbrev-code
   (add-to-list 'company-dabbrev-code-modes 'web-mode))
 
 ;; css

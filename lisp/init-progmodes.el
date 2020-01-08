@@ -5,7 +5,7 @@
 ;; php
 
 (require-package 'php-mode)
-(after-load 'php-mode
+(with-eval-after-load 'php-mode
   (define-key php-mode-map (kbd "C-.") nil))
 
 ;; python

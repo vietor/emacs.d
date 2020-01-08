@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'seq)
+(require 'subr-x)
 (require 'package)
 
 (add-to-list 'package-archives
@@ -38,7 +40,7 @@
 (require-package 'fullframe)
 
 (require-package 'aproject)
-(after-load 'aproject
+(with-eval-after-load 'aproject
   (setq aproject-plugin-environ t)
   (global-set-key (kbd "C-x p") 'aproject-change-project))
 
