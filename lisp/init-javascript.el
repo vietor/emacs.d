@@ -17,13 +17,12 @@
   (setq-default js2-bounce-indent-p nil
                 js2-mode-show-parse-errors nil
                 js2-mode-show-strict-warnings nil)
-
-  (add-hook 'js2-mode-hook
-            (lambda ()
-              (setq mode-name "JS2")
-              (unless (flycheck-get-checker-for-buffer)
-                (setq-local js2-mode-show-parse-errors t)
-                (setq-local js2-mode-show-strict-warnings t)))))
+  (defun js2-mode-on ()
+    (setq mode-name "JS2")
+    (unless (flycheck-get-checker-for-buffer)
+      (setq-local js2-mode-show-parse-errors t)
+      (setq-local js2-mode-show-strict-warnings t)))
+  (add-hook 'js2-mode-hook 'js2-mode-on))
 
 (when (executable-find "js-beautify")
   (require-package 'web-beautify)
@@ -35,9 +34,9 @@
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map ">" nil)
   (define-key rjsx-mode-map (kbd "C-d") nil)
-  (add-hook 'rjsx-mode-hook
-            (lambda ()
-              (setq mode-name "JS2-JSX"))))
+  (defun rjsx-mode-on ()
+    (setq mode-name "JS2-JSX"))
+  (add-hook 'rjsx-mode-hook 'rjsx-mode-on))
 
 ;; helper for company-mode
 
