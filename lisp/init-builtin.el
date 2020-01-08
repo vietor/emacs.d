@@ -156,6 +156,8 @@
 (global-set-key (kbd "M-g j")   'imenu)
 (global-set-key (kbd "M-g r")   'replace-string)
 
+(with-eval-after-load 'ibuffer
+  (fullframe ibuffer ibuffer-quit))
 (define-key global-map [remap list-buffers] 'ibuffer)
 
 ;; fix sometime slow
