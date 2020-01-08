@@ -12,7 +12,7 @@
 
 ;; wgrep
 
-(use-package 'wgrep)
+(require-package 'wgrep)
 (after-load 'wgrep
   (setq wgrep-enable-key "e")
   (setq wgrep-auto-save-buffer t))
@@ -20,7 +20,7 @@
 ;; gtags
 
 (when (executable-find "global")
-  (use-package 'agtags)
+  (require-package 'agtags)
   (require 'agtags-xref)
 
   (defun agtags-mode-on()

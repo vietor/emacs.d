@@ -9,6 +9,7 @@ GTAGS
 /server/
 /transient
 /newsticker
+/smex-items
 
 *.swp
 /tramp

@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package 'ivy)
+(require-package 'ivy)
 (add-hook 'after-init-hook 'ivy-mode)
 (after-load 'ivy
   (diminish 'ivy-mode)
@@ -16,7 +16,7 @@
   (dolist (k '("C-j" "C-RET"))
     (define-key ivy-minibuffer-map (kbd k) #'ivy-immediate-done)))
 
-(use-package 'counsel)
+(require-package 'counsel)
 (add-hook 'after-init-hook 'counsel-mode)
 (after-load 'counsel
   (diminish 'counsel-mode)
@@ -25,11 +25,11 @@
                 ivy-initial-inputs-alist '((Man-completion-table . "^")
                                            (woman . "^"))))
 
-(use-package 'swiper)
+(require-package 'swiper)
 (after-load 'ivy
   (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point))
 
-(use-package 'ivy-xref)
+(require-package 'ivy-xref)
 (if (< emacs-major-version 27)
     (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
   (setq xref-show-definitions-function #'ivy-xref-show-defs))

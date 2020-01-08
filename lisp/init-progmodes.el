@@ -4,7 +4,7 @@
 
 ;; php
 
-(use-package 'php-mode)
+(require-package 'php-mode)
 (after-load 'php-mode
   (define-key php-mode-map (kbd "C-.") nil))
 
@@ -16,7 +16,7 @@
               auto-mode-alist))
 
 (when (executable-find "autopep8")
-  (use-package 'py-autopep8)
+  (require-package 'py-autopep8)
 
   (defun python-mode-beautify ()
     "Deep indent for python."
@@ -29,10 +29,9 @@
 ;; golang
 
 (when (executable-find "go")
-  (use-package 'go-mode)
-  (after-aproject-change
-   (setenv "GOPATH" aproject-rootdir))
-  (add-hook 'before-save-hook 'gofmt-before-save))
+  (require-package 'go-mode)
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (after-aproject-change (setenv "GOPATH" aproject-rootdir)))
 
 (provide 'init-progmodes)
 ;; Local Variables:

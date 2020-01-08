@@ -4,14 +4,15 @@
 
 (setq vc-handled-backends '(Git))
 
-(use-package 'gitignore-mode)
-(use-package 'gitconfig-mode)
+(require-package 'gitignore-mode)
+(require-package 'gitconfig-mode)
 
 (when (executable-find "git")
-  (use-package 'magit)
-  (after-load 'magit
-    (setq-default magit-diff-refine-hunk t))
+  (require-package 'magit)
   (global-set-key (kbd "C-x g") 'magit-status)
+  (after-load 'magit
+    (setq-default magit-diff-refine-hunk t)
+    (fullframe magit-status magit-mode-quit-window))
 
   (defun magit-vc-print-log (&optional prompt)
     (interactive "P")
@@ -21,12 +22,8 @@
             (magit-log-buffer-file-popup)
           (magit-log-buffer-file t))
       (vc-print-log)))
-
   (after-load 'vc
     (define-key vc-prefix-map (kbd "l") 'magit-vc-print-log)))
-
-(after-load 'magit
-  (fullframe magit-status magit-mode-quit-window))
 
 (provide 'init-git)
 ;; Local Variables:

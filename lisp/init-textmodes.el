@@ -4,7 +4,7 @@
 
 ;; markdown
 
-(use-package 'markdown-mode)
+(require-package 'markdown-mode)
 (add-to-list 'buffer-indent-disabled-modes 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 

@@ -16,7 +16,7 @@
       (setq package-selected-packages value)))
   (advice-add 'package--save-selected-packages :override #'fix-save-selected-packages))
 
-(defun use-package (package &optional do-require no-refresh)
+(defun require-package (package &optional do-require no-refresh)
   "Install given PACKAGE, If DO-REQUIRE is non-nil `require` it, If NO-REFRESH is non-nil, not refresh package lists."
   (if (package-installed-p package)
       (when do-require (require package))
@@ -26,7 +26,7 @@
           (when do-require (require package)))
       (progn
         (package-refresh-contents)
-        (use-package package do-require t)))))
+        (require-package package do-require t)))))
 
 ;; Fire up
 
@@ -34,10 +34,10 @@
 
 ;;; necessary packages
 
-(use-package 'diminish)
-(use-package 'fullframe)
+(require-package 'diminish)
+(require-package 'fullframe)
 
-(use-package 'aproject)
+(require-package 'aproject)
 (after-load 'aproject
   (setq aproject-plugin-environ t)
   (global-set-key (kbd "C-x p") 'aproject-change-project))

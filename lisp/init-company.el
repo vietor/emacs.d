@@ -5,8 +5,9 @@
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
 
-(use-package 'company)
+(require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(global-set-key (kbd "M-C-/") 'company-complete)
 (after-load 'company
   (setq company-dabbrev-downcase nil
         company-backends '((company-dabbrev-code company-gtags company-keywords)
@@ -18,7 +19,6 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (setq-default company-dabbrev-other-buffers 'all
                 company-tooltip-align-annotations t))
-(global-set-key (kbd "M-C-/") 'company-complete)
 
 (provide 'init-company)
 ;; Local Variables:

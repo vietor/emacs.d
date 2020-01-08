@@ -3,36 +3,34 @@
 ;;; Code:
 
 (when window-system
-  (use-package 'doom-themes)
+  (require-package 'doom-themes)
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   (load-theme 'doom-one t))
 
-(use-package 'highlight-escape-sequences)
+(require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
 
-(use-package 'move-dup)
+(require-package 'move-dup)
 (global-set-key [M-up] 'md-move-lines-up)
 (global-set-key [M-down] 'md-move-lines-down)
 (global-set-key [M-S-up] 'md-move-lines-up)
 (global-set-key [M-S-down] 'md-move-lines-down)
 
-(use-package 'avy)
+(require-package 'avy)
 (global-set-key (kbd "C-;") 'avy-goto-char-timer)
 
-(use-package 'multiple-cursors)
+(require-package 'multiple-cursors)
 (defun mc/save-lists () "Ignore save history.")
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
-(use-package 'smex)
-(after-load 'smex
-  (setq-default smex-save-file (expand-file-name ".smex-items" user-emacs-directory)))
+(require-package 'smex)
 (global-set-key [remap execute-extended-command] 'smex)
 
-(use-package 'which-key)
+(require-package 'which-key)
 (add-hook 'after-init-hook 'which-key-mode)
 (after-load 'which-key
   (diminish 'which-key-mode)

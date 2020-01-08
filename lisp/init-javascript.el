@@ -4,16 +4,13 @@
 
 ;; json
 
-(use-package 'json-mode)
+(require-package 'json-mode)
 (after-load 'json-mode
   (add-to-list 'buffer-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
-(when (executable-find "js-beautify")
-  (use-package 'web-beautify))
-
-(use-package 'js2-mode)
+(require-package 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (after-load 'js2-mode
   (define-key js2-mode-map (kbd "M-.") nil)
@@ -26,12 +23,13 @@
               (setq mode-name "JS2")
               (unless (flycheck-get-checker-for-buffer)
                 (setq-local js2-mode-show-parse-errors t)
-                (setq-local js2-mode-show-strict-warnings t))))
+                (setq-local js2-mode-show-strict-warnings t)))))
 
-  (when (fboundp 'web-beautify-js)
-    (add-to-list 'buffer-beautify-alist '(js2-mode . web-beautify-js))))
+(when (executable-find "js-beautify")
+  (require-package 'web-beautify)
+  (add-to-list 'buffer-beautify-alist '(js2-mode . web-beautify-js)))
 
-(use-package 'rjsx-mode)
+(require-package 'rjsx-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
 (after-load 'rjsx-mode
   (define-key rjsx-mode-map "<" nil)
