@@ -10,7 +10,11 @@
       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
                         user-emacs-directory))
 
-(defvar used-packages nil)
+(when (fboundp 'package--save-selected-packages)
+  (defun fix-save-selected-packages (&optional value)
+    (when value
+      (setq package-selected-packages value)))
+  (advice-add 'package--save-selected-packages :override #'fix-save-selected-packages))
 
 (defun use-package (package &optional do-require no-refresh)
   "Install given PACKAGE, If DO-REQUIRE is non-nil `require` it, If NO-REFRESH is non-nil, not refresh package lists."
@@ -19,8 +23,7 @@
     (if (or (assoc package package-archive-contents) no-refresh)
         (progn
           (package-install package)
-          (when do-require (require package))
-          (add-to-list 'used-packages package))
+          (when do-require (require package)))
       (progn
         (package-refresh-contents)
         (use-package package do-require t)))))
@@ -28,13 +31,6 @@
 ;; Fire up
 
 (package-initialize)
-
-(when (fboundp 'package--save-selected-packages)
-  (defun fix-package-selected-packages()
-    (package--save-selected-packages
-     (seq-uniq (append used-packages
-                       package-selected-packages))))
-  (add-hook 'after-init-hook 'fix-package-selected-packages))
 
 ;;; necessary packages
 
