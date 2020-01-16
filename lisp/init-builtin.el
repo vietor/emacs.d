@@ -44,17 +44,6 @@
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 
-(when (fboundp 'tooltip-mode)
-  (tooltip-mode -1))
-(when (fboundp 'menu-bar-mode)
-  (menu-bar-mode -1))
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
-(when (fboundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))
-(when (fboundp 'horizontal-scroll-bar-mode)
-  (horizontal-scroll-bar-mode -1))
-
 ;; initial gui
 
 (when window-system
@@ -67,14 +56,6 @@
   (add-hook 'after-init-hook 'electric-pair-mode))
 (when (fboundp 'electric-indent-mode)
   (add-hook 'after-init-hook 'electric-indent-mode))
-
-(setq default-frame-alist '((vertical-scroll-bars . nil)
-                            (tool-bar-lines . 0)
-                            (menu-bar-lines . 0)
-                            (fullscreen . nil)))
-(let ((no-border '(internal-border-width . 0)))
-  (add-to-list 'default-frame-alist no-border)
-  (add-to-list 'initial-frame-alist no-border))
 
 (when system-is-mac
   (setq ns-pop-up-frames nil)
