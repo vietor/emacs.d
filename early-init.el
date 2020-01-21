@@ -3,6 +3,7 @@
 ;;; Code:
 
 (setq package-enable-at-startup nil)
+(advice-add #'package--ensure-init-file :override #'ignore)
 
 ;; before initial gui
 
@@ -24,6 +25,9 @@
 (let ((no-border '(internal-border-width . 0)))
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
+
+(setq frame-inhibit-implied-resize t)
+(advice-add #'x-apply-session-resources :override #'ignore)
 
 (provide 'early-init)
 ;; Local Variables:
