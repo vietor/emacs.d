@@ -8,6 +8,9 @@
 (require-package 'gitconfig-mode)
 
 (when (executable-find "git")
+  (require-package 'git-timemachine)
+  (global-set-key (kbd "C-x v t") 'git-timemachine-toggle)
+
   (require-package 'magit)
   (global-set-key (kbd "C-x g") 'magit-status)
   (with-eval-after-load 'magit
