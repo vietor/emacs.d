@@ -10,6 +10,8 @@
 
 ;; python
 
+(require-package 'pip-requirements)
+
 (setq auto-mode-alist
       (append '(("SConstruct\\'" . python-mode)
                 ("SConscript\\'" . python-mode))
@@ -17,6 +19,7 @@
 
 (when (executable-find "autopep8")
   (require-package 'py-autopep8)
+  (setq py-autopep8-options '("--ignore=E501,W293,W391,W690"))
 
   (defun python-mode-beautify ()
     "Deep indent for python."
