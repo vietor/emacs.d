@@ -12,7 +12,9 @@
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
       org-tags-column 80
-      org-deadline-warning-days 7)
+      org-deadline-warning-days 7
+      org-display-custom-times t
+      org-time-stamp-custom-formats '("<%Y-%m-%d>" . "<%Y-%m-%d %H:%M>"))
 
 ;; Capture
 

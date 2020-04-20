@@ -62,6 +62,8 @@
 (require 'init-textmodes)
 (require 'init-progmodes)
 
+(require 'init-docker)
+
 ;;----------------------------------------------------------------------------
 ;; Load customize
 
