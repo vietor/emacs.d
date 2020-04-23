@@ -19,11 +19,10 @@
 
 (when (executable-find "autopep8")
   (require-package 'py-autopep8)
-  (setq py-autopep8-options '("--ignore=E501,W293,W391,W690"))
 
   (defun python-mode-beautify ()
     "Deep indent for python."
-    (py-autopep8)
+    (py-autopep8-buffer)
     (when system-is-win
       (goto-char (point-min))
       (while (search-forward "\r" nil t) (replace-match ""))))
