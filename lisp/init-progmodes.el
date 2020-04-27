@@ -26,7 +26,7 @@
     (when system-is-win
       (goto-char (point-min))
       (while (search-forward "\r" nil t) (replace-match ""))))
-  (add-to-list 'buffer-beautify-alist '(python-mode . python-mode-beautify)))
+  (add-to-list 'aformatter-beautify-alist '(python-mode . python-mode-beautify)))
 
 ;; golang
 

@@ -6,7 +6,7 @@
 
 (require-package 'json-mode)
 (with-eval-after-load 'json-mode
-  (add-to-list 'buffer-beautify-alist '(json-mode . json-mode-beautify)))
+  (add-to-list 'aformatter-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
@@ -26,7 +26,7 @@
 
 (when (executable-find "js-beautify")
   (require-package 'web-beautify)
-  (add-to-list 'buffer-beautify-alist '(js2-mode . web-beautify-js)))
+  (add-to-list 'aformatter-beautify-alist '(js2-mode . web-beautify-js)))
 
 (require-package 'rjsx-mode)
 (with-eval-after-load 'rjsx-mode

@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'aformatter)
+(global-set-key (kbd "<f12>")  'aformatter-indent)
+(global-set-key (kbd "M-<f12>") 'aformatter-beautify)
+
 (when window-system
   (require-package 'doom-themes)
   (setq doom-themes-enable-bold t
@@ -116,35 +120,6 @@
     (when (= oldpos (point))
       (end-of-line))))
 (global-set-key [remap move-end-of-line] 'smart-end-of-line)
-
-;; buffer indent & beautify
-
-(defvar buffer-indent-enabled-modes
-  '(nxml-mode))
-(defvar buffer-indent-disabled-modes
-  '(sql-mode text-mode shell-mode eshell-mode term-mode))
-
-(defun buffer-intent ()
-  (interactive)
-  (when (or (apply 'derived-mode-p buffer-indent-enabled-modes)
-            (not (apply 'derived-mode-p buffer-indent-disabled-modes)))
-    (delete-trailing-whitespace)
-    (indent-region (point-min) (point-max))))
-(global-set-key (kbd "<f12>")  'buffer-intent)
-
-(defvar buffer-beautify-alist nil)
-(defun buffer-beautify ()
-  (interactive)
-  (let ((beautify (cdr (assoc major-mode buffer-beautify-alist))))
-    (if (not beautify)
-        (buffer-intent)
-      (let ((c-point (point))
-            (w-start (window-start)))
-        (funcall beautify)
-        (goto-char c-point)
-        (goto-char (line-beginning-position))
-        (set-window-start (selected-window) w-start)))))
-(global-set-key (kbd "M-<f12>") 'buffer-beautify)
 
 (provide 'init-enhance)
 ;; Local Variables:
