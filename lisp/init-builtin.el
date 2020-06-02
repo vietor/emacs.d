@@ -116,9 +116,6 @@
   (setq-default display-line-numbers-width 3)
   (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
 
-(when (fboundp 'global-prettify-symbols-mode)
-  (add-hook 'after-init-hook 'global-prettify-symbols-mode))
-
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
 (setq uniquify-separator " • ")
