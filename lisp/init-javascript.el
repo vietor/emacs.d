@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(add-to-list 'auto-append-exec-path "node_modules/.bin")
+
 ;; json
 
 (require-package 'json-mode)

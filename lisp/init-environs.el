@@ -17,40 +17,39 @@
 
 ;; from file
 
-(defun smart-setenv (name value)
-  "Smart set env by NAME & VALUE."
-  (if (not (string-equal "PATH" name))
-      (setenv name value)
-    (let ((new-path (split-string value path-separator))
-          (env-path (split-string (getenv "PATH") path-separator)))
-      (setq exec-path (delete-dups (append new-path exec-path)))
-      (setenv "PATH" (string-join (delete-dups (append new-path env-path)) path-separator)))))
+(defun append-exec-path(value)
+  "Append VALUE to `'exec-path`' and $PATH."
+  (let ((new-path (split-string value path-separator))
+        (env-path (split-string (getenv "PATH") path-separator)))
+    (setq exec-path (delete-dups (append new-path exec-path)))
+    (setenv "PATH" (string-join (delete-dups (append new-path env-path)) path-separator))))
 
-(defun custom-environ (file)
-  "Load environment from FILE."
+(defvar auto-append-exec-path nil)
+
+(after-aproject-change
+ (dolist (value auto-append-exec-path)
+   (let ((target (aproject-root-file value)))
+     (when (file-directory-p target)
+       (append-exec-path target)))))
+
+(defun try-load-environ-from-file (file)
+  "Try load environment from FILE."
   (when (file-exists-p file)
-    (dolist (line (with-temp-buffer
-                    (insert-file-contents file)
-                    (split-string (buffer-string) "\n" t)))
+    (dolist (line (with-temp-buffer (insert-file-contents file) (split-string (buffer-string) "\n" t)))
       (setq line (string-trim line))
       (cond
        ((string= "" line) nil)
        ((string-prefix-p "#" line) nil)
        ((string-match-p "=" line 1)
         (string-match "=" line 1)
-        (let ((left (match-beginning 0)) (right (match-end 0)))
-          (smart-setenv
-           (substring line 0 left)
-           (substring line right))))
+        (let ((name (substring line 0 (match-beginning 0)))
+              (value (substring line (match-end 0))))
+          (if (not (string-equal "PATH" name))
+              (setenv name value)
+            (append-exec-path value))))
        (t nil)))))
 
-(custom-environ (expand-file-name "setenv" user-emacs-directory))
-
-(after-aproject-change
- (dolist (subdir '("node_modules/.bin/"))
-   (let ((bindir (aproject-root-file subdir)))
-     (when (file-directory-p bindir)
-       (smart-setenv "PATH" bindir)))))
+(try-load-environ-from-file (expand-file-name "setenv" user-emacs-directory))
 
 ;; open emacs
 
