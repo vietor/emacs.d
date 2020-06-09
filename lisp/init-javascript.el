@@ -2,13 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'auto-append-exec-path "node_modules/.bin")
+(add-to-list 'auto-append-environ-path "node_modules/.bin")
 
 ;; json
 
 (require-package 'json-mode)
 (with-eval-after-load 'json-mode
-  (add-to-list 'aformatter-beautify-alist '(json-mode . json-mode-beautify)))
+  (add-to-list 'a-formatter-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
@@ -28,7 +28,7 @@
 
 (when (executable-find "js-beautify")
   (require-package 'web-beautify)
-  (add-to-list 'aformatter-beautify-alist '(js2-mode . web-beautify-js)))
+  (add-to-list 'a-formatter-beautify-alist '(js2-mode . web-beautify-js)))
 
 (require-package 'rjsx-mode)
 (with-eval-after-load 'rjsx-mode

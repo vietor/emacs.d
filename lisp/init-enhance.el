@@ -2,9 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'aformatter)
-(global-set-key (kbd "<f12>")  'aformatter-indent)
-(global-set-key (kbd "M-<f12>") 'aformatter-beautify)
+(require 'a-formatter)
+(global-set-key (kbd "<f12>")  'a-formatter-indent)
+(global-set-key (kbd "M-<f12>") 'a-formatter-beautify)
 
 (when window-system
   (require-package 'doom-themes)

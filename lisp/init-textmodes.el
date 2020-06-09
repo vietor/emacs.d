@@ -5,7 +5,7 @@
 ;; markdown
 
 (require-package 'markdown-mode)
-(add-to-list 'aformatter-disabled-modes 'markdown-mode)
+(add-to-list 'a-formatter-disabled-modes 'markdown-mode)
 
 ;; yaml
 
