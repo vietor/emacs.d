@@ -1,29 +1,29 @@
-;;; a-formatter.el --- -*- lexical-binding: t -*-
+;;; ya-formatter.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
-(defvar a-formatter-enabled-modes
+(defvar ya-formatter-enabled-modes
   '(nxml-mode))
 
-(defvar a-formatter-disabled-modes
+(defvar ya-formatter-disabled-modes
   '(sql-mode text-mode shell-mode eshell-mode term-mode))
 
-(defvar a-formatter-beautify-alist nil)
+(defvar ya-formatter-beautify-alist nil)
 
-(defun a-formatter-indent ()
+(defun ya-formatter-indent ()
   "Reformat current buffer by indent."
   (interactive)
-  (when (or (apply 'derived-mode-p a-formatter-enabled-modes)
-            (not (apply 'derived-mode-p a-formatter-disabled-modes)))
+  (when (or (apply 'derived-mode-p ya-formatter-enabled-modes)
+            (not (apply 'derived-mode-p ya-formatter-disabled-modes)))
     (delete-trailing-whitespace)
     (indent-region (point-min) (point-max))))
 
-(defun a-formatter-beautify ()
+(defun ya-formatter-beautify ()
   "Reformat current buffer by customize or indent."
   (interactive)
-  (let ((beautify (cdr (assoc major-mode a-formatter-beautify-alist))))
+  (let ((beautify (cdr (assoc major-mode ya-formatter-beautify-alist))))
     (if (not beautify)
-        (a-formatter-indent)
+        (ya-formatter-indent)
       (let ((c-point (point))
             (w-start (window-start)))
         (funcall beautify)
@@ -31,9 +31,9 @@
         (goto-char (line-beginning-position))
         (set-window-start (selected-window) w-start)))))
 
-(provide 'a-formatter)
+(provide 'ya-formatter)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
-;;; a-formatter.el ends here
+;;; ya-formatter.el ends here

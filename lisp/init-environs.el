@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'a-environ)
+(require 'ya-environ)
 
 (when (or (memq window-system '(mac ns x))
           (unless (memq system-type '(windows-nt))
@@ -11,7 +11,7 @@
                  "LANG" "LC_CTYPE"
                  "SSH_AUTH_SOCK" "SSH_AGENT_PID"
                  "GPG_AGENT_INFO")))
-    (a-environ-initialize names)))
+    (ya-environ-initialize names)))
 
 (defvar auto-append-environ-path nil)
 
@@ -19,7 +19,7 @@
  (dolist (value auto-append-environ-path)
    (let ((target (aproject-root-file value)))
      (when (file-directory-p target)
-       (a-environ-append-PATH target)))))
+       (ya-environ-append-PATH target)))))
 
 ;; open emacs
 

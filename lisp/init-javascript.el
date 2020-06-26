@@ -8,7 +8,7 @@
 
 (require-package 'json-mode)
 (with-eval-after-load 'json-mode
-  (add-to-list 'a-formatter-beautify-alist '(json-mode . json-mode-beautify)))
+  (add-to-list 'ya-formatter-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
@@ -28,7 +28,7 @@
 
 (when (executable-find "js-beautify")
   (require-package 'web-beautify)
-  (add-to-list 'a-formatter-beautify-alist '(js2-mode . web-beautify-js)))
+  (add-to-list 'ya-formatter-beautify-alist '(js2-mode . web-beautify-js)))
 
 (require-package 'rjsx-mode)
 (with-eval-after-load 'rjsx-mode
