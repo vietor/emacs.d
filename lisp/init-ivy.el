@@ -30,8 +30,8 @@
   (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point))
 
 (require-package 'ivy-xref)
-(if (< emacs-major-version 27)
-    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+(setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+(when (>= emacs-major-version 27)
   (setq xref-show-definitions-function #'ivy-xref-show-defs))
 
 (provide 'init-ivy)
