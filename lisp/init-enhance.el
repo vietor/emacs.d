@@ -33,6 +33,22 @@
 (global-unset-key (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
+(require-package 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+(require-package 'whole-line-or-region)
+(add-hook 'after-init-hook 'whole-line-or-region-global-mode)
+(with-eval-after-load 'whole-line-or-region
+  (diminish 'whole-line-or-region-local-mode))
+
+(require-package 'browse-kill-ring)
+(setq browse-kill-ring-separator "\f")
+(global-set-key (kbd "M-Y") 'browse-kill-ring)
+(with-eval-after-load 'browse-kill-ring
+  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
+  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
+  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
+
 (require-package 'smex)
 (global-set-key [remap execute-extended-command] 'smex)
 
@@ -99,7 +115,7 @@
                   (end-of-line)
                   (point))))
     (comment-or-uncomment-region start end)))
-(global-set-key (kbd "M-;")     'comment-like-eclipse)
+(global-set-key (kbd "M-;") 'comment-like-eclipse)
 
 ;; move line
 
