@@ -122,6 +122,16 @@
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
 
+(setq-default dired-dwim-target t)
+(with-eval-after-load 'dired
+  (define-key ctl-x-map "\C-j" 'dired-jump)
+  (define-key ctl-x-4-map "\C-j" 'dired-jump-other-window))
+
+(setq-default ibuffer-show-empty-filter-groups nil)
+(with-eval-after-load 'ibuffer
+  (fullframe ibuffer ibuffer-quit))
+(define-key global-map [remap list-buffers] 'ibuffer)
+
 ;; key binds
 
 (global-set-key (kbd "C-.")     'set-mark-command)
@@ -133,10 +143,6 @@
 
 (global-set-key (kbd "M-g j")   'imenu)
 (global-set-key (kbd "M-g r")   'replace-string)
-
-(with-eval-after-load 'ibuffer
-  (fullframe ibuffer ibuffer-quit))
-(define-key global-map [remap list-buffers] 'ibuffer)
 
 ;; fix sometime slow
 

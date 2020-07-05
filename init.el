@@ -27,10 +27,14 @@
 ;; Adjust garbage collection
 
 (let ((init-threshold  (* 128 1024 1024))
-      (target-threshold  (* 20 1024 1024)))
+      (target-threshold  (* 20 1024 1024))
+      (origin-handler-alist file-name-handler-alist))
   (setq gc-cons-threshold init-threshold)
+  (setq file-name-handler-alist nil)
   (add-hook 'emacs-startup-hook
-            (lambda () (setq gc-cons-threshold target-threshold))))
+            (lambda ()
+              (setq gc-cons-threshold target-threshold)
+              (setq file-name-handler-alist origin-handler-alist))))
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
