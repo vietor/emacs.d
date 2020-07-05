@@ -27,13 +27,12 @@
   (defun open-new-emacs()
     "Open a new Emacs process."
     (interactive)
-    (let ((program (car command-line-args)))
-      (cond
-       (system-is-mac
-        (shell-command (concat "open -n -a " program)))
-       (system-is-win
-        (w32-shell-execute "open" (concat (file-name-directory program) "runemacs.exe")))
-       (t (message "Couldn't support to start a new Emacs")))))
+    (cond
+     (system-is-mac
+      (shell-command "open -n -a Emacs.app"))
+     (system-is-win
+      (w32-shell-execute "open" (concat (file-name-directory (car command-line-args)) "runemacs.exe")))
+     (t (message "Couldn't support to start a new Emacs"))))
 
   (global-set-key (kbd "M-g z") 'open-new-emacs))
 

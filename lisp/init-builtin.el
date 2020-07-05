@@ -123,6 +123,7 @@
 (setq uniquify-ignore-buffers-re "^\\*")
 
 (setq-default dired-dwim-target t)
+(put 'dired-find-alternate-file 'disabled nil)
 (with-eval-after-load 'dired
   (define-key ctl-x-map "\C-j" 'dired-jump)
   (define-key ctl-x-4-map "\C-j" 'dired-jump-other-window))
