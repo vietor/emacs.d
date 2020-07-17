@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq gc-cons-threshold most-positive-fixnum)
+
 (setq package-enable-at-startup nil)
 (advice-add #'package--ensure-init-file :override #'ignore)
 
