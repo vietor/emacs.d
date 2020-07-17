@@ -1,4 +1,4 @@
-;;; init-searches.el --- -*- lexical-binding: t -*-
+;;; init-grep.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -36,8 +36,8 @@
 
   (after-aproject-change (agtags-update-root aproject-rootdir)))
 
-(provide 'init-searches)
+(provide 'init-grep)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init-searches.el ends here
+;;; init-grep.el ends here

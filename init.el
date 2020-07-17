@@ -67,13 +67,14 @@
 (require 'init-enhance)
 (require 'init-windows)
 
-(require 'init-org)
-(require 'init-ivy)
-(require 'init-flycheck)
 (require 'init-company)
-(require 'init-git)
-(require 'init-searches)
+(require 'init-flycheck)
 
+(require 'init-ivy)
+(require 'init-git)
+(require 'init-grep)
+
+(require 'init-org)
 (require 'init-cxx)
 (require 'init-web)
 (require 'init-java)
