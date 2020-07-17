@@ -10,8 +10,10 @@
 (global-set-key (kbd "M-C-/") 'company-complete)
 (with-eval-after-load 'company
   (setq company-dabbrev-downcase nil
-        company-backends '((company-dabbrev-code company-gtags company-keywords)
-                           company-files company-dabbrev))
+        company-backends '(company-capf
+                           company-files
+                           (company-dabbrev-code company-gtags company-keywords)
+                           company-dabbrev))
   (diminish 'company-mode)
   (define-key company-mode-map (kbd "M-/") 'company-complete)
   (define-key company-active-map (kbd "M-/") 'company-other-backend)
