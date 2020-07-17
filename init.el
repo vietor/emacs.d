@@ -27,17 +27,14 @@
 ;; Adjust garbage collection
 (defvar gc-auto-timer (run-with-idle-timer 15 t #'garbage-collect))
 
-(let ((upper-threshold  (* 128 1024 1024))
+(let ((large-threshold  (* 128 1024 1024))
       (target-threshold  (* 24 1024 1024))
-      (origin-percentage gc-cons-percentage)
       (origin-handler-alist file-name-handler-alist))
-  (setq gc-cons-threshold upper-threshold
-        gc-cons-percentage 0.6
+  (setq gc-cons-threshold large-threshold
         file-name-handler-alist nil)
   (add-hook 'emacs-startup-hook
             (lambda ()
               (setq gc-cons-threshold target-threshold
-                    gc-cons-percentage origin-percentage
                     file-name-handler-alist origin-handler-alist)
 
               (if (boundp 'after-focus-change-function)
@@ -48,7 +45,7 @@
                 (add-hook 'focus-out-hook 'garbage-collect))
 
               (defun gc-minibuffer-setup-hook ()
-                (setq gc-cons-threshold upper-threshold))
+                (setq gc-cons-threshold large-threshold))
               (defun gc-minibuffer-exit-hook ()
                 (setq gc-cons-threshold target-threshold))
               (add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
