@@ -2,20 +2,17 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (executable-find "dart")
-  (require-package 'dart-mode)
-  (require-package 'lsp-dart)
-  (add-hook 'dart-mode-hook #'lsp-deferred)
-  (with-eval-after-load 'lsp-dart
-    (setq lsp-dart-outline nil
-          lsp-dart-flutter-outline nil
-          lsp-dart-flutter-fringe-colors nil
-          lsp-dart-flutter-widget-guides nil
-          lsp-dart-dap-flutter-track-widget-creation nil
+(use-package dart-mode
+  :when (executable-find "dart"))
 
-          lsp-dart-main-code-lens nil
-          lsp-dart-test-code-lens nil))
-
+(use-package lsp-dart
+  :after dart-mode
+  :hook (dart-mode . lsp-deferred)
+  :config
+  (setq lsp-dart-outline nil
+        lsp-dart-flutter-outline nil
+        lsp-dart-flutter-fringe-colors nil
+        lsp-dart-flutter-widget-guides nil)
   (add-to-list 'ya-formatter-beautify-alist '(dart-mode . lsp-format-buffer)))
 
 (provide 'init-dart)

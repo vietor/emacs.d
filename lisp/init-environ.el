@@ -1,8 +1,8 @@
-;;; init-environs.el --- -*- lexical-binding: t -*-
+;;; init-environ.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
-(require 'ya-environ)
+(use-package ya-environ)
 
 (when (or (memq window-system '(mac ns x))
           (unless (memq system-type '(windows-nt))
@@ -34,10 +34,10 @@
       (w32-shell-execute "open" (concat (file-name-directory (car command-line-args)) "runemacs.exe")))
      (t (message "Couldn't support to start a new Emacs"))))
 
-  (global-set-key (kbd "M-g z") 'open-new-emacs))
+  (bind-key "M-g z" 'open-new-emacs))
 
-(provide 'init-environs)
+(provide 'init-environ)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init-environs.el ends here
+;;; init-environ.el ends here

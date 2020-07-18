@@ -12,15 +12,16 @@
 
 ;; wgrep
 
-(require-package 'wgrep)
-(with-eval-after-load 'wgrep
+(use-package wgrep
+  :config
   (setq wgrep-enable-key "e")
   (setq wgrep-auto-save-buffer t))
 
 ;; gtags
 
-(when (executable-find "global")
-  (require-package 'agtags)
+(use-package agtags
+  :when (executable-find "global")
+  :config
   (require 'agtags-xref)
 
   (defun agtags-mode-on()

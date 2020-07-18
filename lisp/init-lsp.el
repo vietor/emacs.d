@@ -2,10 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'lsp-mode)
-(setq lsp-keymap-prefix "M-g i"
-      read-process-output-max (* 1024 1024))
-(with-eval-after-load 'lsp-mode
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "M-g i"
+        read-process-output-max (* 1024 1024))
+  :config
   (setq lsp-prefer-capf t
         lsp-keep-workspace-alive nil
         lsp-signature-auto-activate nil

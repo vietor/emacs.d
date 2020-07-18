@@ -2,13 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'flycheck)
-(add-hook 'after-init-hook 'global-flycheck-mode)
-(with-eval-after-load 'flycheck
+(use-package flycheck
+  :init
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  :config
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
 
-(require-package 'flycheck-color-mode-line)
-(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+(use-package flycheck-color-mode-line
+  :after flycheck
+  :init
+  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 (provide 'init-flycheck)
 ;; Local Variables:

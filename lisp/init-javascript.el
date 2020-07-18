@@ -6,16 +6,16 @@
 
 ;; json
 
-(require-package 'json-mode)
-(with-eval-after-load 'json-mode
+(use-package json-mode
+  :init
   (add-to-list 'ya-formatter-beautify-alist '(json-mode . json-mode-beautify)))
 
 ;; javascript
 
-(require-package 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(with-eval-after-load 'js2-mode
-  (define-key js2-mode-map (kbd "M-.") nil)
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :bind-keymap ("M-." . nil)
+  :config
   (setq-default js2-bounce-indent-p nil
                 js2-mode-show-parse-errors nil
                 js2-mode-show-strict-warnings nil)
@@ -26,15 +26,16 @@
       (setq-local js2-mode-show-strict-warnings t)))
   (add-hook 'js2-mode-hook 'js2-mode-on))
 
-(when (executable-find "js-beautify")
-  (require-package 'web-beautify)
+(use-package web-beautify
+  :when (executable-find "js-beautify")
+  :init
   (add-to-list 'ya-formatter-beautify-alist '(js2-mode . web-beautify-js)))
 
-(require-package 'rjsx-mode)
-(with-eval-after-load 'rjsx-mode
-  (define-key rjsx-mode-map "<" nil)
-  (define-key rjsx-mode-map ">" nil)
-  (define-key rjsx-mode-map (kbd "C-d") nil)
+(use-package rjsx-mode
+  :bind-keymap (("<" . nil)
+                (">" . nil)
+                ("C-d" . nil))
+  :config
   (defun rjsx-mode-on ()
     (setq mode-name "JS2-JSX"))
   (add-hook 'rjsx-mode-hook 'rjsx-mode-on))

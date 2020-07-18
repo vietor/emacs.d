@@ -4,10 +4,10 @@
 
 ;; html
 
-(require-package 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.njk?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(with-eval-after-load 'web-mode
+(use-package web-mode
+  :mode (("\\.njk?\\'" . web-mode)
+         ("\\.html?\\'" . web-mode))
+  :config
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
@@ -19,11 +19,6 @@
 ;; css
 
 (setq-default css-fontify-colors nil)
-
-(require-package 'sass-mode)
-(unless (fboundp 'scss-mode)
-  (require-package 'scss-mode))
-(setq-default scss-compile-at-save nil)
 
 (provide 'init-web)
 ;; Local Variables:

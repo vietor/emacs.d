@@ -2,19 +2,19 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (executable-find "docker")
-  (require-package 'docker)
-
+(use-package docker
+  :when (executable-find "docker")
+  :config
   (fullframe docker-images tablist-quit)
   (fullframe docker-machines tablist-quit)
   (fullframe docker-volumes tablist-quit)
   (fullframe docker-networks tablist-quit)
   (fullframe docker-containers tablist-quit))
 
-(require-package 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+(use-package dockerfile-mode
+  :mode "Dockerfile\\'")
 
-(require-package 'docker-compose-mode)
+(use-package docker-compose-mode)
 
 (provide 'init-docker)
 ;; Local Variables:

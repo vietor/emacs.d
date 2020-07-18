@@ -16,7 +16,7 @@
 
 ;; Capture
 
-(define-key global-map (kbd "M-g o c") 'org-capture)
+(bind-key "M-g o c" 'org-capture)
 
 (setq org-default-notes-file (concat org-directory "gtd.org")
       org-capture-templates
@@ -37,7 +37,7 @@
 
 ;; Agenda View
 
-(define-key global-map (kbd "M-g o a") 'org-agenda)
+(bind-key "M-g o a" 'org-agenda)
 
 (setq org-agenda-files (list org-directory)
       org-agenda-window-setup 'current-window
@@ -51,6 +51,7 @@
         (todo category-up effort-up)
         (tags category-up effort-up)
         (search category-up)))
+
 (with-eval-after-load 'org-agenda
   (add-to-list 'org-agenda-after-show-hook 'org-show-entry)
   (add-hook 'org-agenda-mode-hook

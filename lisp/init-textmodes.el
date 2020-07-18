@@ -4,13 +4,14 @@
 
 ;; markdown
 
-(require-package 'markdown-mode)
-(add-to-list 'ya-formatter-disabled-modes 'markdown-mode)
+(use-package markdown-mode
+  :init
+  (add-to-list 'ya-formatter-disabled-modes 'markdown-mode))
 
 ;; yaml
 
-(require-package 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\.erb\\'" . yaml-mode))
+(use-package yaml-mode
+  :mode ("\\.yml\\.erb\\'" . yaml-mode))
 
 (provide 'init-textmodes)
 ;; Local Variables:

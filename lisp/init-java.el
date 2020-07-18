@@ -2,11 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'scala-mode)
+(use-package scala-mode)
 
-(when (executable-find "gradle")
-  (require-package 'groovy-mode)
-  (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode)))
+(use-package groovy-mode
+  :when (executable-find "gradle")
+  :mode ("\\.gradle\\'" . groovy-mode))
 
 (provide 'init-java)
 ;; Local Variables:

@@ -66,7 +66,7 @@
                     (font-spec :family "Apple Color Emoji") nil 'prepend))
 
 (when (fboundp 'toggle-frame-fullscreen)
-  (global-set-key (kbd "C-<f10>") 'toggle-frame-fullscreen))
+  (bind-key "C-<f10>" 'toggle-frame-fullscreen))
 
 ;; initial editor
 
@@ -75,7 +75,7 @@
               nxml-child-indent 4
               nxml-attribute-indent 4
               indent-tabs-mode nil)
-(global-set-key (kbd "RET") 'newline-and-indent)
+(bind-key "RET" 'newline-and-indent)
 
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message "")
@@ -111,40 +111,44 @@
 
 (setq-default whitespace-style
               '(face spaces tabs newline space-mark tab-mark newline-mark))
-(global-set-key (kbd "M-g w") 'whitespace-mode)
+(bind-key "M-g w" 'whitespace-mode)
 
 (when (fboundp 'display-line-numbers-mode)
   (setq-default display-line-numbers-width 3)
-  (global-set-key (kbd "M-g l") 'display-line-numbers-mode))
+  (bind-key "M-g l" 'display-line-numbers-mode))
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse)
-(setq uniquify-separator " • ")
-(setq uniquify-after-kill-buffer-p t)
-(setq uniquify-ignore-buffers-re "^\\*")
+(use-package uniquify
+  :init
+  (setq uniquify-buffer-name-style 'reverse)
+  (setq uniquify-separator " • ")
+  (setq uniquify-after-kill-buffer-p t)
+  (setq uniquify-ignore-buffers-re "^\\*"))
 
-(setq-default dired-dwim-target t)
-(put 'dired-find-alternate-file 'disabled nil)
-(with-eval-after-load 'dired
-  (define-key ctl-x-map "\C-j" 'dired-jump)
-  (define-key ctl-x-4-map "\C-j" 'dired-jump-other-window))
+(use-package dired
+  :bind (("C-x C-j" . dired-jump)
+         ("C-x 4 C-j" . dired-jump-other-window))
+  :init
+  (setq-default dired-dwim-target t)
+  (put 'dired-find-alternate-file 'disabled nil))
 
-(setq-default ibuffer-show-empty-filter-groups nil)
-(with-eval-after-load 'ibuffer
+(use-package ibuffer
+  :bind ([remap list-buffers] . ibuffer)
+  :init
+  (setq-default ibuffer-show-empty-filter-groups nil)
+  :config
   (fullframe ibuffer ibuffer-quit))
-(define-key global-map [remap list-buffers] 'ibuffer)
 
 ;; key binds
 
-(global-set-key (kbd "C-.")     'set-mark-command)
-(global-set-key (kbd "C-x C-.") 'pop-global-mark)
-(global-set-key (kbd "M-g q")   'keyboard-escape-quit)
+(bind-key "C-." 'set-mark-command)
+(bind-key "C-x C-." 'pop-global-mark)
+(bind-key "M-g q" 'keyboard-escape-quit)
 
-(global-set-key (kbd "<f1>")    'help-command)
-(global-set-key (kbd "C-h")     'delete-backward-char)
+(bind-key "<f1>" 'help-command)
+(bind-key "C-h" 'delete-backward-char)
 
-(global-set-key (kbd "M-g j")   'imenu)
-(global-set-key (kbd "M-g r")   'replace-string)
+(bind-key "M-g j" 'imenu)
+(bind-key "M-g r" 'replace-string)
 
 ;; fix sometime slow
 

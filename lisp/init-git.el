@@ -4,18 +4,22 @@
 
 (setq vc-handled-backends '(Git))
 
-(require-package 'gitignore-mode)
-(require-package 'gitconfig-mode)
+(use-package gitignore-mode)
+(use-package gitconfig-mode)
 
-(when (executable-find "git")
-  (require-package 'git-timemachine)
-  (global-set-key (kbd "C-x v t") 'git-timemachine-toggle)
+(use-package git-timemachine
+  :after vc
+  :when (executable-find "git")
+  :bind (:map vc-prefix-map
+              ("t" . git-timemachine-toggle)))
 
-  (require-package 'magit)
-  (global-set-key (kbd "C-x g") 'magit-status)
-  (with-eval-after-load 'magit
-    (setq-default magit-diff-refine-hunk t)
-    (fullframe magit-status magit-mode-quit-window))
+(use-package magit
+  :when (executable-find "git")
+  :after vc
+  :bind ("C-x g" . magit-status)
+  :config
+  (setq-default magit-diff-refine-hunk t)
+  (fullframe magit-status magit-mode-quit-window)
 
   (defun magit-vc-print-log (&optional prompt)
     (interactive "P")
@@ -25,8 +29,7 @@
             (magit-log-buffer-file-popup)
           (magit-log-buffer-file t))
       (vc-print-log)))
-  (with-eval-after-load 'vc
-    (define-key vc-prefix-map (kbd "l") 'magit-vc-print-log)))
+  (bind-key "l" 'magit-vc-print-log vc-prefix-map))
 
 (provide 'init-git)
 ;; Local Variables:

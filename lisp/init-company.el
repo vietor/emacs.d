@@ -5,20 +5,23 @@
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
 
-(require-package 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "M-C-/") 'company-complete)
-(with-eval-after-load 'company
+(use-package company
+  :diminish
+  :bind (("M-C-/" . company-complete)
+         :map company-mode-map
+         ("M-/" . company-complete)
+         :map company-active-map
+         ("M-/" . company-other-backend)
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous))
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
   (setq company-dabbrev-downcase nil
         company-backends '(company-capf
                            company-files
                            (company-dabbrev-code company-gtags company-keywords)
                            company-dabbrev))
-  (diminish 'company-mode)
-  (define-key company-mode-map (kbd "M-/") 'company-complete)
-  (define-key company-active-map (kbd "M-/") 'company-other-backend)
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (setq-default company-dabbrev-other-buffers 'all
                 company-tooltip-align-annotations t))
 

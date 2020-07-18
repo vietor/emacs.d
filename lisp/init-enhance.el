@@ -3,59 +3,64 @@
 ;;; Code:
 
 (require 'ya-formatter)
-(global-set-key (kbd "<f12>")  'ya-formatter-indent)
-(global-set-key (kbd "M-<f12>") 'ya-formatter-beautify)
+(bind-key "<f12>" 'ya-formatter-indent)
+(bind-key "M-<f12>" 'ya-formatter-beautify)
 
-(when window-system
-  (require-package 'doom-themes)
+(use-package doom-themes
+  :when window-system
+  :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-one t))
+  (load-theme 'doom-fairy-floss t))
 
-(require-package 'highlight-escape-sequences)
-(add-hook 'after-init-hook 'hes-mode)
+(use-package highlight-escape-sequences
+  :init
+  (add-hook 'after-init-hook 'hes-mode))
 
-(require-package 'move-dup)
-(global-set-key [M-up] 'md-move-lines-up)
-(global-set-key [M-down] 'md-move-lines-down)
-(global-set-key [M-S-up] 'md-move-lines-up)
-(global-set-key [M-S-down] 'md-move-lines-down)
+(use-package move-dup
+  :bind (([M-up] . md-move-lines-up)
+         ([M-down] . md-move-lines-down)
+         ([M-S-up] . md-move-lines-up)
+         ([M-S-down] . md-move-lines-down)))
 
-(require-package 'avy)
-(global-set-key (kbd "C-;") 'avy-goto-char-timer)
+(use-package avy
+  :bind ("C-;" . avy-goto-char-timer))
 
-(require-package 'multiple-cursors)
-(defun mc/save-lists () "Ignore save history.")
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
-(global-set-key (kbd "C-M-<") ' mc/skip-to-previous-like-this)
-(global-unset-key (kbd "M-<down-mouse-1>"))
-(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+(use-package multiple-cursors
+  :bind (("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-M->" . mc/skip-to-next-like-this)
+         ("C-M-<" .  mc/skip-to-previous-like-this)
+         ("M-<down-mouse-1>" . nil)
+         ("M-<mouse-1>" . mc/add-cursor-on-click))
+  :init
+  (defun mc/save-lists () "Ignore save history."))
 
-(require-package 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
-(require-package 'whole-line-or-region)
-(add-hook 'after-init-hook 'whole-line-or-region-global-mode)
-(with-eval-after-load 'whole-line-or-region
-  (diminish 'whole-line-or-region-local-mode))
+(use-package whole-line-or-region
+  :diminish
+  :init
+  (add-hook 'after-init-hook 'whole-line-or-region-global-mode))
 
-(require-package 'browse-kill-ring)
-(setq browse-kill-ring-separator "\f")
-(global-set-key (kbd "M-Y") 'browse-kill-ring)
-(with-eval-after-load 'browse-kill-ring
-  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
-  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
-  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
+(use-package browse-kill-ring
+  :bind (("M-Y" . browse-kill-ring)
+         :map browse-kill-ring-mode-map
+         ("C-g" . browse-kill-ring-quit)
+         ("M-n" . browse-kill-ring-forward)
+         ("M-p" . browse-kill-ring-previous))
+  :init
+  (setq browse-kill-ring-separator "\f"))
 
-(require-package 'smex)
-(global-set-key [remap execute-extended-command] 'smex)
+(use-package smex
+  :bind ([remap execute-extended-command] . smex))
 
-(require-package 'which-key)
-(add-hook 'after-init-hook 'which-key-mode)
-(with-eval-after-load 'which-key
-  (diminish 'which-key-mode)
+(use-package which-key
+  :diminish
+  :init
+  (add-hook 'after-init-hook 'which-key-mode)
+  :config
   (setq-default which-key-idle-delay 1.5))
 
 ;; buffer and file
@@ -67,7 +72,7 @@
              (tramp-tramp-file-p filename))
         (error "Cannot open tramp file")
       (browse-url (concat "file://" filename)))))
-(global-set-key (kbd "M-g f b") 'browse-current-file)
+(bind-key "M-g f b" 'browse-current-file)
 
 (defun delete-current-buffer-file ()
   (interactive)
@@ -79,7 +84,7 @@
         (delete-file filename)
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
-(global-set-key (kbd "M-g f d") 'delete-current-buffer-file)
+(bind-key "M-g f d" 'delete-current-buffer-file)
 
 (defun rename-current-buffer-file ()
   (interactive)
@@ -97,7 +102,7 @@
           (set-buffer-modified-p nil)
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
-(global-set-key (kbd "M-g f r") 'rename-current-buffer-file)
+(bind-key "M-g f r" 'rename-current-buffer-file)
 
 ;; comment
 
@@ -115,7 +120,7 @@
                   (end-of-line)
                   (point))))
     (comment-or-uncomment-region start end)))
-(global-set-key (kbd "M-;") 'comment-like-eclipse)
+(bind-key "M-;" 'comment-like-eclipse)
 
 ;; move line
 
@@ -125,7 +130,7 @@
     (back-to-indentation)
     (and (= oldpos (point))
          (beginning-of-line))))
-(global-set-key [remap move-beginning-of-line] 'smart-beginning-of-line)
+(bind-key [remap move-beginning-of-line] 'smart-beginning-of-line)
 
 (defun smart-end-of-line ()
   (interactive)
@@ -135,7 +140,7 @@
       (goto-char (match-beginning 0)))
     (when (= oldpos (point))
       (end-of-line))))
-(global-set-key [remap move-end-of-line] 'smart-end-of-line)
+(bind-key [remap move-end-of-line] 'smart-end-of-line)
 
 (provide 'init-enhance)
 ;; Local Variables:

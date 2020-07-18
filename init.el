@@ -16,14 +16,6 @@
 (defconst system-is-win (eq system-type 'windows-nt))
 
 ;;----------------------------------------------------------------------------
-;; The `load-path' config
-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
-
-;;----------------------------------------------------------------------------
 ;; Adjust garbage collection
 (defvar gc-auto-timer (run-with-idle-timer 15 t #'garbage-collect))
 
@@ -52,6 +44,18 @@
               (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook))))
 
 ;;----------------------------------------------------------------------------
+;; The `load-path' config
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+(defun optimize-site-lisp-to-load-path (&rest _)
+  "Add subdirectories to `load-path'."
+  (let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
+    (add-to-list 'load-path default-directory)
+    (normal-top-level-add-subdirs-to-load-path)))
+(advice-add #'package-initialize :after #'optimize-site-lisp-to-load-path)
+
+;;----------------------------------------------------------------------------
 ;; Bootstrap config
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -59,8 +63,8 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs
 
-(require 'init-packages)
-(require 'init-environs)
+(require 'init-package)
+(require 'init-environ)
 (require 'init-locales)
 
 (require 'init-builtin)
