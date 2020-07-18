@@ -11,7 +11,7 @@
 ;; yaml
 
 (use-package yaml-mode
-  :mode ("\\.yml\\.erb\\'" . yaml-mode))
+  :mode "\\.yml\\.erb\\'")
 
 (provide 'init-textmodes)
 ;; Local Variables:

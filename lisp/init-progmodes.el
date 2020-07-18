@@ -11,8 +11,7 @@
 ;; python
 
 (use-package python
-  :mode (("SConstruct\\'" . python-mode)
-         ("SConscript\\'" . python-mode)))
+  :mode ("SConstruct\\'" "SConscript\\'"))
 
 (use-package pip-requirements)
 
@@ -31,9 +30,7 @@
 
 (use-package go-mode
   :when (executable-find "go")
-  :commands (gofmt-before-save)
-  :init
-  (add-hook 'before-save-hook 'gofmt-before-save)
+  :hook (before-save . gofmt-before-save)
   :config
   (after-aproject-change (setenv "GOPATH" aproject-rootdir)))
 

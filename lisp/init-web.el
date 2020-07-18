@@ -5,8 +5,7 @@
 ;; html
 
 (use-package web-mode
-  :mode (("\\.njk?\\'" . web-mode)
-         ("\\.html?\\'" . web-mode))
+  :mode ("\\.njk?\\'" "\\.html?\\'")
   :config
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))

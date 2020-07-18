@@ -6,7 +6,7 @@
 
 (use-package groovy-mode
   :when (executable-find "gradle")
-  :mode ("\\.gradle\\'" . groovy-mode))
+  :mode "\\.gradle\\'")
 
 (provide 'init-java)
 ;; Local Variables:
