@@ -14,8 +14,7 @@
   (load-theme 'doom-fairy-floss t))
 
 (use-package highlight-escape-sequences
-  :init
-  (add-hook 'after-init-hook 'hes-mode))
+  :hook (after-init . hes-mode))
 
 (use-package move-dup
   :bind (([M-up] . md-move-lines-up)
@@ -41,8 +40,7 @@
 
 (use-package whole-line-or-region
   :diminish
-  :init
-  (add-hook 'after-init-hook 'whole-line-or-region-global-mode))
+  :hook (after-init . whole-line-or-region-global-mode))
 
 (use-package browse-kill-ring
   :bind (("M-Y" . browse-kill-ring)
@@ -55,8 +53,7 @@
 
 (use-package which-key
   :diminish
-  :init
-  (add-hook 'after-init-hook 'which-key-mode)
+  :hook (after-init . which-key-mode)
   :config
   (setq-default which-key-idle-delay 1.5))
 

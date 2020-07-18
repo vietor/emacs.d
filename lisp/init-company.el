@@ -14,8 +14,7 @@
          ("M-/" . company-other-backend)
          ("C-n" . company-select-next)
          ("C-p" . company-select-previous))
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
+  :hook (after-init . global-company-mode)
   :config
   (setq company-dabbrev-downcase nil
         company-backends '(company-capf

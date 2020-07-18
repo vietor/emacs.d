@@ -10,8 +10,7 @@
               ("RET" . ivy-alt-done)
               ("C-j" . ivy-immediate-done)
               ("C-RET" . ivy-immediate-done))
-  :init
-  (add-hook 'after-init-hook 'ivy-mode)
+  :hook (after-init . ivy-mode)
   :config
   (setq-default ivy-use-virtual-buffers t
                 ivy-virtual-abbreviate 'fullpath
@@ -23,9 +22,8 @@
 (use-package counsel
   :after ivy
   :diminish
+  :hook (after-init . counsel-mode)
   :bind ("M-g f o" . counsel-recentf)
-  :init
-  (add-hook 'after-init-hook 'counsel-mode)
   :config
   (setq-default counsel-mode-override-describe-bindings t
                 ivy-initial-inputs-alist '((Man-completion-table . "^")

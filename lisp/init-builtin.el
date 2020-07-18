@@ -103,13 +103,16 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace t))))
 
-(setq-default whitespace-style
-              '(face spaces tabs newline space-mark tab-mark newline-mark))
-(bind-key "M-g w" 'whitespace-mode)
-
 (when (fboundp 'display-line-numbers-mode)
   (setq-default display-line-numbers-width 3)
   (bind-key "M-g l" 'display-line-numbers-mode))
+
+(use-package whitespace
+  :ensure nil
+  :bind ("M-g w" . whitespace-mode)
+  :init
+  (setq-default whitespace-style
+                '(face spaces tabs newline space-mark tab-mark newline-mark)))
 
 (use-package autorevert
   :ensure nil

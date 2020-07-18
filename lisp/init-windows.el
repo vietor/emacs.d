@@ -3,9 +3,9 @@
 ;;; Code:
 
 (use-package winner
+  :hook (after-init . winner-mode)
   :init
-  (setq winner-dont-bind-my-keys 5)
-  (add-hook 'after-init-hook 'winner-mode))
+  (setq winner-dont-bind-my-keys 5))
 
 (use-package ace-window
   :bind ("C-x o" . ace-window)
