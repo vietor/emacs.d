@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq confirm-kill-processes nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (put 'narrow-to-region 'disabled nil)

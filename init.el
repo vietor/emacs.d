@@ -74,6 +74,9 @@
 (require 'init-git)
 (require 'init-grep)
 
+(require 'init-lsp)
+(require 'init-dart)
+
 (require 'init-org)
 (require 'init-cxx)
 (require 'init-web)
