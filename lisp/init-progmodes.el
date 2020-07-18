@@ -5,7 +5,8 @@
 ;; php
 
 (use-package php-mode
-  :bind-keymap ("C-." . nil))
+  :bind (:map php-mode-map
+              ("C-." . nil)))
 
 ;; python
 

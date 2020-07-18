@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package ya-environ)
+(require 'ya-environ)
 
 (when (or (memq window-system '(mac ns x))
           (unless (memq system-type '(windows-nt))

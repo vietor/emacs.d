@@ -99,12 +99,6 @@
               scroll-preserve-screen-position 'always
               set-mark-command-repeat-pop t)
 
-(add-hook 'after-init-hook 'global-auto-revert-mode)
-(setq global-auto-revert-non-file-buffers t
-      auto-revert-verbose nil)
-(with-eval-after-load 'autorevert
-  (diminish 'auto-revert-mode))
-
 (setq-default show-trailing-whitespace nil)
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace t))))
@@ -117,7 +111,16 @@
   (setq-default display-line-numbers-width 3)
   (bind-key "M-g l" 'display-line-numbers-mode))
 
+(use-package autorevert
+  :ensure nil
+  :diminish
+  :hook (after-init . global-auto-revert-mode)
+  :init
+  (setq global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil))
+
 (use-package uniquify
+  :ensure nil
   :init
   (setq uniquify-buffer-name-style 'reverse)
   (setq uniquify-separator " • ")
@@ -125,6 +128,7 @@
   (setq uniquify-ignore-buffers-re "^\\*"))
 
 (use-package dired
+  :ensure nil
   :bind (("C-x C-j" . dired-jump)
          ("C-x 4 C-j" . dired-jump-other-window))
   :init
@@ -132,6 +136,7 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package ibuffer
+  :ensure nil
   :bind ([remap list-buffers] . ibuffer)
   :init
   (setq-default ibuffer-show-empty-filter-groups nil)

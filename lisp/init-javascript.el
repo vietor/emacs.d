@@ -14,7 +14,8 @@
 
 (use-package js2-mode
   :mode "\\.js\\'"
-  :bind-keymap ("M-." . nil)
+  :bind (:map js2-mode-map
+              ("M-." . nil))
   :config
   (setq-default js2-bounce-indent-p nil
                 js2-mode-show-parse-errors nil
@@ -32,9 +33,10 @@
   (add-to-list 'ya-formatter-beautify-alist '(js2-mode . web-beautify-js)))
 
 (use-package rjsx-mode
-  :bind-keymap (("<" . nil)
-                (">" . nil)
-                ("C-d" . nil))
+  :bind (:map rjsx-mode-map
+              ("<" . nil)
+              (">" . nil)
+              ("C-d" . nil))
   :config
   (defun rjsx-mode-on ()
     (setq mode-name "JS2-JSX"))

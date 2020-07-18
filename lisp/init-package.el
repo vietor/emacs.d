@@ -26,6 +26,13 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(eval-and-compile
+  (setq use-package-always-ensure t)
+  (setq use-package-expand-minimally t))
+
+(eval-when-compile
+  (require 'use-package))
+
 ;;; necessary packages
 
 (use-package bind-key)
