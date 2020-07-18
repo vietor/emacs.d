@@ -53,9 +53,6 @@
   :init
   (setq browse-kill-ring-separator "\f"))
 
-(use-package smex
-  :bind ([remap execute-extended-command] . smex))
-
 (use-package which-key
   :diminish
   :init

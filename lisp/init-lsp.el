@@ -16,6 +16,7 @@
         lsp-enable-file-watchers nil
 
         lsp-auto-configure nil
+        lsp-enable-snippet nil
         lsp-enable-folding nil
         lsp-enable-semantic-highlighting nil
         lsp-enable-symbol-highlighting nil
@@ -24,7 +25,7 @@
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
 
-  (lsp-flycheck-enable)
+  (add-hook 'lsp-mode-hook 'lsp-flycheck-enable)
 
   ;; use aproject
 

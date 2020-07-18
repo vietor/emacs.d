@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package smex)
+
 (use-package ivy
   :diminish
   :bind (:map ivy-minibuffer-map
@@ -17,7 +19,6 @@
                 ivy-magic-tilde nil
                 ivy-dynamic-exhibit-delay-ms 150
                 ivy-use-selectable-prompt t))
-
 
 (use-package counsel
   :after ivy

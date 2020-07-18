@@ -8,14 +8,12 @@
 (use-package gitconfig-mode)
 
 (use-package git-timemachine
-  :after vc
   :when (executable-find "git")
   :bind (:map vc-prefix-map
               ("t" . git-timemachine-toggle)))
 
 (use-package magit
   :when (executable-find "git")
-  :after vc
   :bind ("C-x g" . magit-status)
   :config
   (setq-default magit-diff-refine-hunk t)
