@@ -3,8 +3,13 @@
 ;;; Code:
 
 (use-package lsp-mode
+  :diminish
+  :bind (:map lsp-mode-map
+              ("C-c C-d" . lsp-describe-thing-at-point)
+              ([remap xref-find-definitions] . lsp-find-definition)
+              ([remap xref-find-references] . lsp-find-references))
   :init
-  (setq lsp-keymap-prefix "M-g i"
+  (setq lsp-keymap-prefix "C-c l"
         read-process-output-max (* 1024 1024))
   :config
   (setq lsp-prefer-capf t

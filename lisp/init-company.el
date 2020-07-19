@@ -7,7 +7,7 @@
 
 (use-package company
   :diminish
-  :bind (("M-C-/" . company-complete)
+  :bind (("C-M-/" . company-complete)
          :map company-mode-map
          ("M-/" . company-complete)
          :map company-active-map
