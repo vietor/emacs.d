@@ -4,6 +4,8 @@
 
 (use-package flycheck
   :hook (after-init . global-flycheck-mode)
+  :init
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
   :config
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
 
