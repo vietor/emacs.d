@@ -12,7 +12,10 @@
   (setq lsp-dart-outline nil
         lsp-dart-flutter-outline nil
         lsp-dart-flutter-fringe-colors nil
-        lsp-dart-flutter-widget-guides nil)
+        lsp-dart-flutter-widget-guides nil
+        lsp-dart-closing-labels nil
+        lsp-dart-main-code-lens nil
+        lsp-dart-test-code-lens nil)
   (add-to-list 'ya-formatter-beautify-alist '(dart-mode . lsp-format-buffer)))
 
 (provide 'init-dart)
