@@ -107,6 +107,10 @@
   (setq-default display-line-numbers-width 3)
   (bind-key "M-g l" 'display-line-numbers-mode))
 
+(use-package eldoc
+  :ensure nil
+  :diminish)
+
 (use-package whitespace
   :ensure nil
   :bind ("M-g w" . whitespace-mode)

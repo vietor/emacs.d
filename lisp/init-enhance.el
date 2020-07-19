@@ -39,7 +39,7 @@
   :bind ("C-=" . er/expand-region))
 
 (use-package whole-line-or-region
-  :diminish
+  :diminish whole-line-or-region-local-mode
   :hook (after-init . whole-line-or-region-global-mode))
 
 (use-package browse-kill-ring
