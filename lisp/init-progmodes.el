@@ -17,7 +17,7 @@
 
 (use-package py-autopep8
   :when (executable-find "autopep8")
-  :config
+  :init
   (defun python-mode-beautify ()
     "Deep indent for python."
     (py-autopep8-buffer)

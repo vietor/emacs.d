@@ -15,8 +15,7 @@
         lsp-dart-flutter-widget-guides nil
         lsp-dart-closing-labels nil
         lsp-dart-main-code-lens nil
-        lsp-dart-test-code-lens nil)
-  (add-to-list 'ya-formatter-beautify-alist '(dart-mode . lsp-format-buffer)))
+        lsp-dart-test-code-lens nil))
 
 (provide 'init-dart)
 ;; Local Variables:

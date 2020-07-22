@@ -10,6 +10,8 @@
 
 (defvar ya-formatter-beautify-alist nil)
 
+(defvar ya-formatter-beautify-minor-alist nil)
+
 (defun ya-formatter-indent ()
   "Reformat current buffer by indent."
   (interactive)
@@ -22,6 +24,10 @@
   "Reformat current buffer by customize or indent."
   (interactive)
   (let ((beautify (cdr (assoc major-mode ya-formatter-beautify-alist))))
+    (unless beautify
+      (setq beautify (cdr (assoc nil ya-formatter-beautify-minor-alist
+                                 (lambda (mode _)
+                                   (car (member mode minor-mode-list)))))))
     (if (not beautify)
         (ya-formatter-indent)
       (let ((c-point (point))

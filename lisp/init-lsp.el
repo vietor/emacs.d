@@ -11,6 +11,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l"
         read-process-output-max (* 1024 1024))
+  :init
+  (add-to-list 'ya-formatter-beautify-minor-alist '(lsp-mode . lsp-format-buffer))
   :config
   (setq lsp-prefer-capf t
         lsp-keep-workspace-alive nil
