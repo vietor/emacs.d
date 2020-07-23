@@ -2,17 +2,15 @@ GPATH
 GRTAGS
 GTAGS
 
-/.*
-/elpa*/
-/.aproject/
-/auto-save-list/
-/server/
-/transient
-/newsticker
-/smex-items
-
+.*
 *.swp
-/tramp
-/setenv
-/custom.el*
+elpa*/
+tramp/
+server/
+auto-save-list/
+transient/
+newsticker/
+smex-items
 
+setenv
+custom.el*

@@ -68,6 +68,9 @@
 (when (fboundp 'toggle-frame-fullscreen)
   (bind-key "C-<f10>" 'toggle-frame-fullscreen))
 
+(after-aproject-change
+ (setq frame-title-format '("Emacs @ " aproject-rootdir)))
+
 ;; initial editor
 
 (setq-default tab-width 4
@@ -170,14 +173,6 @@
          w32-get-true-file-attributes nil
          inhibit-compacting-font-caches t))
 (setq-default bidi-display-reordering nil)
-
-;; helper for aproject
-
-(after-aproject-change
- (setq frame-title-format '("Emacs @ " aproject-rootdir))
- (setq save-place-file (aproject-store-file "saved-places"))
- (setq eshell-directory-name (aproject-store-file "eshell/"))
- (setq url-configuration-directory (aproject-store-file "url/")))
 
 (provide 'init-builtin)
 ;; Local Variables:
