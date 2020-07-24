@@ -29,6 +29,16 @@
 (global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "C-x C-e"))
 
+(bind-key "C-." 'set-mark-command)
+(bind-key "C-x C-." 'pop-global-mark)
+(bind-key "M-g q" 'keyboard-escape-quit)
+
+(bind-key "<f1>" 'help-command)
+(bind-key "C-h" 'delete-backward-char)
+
+(bind-key "M-g j" 'imenu)
+(bind-key "M-g r" 'replace-string)
+
 ;; disable files
 
 (setq create-lockfiles nil
@@ -110,6 +120,15 @@
   (setq-default display-line-numbers-width 3)
   (bind-key "M-g l" 'display-line-numbers-mode))
 
+;; fix some slow
+
+(when system-is-win
+  (setq  w32-pipe-read-delay 0
+         w32-pipe-buffer-size (* 64 1024)
+         w32-get-true-file-attributes nil
+         inhibit-compacting-font-caches t))
+(setq-default bidi-display-reordering nil)
+
 (use-package eldoc
   :ensure nil
   :diminish)
@@ -148,31 +167,19 @@
 (use-package ibuffer
   :ensure nil
   :bind ([remap list-buffers] . ibuffer)
-  :init
-  (setq-default ibuffer-show-empty-filter-groups nil)
   :config
-  (fullframe ibuffer ibuffer-quit))
-
-;; key binds
-
-(bind-key "C-." 'set-mark-command)
-(bind-key "C-x C-." 'pop-global-mark)
-(bind-key "M-g q" 'keyboard-escape-quit)
-
-(bind-key "<f1>" 'help-command)
-(bind-key "C-h" 'delete-backward-char)
-
-(bind-key "M-g j" 'imenu)
-(bind-key "M-g r" 'replace-string)
-
-;; fix sometime slow
-
-(when system-is-win
-  (setq  w32-pipe-read-delay 0
-         w32-pipe-buffer-size (* 64 1024)
-         w32-get-true-file-attributes nil
-         inhibit-compacting-font-caches t))
-(setq-default bidi-display-reordering nil)
+  (fullframe ibuffer ibuffer-quit)
+  (setq ibuffer-show-empty-filter-groups nil)
+  (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
+  (setq ibuffer-saved-filter-groups
+        '(("beautify"
+           ("Default"
+            (name . "^[^\\*]"))
+           ("Undefined"
+            (name . "^\\*")))))
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (ibuffer-switch-to-saved-filter-groups "beautify"))))
 
 (provide 'init-builtin)
 ;; Local Variables:
