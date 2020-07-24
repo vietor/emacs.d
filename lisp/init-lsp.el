@@ -8,11 +8,17 @@
               ("C-c C-d" . lsp-describe-thing-at-point)
               ([remap xref-find-definitions] . lsp-find-definition)
               ([remap xref-find-references] . lsp-find-references))
+  :hook (lsp-mode . lsp-flycheck-enable)
   :init
   (setq lsp-keymap-prefix "C-c l"
         read-process-output-max (* 1024 1024))
-  :init
   (add-to-list 'ya-formatter-beautify-minor-alist '(lsp-mode . lsp-format-buffer))
+  (before-aproject-change
+   (setq lsp-restart 'ignore)
+   (mapcar 'delete-process (process-list)))
+  (after-aproject-change
+   (setq lsp-restart 'auto-restart
+         lsp-session-file (aproject-store-file ".lsp-session")))
   :config
   (setq lsp-prefer-capf t
         lsp-keep-workspace-alive nil
@@ -32,22 +38,10 @@
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
 
-  (add-hook 'lsp-mode-hook 'lsp-flycheck-enable)
-
-  ;; use aproject
-
   (setq lsp-auto-guess-root t)
   (defun lsp--suggest-project-root ()
-    "Advice the project root."
-    aproject-rootdir)
+    aproject-rootdir))
 
-  (before-aproject-change
-   (setq lsp-restart 'ignore)
-   (mapcar 'delete-process (process-list)))
-
-  (after-aproject-change
-   (setq lsp-restart 'auto-restart)
-   (setq lsp-session-file (aproject-store-file ".lsp-session"))))
 
 (provide 'init-lsp)
 ;; Local Variables:

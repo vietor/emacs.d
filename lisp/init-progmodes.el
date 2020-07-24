@@ -31,8 +31,9 @@
 (use-package go-mode
   :when (executable-find "go")
   :hook (before-save . gofmt-before-save)
-  :config
-  (after-aproject-change (setenv "GOPATH" aproject-rootdir)))
+  :init
+  (after-aproject-change
+   (setenv "GOPATH" aproject-rootdir)))
 
 (provide 'init-progmodes)
 ;; Local Variables:

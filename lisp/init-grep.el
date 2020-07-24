@@ -21,6 +21,9 @@
 
 (use-package agtags
   :when (executable-find "global")
+  :init
+  (after-aproject-change
+   (agtags-update-root aproject-rootdir))
   :config
   (require 'agtags-xref)
 
@@ -33,9 +36,7 @@
   (agtags-bind-keys)
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook 'agtags-mode-on))
-  (add-to-list 'xref-backend-functions 'agtags-xref-backend)
-
-  (after-aproject-change (agtags-update-root aproject-rootdir)))
+  (add-to-list 'xref-backend-functions 'agtags-xref-backend))
 
 (provide 'init-grep)
 ;; Local Variables:
