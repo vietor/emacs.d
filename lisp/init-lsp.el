@@ -34,9 +34,6 @@
 
   (add-hook 'lsp-mode-hook 'lsp-flycheck-enable)
 
-  ;; disable auto download
-  (defun lsp--install-server-internal())
-
   ;; use aproject
 
   (setq lsp-auto-guess-root t)
