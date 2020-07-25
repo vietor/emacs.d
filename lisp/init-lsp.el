@@ -14,21 +14,19 @@
         read-process-output-max (* 1024 1024))
   (add-to-list 'ya-formatter-beautify-minor-alist '(lsp-mode . lsp-format-buffer))
   (before-aproject-change
-   (setq lsp-restart 'ignore)
-   (mapcar 'delete-process (process-list)))
+   (let ((lsp-restart 'ignore))
+     (mapcar 'delete-process (process-list))))
   (after-aproject-change
-   (setq lsp-restart 'auto-restart
-         lsp-session-file (aproject-store-file ".lsp-session")))
+   (setq lsp-session-file (aproject-store-file ".lsp-session")))
   :config
   (setq lsp-prefer-capf t
         lsp-keep-workspace-alive nil
         lsp-signature-auto-activate nil
-        lsp-modeline-code-actions-enable nil
-
-        lsp-enable-file-watchers nil
-        lsp-enable-file-watchers nil
 
         lsp-auto-configure nil
+        lsp-enable-file-watchers nil
+        lsp-enable-file-watchers nil
+
         lsp-enable-snippet nil
         lsp-enable-folding nil
         lsp-enable-semantic-highlighting nil
@@ -40,8 +38,16 @@
 
   (setq lsp-auto-guess-root t)
   (defun lsp--suggest-project-root ()
-    aproject-rootdir))
+    aproject-rootdir)
 
+  (defun lsp-install-server (update?))
+  (defun lsp--install-server-internal (client &optional update?)
+    (message "Please install the required language server yourself"))
+  (defun filter-lsp--completing-read (orig-fun &rest args)
+    (if (string-match-p "installed automatically:" (car args))
+        (car (nth 1 args))
+      (apply orig-fun args)))
+  (advice-add 'lsp--completing-read :around #'filter-lsp--completing-read))
 
 (provide 'init-lsp)
 ;; Local Variables:
