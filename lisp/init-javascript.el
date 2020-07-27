@@ -23,8 +23,8 @@
   (defun js2-mode-on ()
     (setq mode-name "JS2")
     (unless (flycheck-get-checker-for-buffer)
-      (setq-local js2-mode-show-parse-errors t
-                  js2-mode-show-strict-warnings t)))
+      (setq-local js2-mode-show-parse-errors t)
+      (setq-local js2-mode-show-strict-warnings t)))
   (add-hook 'js2-mode-hook 'js2-mode-on))
 
 (use-package web-beautify
