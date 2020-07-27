@@ -25,8 +25,8 @@
 (defun kernel-set-c-style ()
   "Set the current buffer's c-style to Linux Kernel C/C++ Programming Style. Meant to be added to `c-mode-common-hook'."
   (interactive)
-  (setq indent-tabs-mode t)
-  (setq show-trailing-whitespace t)
+  (setq indent-tabs-mode t
+        show-trailing-whitespace t)
   (c-add-style "Kernel" kernel-c-style t))
 
 ;; cxx mode
@@ -42,8 +42,8 @@
 (add-hook 'c-mode-common-hook 'cxx-mode-on)
 
 (with-eval-after-load 'flycheck
-  (setq-default flycheck-gcc-language-standard "c++11")
-  (setq-default flycheck-clang-language-standard "c++11"))
+  (setq-default flycheck-gcc-language-standard "c++11"
+                flycheck-clang-language-standard "c++11"))
 
 (provide 'init-cxx)
 ;; Local Variables:

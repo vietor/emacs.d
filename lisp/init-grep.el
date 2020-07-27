@@ -14,8 +14,8 @@
 
 (use-package wgrep
   :config
-  (setq wgrep-enable-key "e")
-  (setq wgrep-auto-save-buffer t))
+  (setq wgrep-enable-key "e"
+        wgrep-auto-save-buffer t))
 
 ;; gtags
 

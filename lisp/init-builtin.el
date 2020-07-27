@@ -48,12 +48,12 @@
 
 ;; disable gui
 
-(setq use-dialog-box nil)
-(setq use-file-dialog nil)
+(setq use-dialog-box nil
+      use-file-dialog nil)
 
 (blink-cursor-mode 0)
-(setq visible-bell nil)
-(setq ring-bell-function 'ignore)
+(setq visible-bell nil
+      ring-bell-function 'ignore)
 
 ;; initial gui
 
@@ -69,9 +69,9 @@
   (add-hook 'after-init-hook 'electric-indent-mode))
 
 (when system-is-mac
-  (setq ns-pop-up-frames nil)
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'none)
+  (setq ns-pop-up-frames nil
+        mac-command-modifier 'meta
+        mac-option-modifier 'none)
   (set-fontset-font t 'symbol
                     (font-spec :family "Apple Color Emoji") nil 'prepend))
 
@@ -90,8 +90,8 @@
               indent-tabs-mode nil)
 (bind-key "RET" 'newline-and-indent)
 
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message "")
+(setq inhibit-startup-screen t
+      initial-scratch-message "")
 (setq-default major-mode 'text-mode)
 (setq initial-major-mode 'text-mode)
 
@@ -123,10 +123,10 @@
 ;; fix some slow
 
 (when system-is-win
-  (setq  w32-pipe-read-delay 0
-         w32-pipe-buffer-size (* 64 1024)
-         w32-get-true-file-attributes nil
-         inhibit-compacting-font-caches t))
+  (setq w32-pipe-read-delay 0
+        w32-pipe-buffer-size (* 64 1024)
+        w32-get-true-file-attributes nil
+        inhibit-compacting-font-caches t))
 (setq-default bidi-display-reordering nil)
 
 (use-package eldoc
@@ -151,10 +151,10 @@
 (use-package uniquify
   :ensure nil
   :init
-  (setq uniquify-buffer-name-style 'reverse)
-  (setq uniquify-separator " • ")
-  (setq uniquify-after-kill-buffer-p t)
-  (setq uniquify-ignore-buffers-re "^\\*"))
+  (setq uniquify-buffer-name-style 'reverse
+        uniquify-separator " • "
+        uniquify-after-kill-buffer-p t
+        uniquify-ignore-buffers-re "^\\*"))
 
 (use-package dired
   :ensure nil
@@ -169,14 +169,13 @@
   :bind ([remap list-buffers] . ibuffer)
   :config
   (fullframe ibuffer ibuffer-quit)
-  (setq ibuffer-show-empty-filter-groups nil)
-  (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
-  (setq ibuffer-saved-filter-groups
-        '(("beautify"
-           ("Default"
-            (name . "^[^\\*]"))
-           ("Undefined"
-            (name . "^\\*")))))
+  (setq ibuffer-show-empty-filter-groups nil
+        ibuffer-filter-group-name-face 'font-lock-doc-face
+        ibuffer-saved-filter-groups '(("beautify"
+                                       ("Default"
+                                        (name . "^[^\\*]"))
+                                       ("Undefined"
+                                        (name . "^\\*")))))
   (add-hook 'ibuffer-mode-hook
             (lambda ()
               (ibuffer-switch-to-saved-filter-groups "beautify"))))
