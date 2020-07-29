@@ -15,7 +15,10 @@
    (setq lsp-java-workspace-dir (aproject-store-file "workspace")
          lsp-java-workspace-cache-dir (aproject-store-file "workspace-cache")))
   :config
-  (setq lsp-java-save-action-organize-imports nil))
+  (setq lsp-java-save-action-organize-imports nil
+        lsp-java-autobuild-enabled nil
+        lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
+        lsp-java-format-settings-profile "GoogleStyle"))
 
 (provide 'init-java)
 ;; Local Variables:
