@@ -31,6 +31,7 @@
     (agtags-mode 1)
     (diminish 'agtags-mode))
 
+  (setq agtags-key-prefix "C-x t")
   (setq agtags-global-treat-text t)
 
   (agtags-bind-keys)
