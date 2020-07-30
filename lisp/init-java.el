@@ -12,8 +12,7 @@
   :hook (java-mode . lsp-deferred)
   :init
   (after-aproject-change
-   (setq lsp-java-workspace-dir (aproject-store-file "workspace")
-         lsp-java-workspace-cache-dir (aproject-store-file "workspace-cache")))
+   (setq lsp-java-workspace-cache-dir (aproject-store-file "workspace-cache/")))
   :config
   (setq lsp-java-save-action-organize-imports nil
         lsp-java-autobuild-enabled nil
