@@ -13,7 +13,9 @@
          :map company-active-map
          ("M-/" . company-other-backend)
          ("C-n" . company-select-next)
-         ("C-p" . company-select-previous))
+         ("C-p" . company-select-previous)
+         ("C-d" . 'company-show-doc-buffer)
+         ("M-." . company-show-location))
   :hook (after-init . global-company-mode)
   :config
   (setq company-dabbrev-downcase nil

@@ -19,8 +19,7 @@
   (after-aproject-change
    (setq lsp-session-file (aproject-store-file ".lsp-session")))
   :config
-  (setq lsp-prefer-capf t
-        lsp-keep-workspace-alive nil
+  (setq lsp-keep-workspace-alive nil
         lsp-signature-auto-activate nil
 
         lsp-auto-configure nil
