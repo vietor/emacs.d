@@ -77,6 +77,7 @@
 (require 'init-ivy)
 (require 'init-git)
 (require 'init-grep)
+(require 'init-ibuffer)
 
 (require 'init-lsp)
 (require 'init-dart)

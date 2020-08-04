@@ -164,22 +164,6 @@
   (setq-default dired-dwim-target t)
   (put 'dired-find-alternate-file 'disabled nil))
 
-(use-package ibuffer
-  :ensure nil
-  :bind ([remap list-buffers] . ibuffer)
-  :config
-  (fullframe ibuffer ibuffer-quit)
-  (setq ibuffer-show-empty-filter-groups nil
-        ibuffer-filter-group-name-face 'font-lock-doc-face
-        ibuffer-saved-filter-groups '(("beautify"
-                                       ("Default"
-                                        (name . "^[^\\*]"))
-                                       ("Undefined"
-                                        (name . "^\\*")))))
-  (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (ibuffer-switch-to-saved-filter-groups "beautify"))))
-
 (provide 'init-builtin)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
