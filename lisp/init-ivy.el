@@ -20,17 +20,16 @@
                 ivy-use-selectable-prompt t))
 
 (use-package counsel
-  :after ivy
   :diminish
   :hook (after-init . counsel-mode)
   :bind ("M-g f o" . counsel-recentf)
+  :init
+  (setq-default counsel-mode-override-describe-bindings t)
   :config
-  (setq-default counsel-mode-override-describe-bindings t
-                ivy-initial-inputs-alist '((Man-completion-table . "^")
+  (setq-default ivy-initial-inputs-alist '((Man-completion-table . "^")
                                            (woman . "^"))))
 
 (use-package swiper
-  :after ivy
   :bind (:map ivy-mode-map
               ("M-s /" . swiper-thing-at-point)))
 
@@ -40,6 +39,16 @@
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
   (when (>= emacs-major-version 27)
     (setq xref-show-definitions-function #'ivy-xref-show-defs)))
+
+(use-package ivy-rich
+  :after ivy
+  :hook (ivy-mode . ivy-rich-mode)
+  :init
+  (setq ivy-virtual-abbreviate 'abbreviate
+        ivy-rich-switch-buffer-align-virtual-buffer nil
+        ivy-rich-path-style 'abbrev)
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (provide 'init-ivy)
 ;; Local Variables:
