@@ -17,7 +17,7 @@
    (let ((lsp-restart 'ignore))
      (mapcar 'delete-process (process-list))))
   (after-aproject-change
-   (setq lsp-session-file (aproject-store-file ".lsp-session")))
+   (setq lsp-session-file (aproject-store-file "lsp-session")))
   :config
   (setq lsp-keep-workspace-alive nil
         lsp-signature-auto-activate nil
