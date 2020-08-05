@@ -87,6 +87,7 @@
 (require 'init-web)
 (require 'init-java)
 (require 'init-javascript)
+(require 'init-python)
 (require 'init-textmodes)
 (require 'init-progmodes)
 
