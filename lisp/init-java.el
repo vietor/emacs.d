@@ -16,8 +16,8 @@
   :config
   (setq lsp-java-save-action-organize-imports nil
         lsp-java-autobuild-enabled nil
-        lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
-        lsp-java-format-settings-profile "GoogleStyle"))
+        lsp-java-format-settings-profile "GoogleStyle"
+        lsp-java-format-settings-url (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
 
 (provide 'init-java)
 ;; Local Variables:
