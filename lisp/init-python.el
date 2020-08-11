@@ -29,7 +29,7 @@
   :bind (:map anaconda-mode-map
               ("M-?" . nil))
   :init
-  (setq anaconda-mode-installation-directory (locate-user-emacs-file ".cache/anaconda-mode")))
+  (setq anaconda-mode-installation-directory (expand-file-name "anaconda-mode" user-space-directory)))
 
 (use-package company-anaconda
   :after (company python)
