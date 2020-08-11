@@ -8,7 +8,6 @@
               ("C-c C-d" . lsp-describe-thing-at-point)
               ([remap xref-find-definitions] . lsp-find-definition)
               ([remap xref-find-references] . lsp-find-references))
-  :hook (lsp-mode . lsp-flycheck-enable)
   :init
   (setq read-process-output-max (* 1024 1024)
         lsp-keymap-prefix "C-c l"
@@ -22,19 +21,20 @@
   :config
   (setq lsp-keep-workspace-alive nil
         lsp-signature-auto-activate nil
-
-        lsp-auto-configure nil
         lsp-enable-file-watchers nil
-        lsp-enable-file-watchers nil
+        lsp-enable-dap-auto-configure nil
 
         lsp-enable-snippet nil
         lsp-enable-folding nil
-        lsp-enable-semantic-highlighting nil
+        lsp-eldoc-enable-hover nil
         lsp-enable-symbol-highlighting nil
         lsp-enable-text-document-color nil
-
         lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil)
+        lsp-enable-on-type-formatting nil
+
+        lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable nil
+        lsp-headerline-breadcrumb-enable nil)
 
   (setq lsp-auto-guess-root t)
   (defun lsp--suggest-project-root ()

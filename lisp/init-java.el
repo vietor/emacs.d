@@ -15,8 +15,9 @@
   (after-aproject-change
    (setq lsp-java-workspace-cache-dir (aproject-store-file "workspace-cache/")))
   :config
-  (setq lsp-java-save-action-organize-imports nil
-        lsp-java-autobuild-enabled nil
+  (setq lsp-java-autobuild-enabled nil
+        lsp-java-selection-enabled nil
+        lsp-java-save-action-organize-imports nil
         lsp-java-import-gradle-wrapper-enabled nil
         lsp-java-format-settings-profile "GoogleStyle"
         lsp-java-format-settings-url (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
