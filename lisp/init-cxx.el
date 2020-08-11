@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'google-c-style)
+
 ;; linux kernel style
 
 (defun c-lineup-arglist-tabs-only (ignored)
@@ -35,15 +37,16 @@
   "Set current buffer to cxx mode."
   (when (or (eq major-mode 'c-mode)
             (eq major-mode 'c++-mode))
-    (kernel-set-c-style))
+    (google-set-c-style))
   (when indent-tabs-mode
     (setq tab-width c-basic-offset)))
 
 (add-hook 'c-mode-common-hook 'cxx-mode-on)
 
 (with-eval-after-load 'flycheck
-  (setq-default flycheck-gcc-language-standard "c++11"
-                flycheck-clang-language-standard "c++11"))
+  (with-eval-after-load 'c++-mode
+    (setq flycheck-gcc-language-standard "c++11"
+          flycheck-clang-language-standard "c++11")))
 
 (provide 'init-cxx)
 ;; Local Variables:

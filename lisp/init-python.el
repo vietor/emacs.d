@@ -22,6 +22,7 @@
   (add-to-list 'ya-formatter-beautify-alist '(python-mode . python-mode-beautify)))
 
 (use-package anaconda-mode
+  :diminish
   :after python
   :hook ((python-mode . anaconda-mode)
          (anaconda-mode . anaconda-eldoc-mode))

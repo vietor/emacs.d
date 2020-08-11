@@ -6,7 +6,7 @@
   '(nxml-mode))
 
 (defvar ya-formatter-disabled-modes
-  '(sql-mode text-mode shell-mode eshell-mode term-mode))
+  '(sql-mode text-mode shell-mode eshell-mode term-mode makefile-mode))
 
 (defvar ya-formatter-beautify-alist nil)
 
