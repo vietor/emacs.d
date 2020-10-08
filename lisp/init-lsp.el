@@ -9,8 +9,7 @@
               ([remap xref-find-definitions] . lsp-find-definition)
               ([remap xref-find-references] . lsp-find-references))
   :init
-  (setq read-process-output-max (* 1024 1024)
-        lsp-keymap-prefix "C-c l"
+  (setq lsp-keymap-prefix "C-c l"
         lsp-server-install-dir (expand-file-name "lsp" user-space-directory))
   (add-to-list 'ya-formatter-beautify-minor-alist '(lsp-mode . lsp-format-buffer))
   (before-aproject-change
