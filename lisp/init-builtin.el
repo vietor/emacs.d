@@ -118,7 +118,8 @@
 
 (when (fboundp 'display-line-numbers-mode)
   (setq-default display-line-numbers-width 3)
-  (bind-key "M-g l" 'display-line-numbers-mode))
+  (bind-key "M-g l" 'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 
 ;; fix some slow
 
