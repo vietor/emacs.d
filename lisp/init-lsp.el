@@ -18,22 +18,30 @@
   (after-aproject-change
    (setq lsp-session-file (aproject-store-file "lsp-session")))
   :config
-  (setq lsp-keep-workspace-alive nil
+  (setq lsp-lens-enable nil
+        lsp-ui-doc-enable nil
+        lsp-ui-sideline-enable nil
+
+        lsp-eldoc-enable-hover nil
+        lsp-completion-show-kind nil
+        lsp-completion-show-detail nil
+
+        lsp-headerline-breadcrumb-enable nil
+        lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable nil
         lsp-signature-auto-activate nil
-        lsp-enable-file-watchers nil
-        lsp-enable-dap-auto-configure nil
+        lsp-signature-render-documentation nil
 
         lsp-enable-snippet nil
         lsp-enable-folding nil
-        lsp-eldoc-enable-hover nil
-        lsp-enable-symbol-highlighting nil
-        lsp-enable-text-document-color nil
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
+        lsp-enable-text-document-color nil
+        lsp-enable-symbol-highlighting nil
 
-        lsp-modeline-code-actions-enable nil
-        lsp-modeline-diagnostics-enable nil
-        lsp-headerline-breadcrumb-enable nil)
+        lsp-keep-workspace-alive nil
+        lsp-enable-file-watchers nil
+        lsp-enable-dap-auto-configure nil)
 
   (setq lsp-auto-guess-root t)
   (defun lsp--suggest-project-root ()
