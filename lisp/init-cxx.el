@@ -31,17 +31,8 @@
         show-trailing-whitespace t)
   (c-add-style "Kernel" kernel-c-style t))
 
-;; cxx mode
-
-(defun cxx-mode-on ()
-  "Set current buffer to cxx mode."
-  (when (or (eq major-mode 'c-mode)
-            (eq major-mode 'c++-mode))
-    (google-set-c-style))
-  (when indent-tabs-mode
-    (setq tab-width c-basic-offset)))
-
-(add-hook 'c-mode-common-hook 'cxx-mode-on)
+(add-hook 'c-mode-hook 'google-set-c-style)
+(add-hook 'c++-mode-hook 'google-set-c-style)
 
 (with-eval-after-load 'flycheck
   (with-eval-after-load 'c++-mode

@@ -121,6 +121,10 @@
   (bind-key "M-g l" 'display-line-numbers-mode)
   (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (when indent-tabs-mode (setq tab-width c-basic-offset))))
+
 ;; fix some slow
 
 (when system-is-win
