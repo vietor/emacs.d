@@ -61,7 +61,10 @@
   (mouse-wheel-mode t)
   (setq mouse-wheel-scroll-amount '(1
                                     ((shift) . 5)
-                                    ((control)))))
+                                    ((control))))
+  ;; disable ugly text-scale
+  (defun mouse-wheel-text-scale (event)
+    (interactive (list last-input-event))))
 
 (when (fboundp 'electric-pair-mode)
   (add-hook 'after-init-hook 'electric-pair-mode))
