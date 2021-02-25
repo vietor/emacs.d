@@ -99,9 +99,9 @@
 (setq initial-major-mode 'text-mode)
 
 (cua-selection-mode t)
-(delete-selection-mode t)
 (add-hook 'after-init-hook 'show-paren-mode)
 (add-hook 'after-init-hook 'transient-mark-mode)
+(add-hook 'after-init-hook 'delete-selection-mode)
 
 (setq-default case-fold-search t
               truncate-lines nil
