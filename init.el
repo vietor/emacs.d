@@ -75,10 +75,10 @@
 (require 'init-company)
 (require 'init-flycheck)
 
-(require 'init-ivy)
 (require 'init-git)
 (require 'init-grep)
 (require 'init-ibuffer)
+(require 'init-selectrum)
 
 (require 'init-lsp)
 (require 'init-dart)

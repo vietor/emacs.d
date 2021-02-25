@@ -5,6 +5,7 @@ GTAGS
 .*
 *.swp
 elpa*/
+var/
 tramp/
 server/
 auto-save-list/
@@ -14,3 +15,4 @@ smex-items
 
 setenv
 custom.el*
+
