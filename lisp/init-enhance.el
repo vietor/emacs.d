@@ -17,10 +17,7 @@
   :hook (after-init . hes-mode))
 
 (use-package move-dup
-  :bind (([M-up] . md-move-lines-up)
-         ([M-down] . md-move-lines-down)
-         ([M-S-up] . md-move-lines-up)
-         ([M-S-down] . md-move-lines-down)))
+  :hook (after-init . global-move-dup-mode))
 
 (use-package avy
   :bind ("C-;" . avy-goto-char-timer))
