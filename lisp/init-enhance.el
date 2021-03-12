@@ -133,6 +133,19 @@
       (end-of-line))))
 (bind-key [remap move-end-of-line] 'smart-end-of-line)
 
+;; random string
+
+(defun smart-random-string (total)
+  (interactive "nTotal: ")
+  (let* ((alphabet "abcdefghijklmnopqrstuvwxyz")
+         (characters (concat alphabet "0123456789"))
+         (alphabet-size (length alphabet))
+         (characters-size (length characters)))
+    (insert (elt alphabet (random alphabet-size)))
+    (dotimes (_ (- total 1))
+      (insert (elt characters (random characters-size))))))
+(bind-key "M-g t i" (lambda () (interactive) (smart-random-string 12)))
+
 (provide 'init-enhance)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
