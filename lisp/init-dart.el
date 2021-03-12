@@ -10,12 +10,13 @@
   :hook (dart-mode . lsp-deferred)
   :config
   (setq lsp-dart-outline nil
+        lsp-dart-closing-labels nil
+        lsp-dart-main-code-lens nil
+        lsp-dart-test-code-lens nil
         lsp-dart-flutter-outline nil
         lsp-dart-flutter-fringe-colors nil
         lsp-dart-flutter-widget-guides nil
-        lsp-dart-closing-labels nil
-        lsp-dart-main-code-lens nil
-        lsp-dart-test-code-lens nil))
+        lsp-dart-flutter-executable "flutter --no-version-check"))
 
 (provide 'init-dart)
 ;; Local Variables:
