@@ -141,9 +141,13 @@
          (characters (concat alphabet "0123456789"))
          (alphabet-size (length alphabet))
          (characters-size (length characters)))
-    (insert (elt alphabet (random alphabet-size)))
-    (dotimes (_ (- total 1))
-      (insert (elt characters (random characters-size))))))
+    (insert
+     (with-temp-buffer
+       (insert (elt alphabet (random alphabet-size)))
+       (dotimes (_ (- total 1))
+         (insert (elt characters (random characters-size))))
+       (copy-region-as-kill (point-min) (point-max))
+       (buffer-substring-no-properties (point-min) (point-max))))))
 (bind-key "M-g t i" (lambda () (interactive) (smart-random-string 12)))
 
 (provide 'init-enhance)
