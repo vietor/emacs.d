@@ -8,6 +8,7 @@ elpa*/
 var/
 tramp/
 server/
+eshell/
 auto-save-list/
 transient/
 newsticker/

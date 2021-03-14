@@ -133,22 +133,11 @@
       (end-of-line))))
 (bind-key [remap move-end-of-line] 'smart-end-of-line)
 
-;; random string
+;; insert string
 
-(defun smart-random-string (total)
-  (interactive "nTotal: ")
-  (let* ((alphabet "abcdefghijklmnopqrstuvwxyz")
-         (characters (concat alphabet "0123456789"))
-         (alphabet-size (length alphabet))
-         (characters-size (length characters)))
-    (insert
-     (with-temp-buffer
-       (insert (elt alphabet (random alphabet-size)))
-       (dotimes (_ (- total 1))
-         (insert (elt characters (random characters-size))))
-       (copy-region-as-kill (point-min) (point-max))
-       (buffer-substring-no-properties (point-min) (point-max))))))
-(bind-key "M-g t i" (lambda () (interactive) (smart-random-string 12)))
+(require 'insert-string)
+(bind-key "M-g t i" 'insert-random-string)
+(bind-key "M-g t t" 'insert-ordered-string)
 
 (provide 'init-enhance)
 ;; Local Variables:
