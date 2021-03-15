@@ -17,6 +17,7 @@
   :hook (after-init . hes-mode))
 
 (use-package move-dup
+  :diminish
   :hook (after-init . global-move-dup-mode))
 
 (use-package avy

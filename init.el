@@ -80,6 +80,8 @@
 (require 'init-ibuffer)
 (require 'init-selectrum)
 
+(require 'init-http)
+
 (require 'init-lsp)
 (require 'init-dart)
 
