@@ -12,43 +12,25 @@
 
 ;; javascript
 
-(use-package js2-mode
-  :mode "\\.js\\'"
-  :bind (:map js2-mode-map
-              ("M-." . nil))
-  :config
-  (setq-default js2-bounce-indent-p nil
-                js2-mode-show-parse-errors nil
-                js2-mode-show-strict-warnings nil)
-  (defun js2-mode-on ()
-    (setq mode-name "JS2")
-    (unless (flycheck-get-checker-for-buffer)
-      (setq-local js2-mode-show-parse-errors t)
-      (setq-local js2-mode-show-strict-warnings t)))
-  (add-hook 'js2-mode-hook 'js2-mode-on))
-
-(use-package web-beautify
-  :when (executable-find "js-beautify")
+(use-package js-mode
+  :ensure nil
+  :mode "\\.\\(js\\|es6\\)\\(\\.erb\\)?\\'"
   :init
-  (add-to-list 'ya-formatter-beautify-alist '(js2-mode . web-beautify-js)))
+  (setq-default js-indent-level 2))
 
-(use-package rjsx-mode
-  :bind (:map rjsx-mode-map
-              ("<" . nil)
-              (">" . nil)
-              ("C-d" . nil))
-  :config
-  (defun rjsx-mode-on ()
-    (setq mode-name "JS2-JSX"))
-  (add-hook 'rjsx-mode-hook 'rjsx-mode-on))
+(use-package prettier-js
+  :when (executable-find "prettier")
+  :commands (prettier-js)
+  :init
+  (add-to-list 'ya-formatter-beautify-alist '(js-mode . prettier-js)))
 
 ;; helper for company-mode
 
 (with-eval-after-load 'company-gtags
-  (add-to-list 'company-gtags-modes 'js2-mode))
+  (add-to-list 'company-gtags-modes 'js-mode))
 
 (with-eval-after-load 'company-dabbrev-code
-  (add-to-list 'company-dabbrev-code-modes 'js2-mode))
+  (add-to-list 'company-dabbrev-code-modes 'js-mode))
 
 (provide 'init-javascript)
 ;; Local Variables:
