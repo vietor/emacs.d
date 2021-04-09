@@ -3,7 +3,7 @@
 ;;; Code:
 
 (use-package restclient
-  :mode "\\.rest\\'"
+  :mode (("\\.http\\'" . restclient-mode))
   :init
   (defun open-restclient()
     (interactive)
