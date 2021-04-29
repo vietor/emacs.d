@@ -4,7 +4,7 @@
 
 ;; (setq debug-on-error t)
 
-(let ((minver "25.1"))
+(let ((minver "26.1"))
   (when (version< emacs-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher" minver))
   (unless (memq system-type '(darwin windows-nt gnu/linux))
@@ -80,20 +80,19 @@
 (require 'init-ibuffer)
 (require 'init-selectrum)
 
-(require 'init-http)
-
 (require 'init-lsp)
+(require 'init-java)
 (require 'init-dart)
 
 (require 'init-org)
 (require 'init-cxx)
 (require 'init-web)
-(require 'init-java)
 (require 'init-javascript)
 (require 'init-python)
 (require 'init-textmodes)
 (require 'init-progmodes)
 
+(require 'init-http)
 (require 'init-docker)
 
 ;;----------------------------------------------------------------------------
