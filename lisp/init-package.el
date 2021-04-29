@@ -5,7 +5,6 @@
 (require 'seq)
 (require 'subr-x)
 (require 'package)
-(require 'project)
 
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
@@ -46,7 +45,9 @@
   (setq aproject-plugin-environ t)
   (defun aproject-current()
     "Return the project instance by `aproject`''"
-    aproject-rootdir)
+    aproject-rootdir))
+
+(with-eval-after-load 'project
   (defalias 'project-current 'aproject-current))
 
 (provide 'init-package)
