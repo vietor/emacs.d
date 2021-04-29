@@ -44,11 +44,13 @@
   :config
   (setq aproject-plugin-environ t)
   (defun aproject-current()
-    "Return the project instance by `aproject`''"
+    "Return the project directory by `aproject`''"
     aproject-rootdir))
 
 (with-eval-after-load 'project
-  (defalias 'project-current 'aproject-current))
+  (defun project-current ()
+    "Return the project instance hack by `aproject`''"
+    (cons 'transient (aproject-current))))
 
 (provide 'init-package)
 ;; Local Variables:
