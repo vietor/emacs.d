@@ -2,6 +2,19 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package eglot
+  :config
+  (setq eglot-stay-out-of '(flymake))
+  (defun eglot-disable-flymake()
+    (when eglot--managed-mode
+      (flymake-mode -1)))
+  (add-hook 'eglot-managed-mode-hook 'eglot-disable-flymake)
+  :init
+  (before-aproject-change
+   (eglot-shutdown-all))
+  (add-to-list 'ya-formatter-beautify-minor-alist
+               '(eglot--managed-mode . eglot-format-buffer)))
+
 (use-package lsp-mode
   :diminish
   :bind (:map lsp-mode-map
