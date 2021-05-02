@@ -5,6 +5,7 @@
 (use-package python
   :ensure nil
   :mode ("SConstruct\\'" "SConscript\\'")
+  :hook (python-mode . eglot-ensure)
   :init
   (setq python-shell-interpreter "python3"))
 
@@ -20,21 +21,6 @@
       (goto-char (point-min))
       (while (search-forward "\r" nil t) (replace-match ""))))
   (add-to-list 'ya-formatter-beautify-alist '(python-mode . python-mode-beautify)))
-
-(use-package anaconda-mode
-  :diminish
-  :after python
-  :hook ((python-mode . anaconda-mode)
-         (anaconda-mode . anaconda-eldoc-mode))
-  :bind (:map anaconda-mode-map
-              ("M-?" . nil))
-  :init
-  (setq anaconda-mode-installation-directory (expand-file-name "anaconda-mode" user-space-directory)))
-
-(use-package company-anaconda
-  :after (company python)
-  :config
-  (add-to-list 'company-backends 'company-anaconda))
 
 (provide 'init-python)
 ;; Local Variables:
