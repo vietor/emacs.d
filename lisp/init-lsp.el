@@ -4,7 +4,9 @@
 
 (use-package eglot
   :config
-  (setq eglot-stay-out-of '(flymake))
+  (setq eglot-stay-out-of '(flymake)
+        eglot-ignored-server-capabilites '(:documentHighlightProvider))
+
   (defun eglot-disable-flymake()
     (when eglot--managed-mode
       (flymake-mode -1)))
