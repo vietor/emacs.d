@@ -23,7 +23,7 @@
          ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
          ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame))
   :config
-  (setq-default consult-project-root-function 'aproject-current))
+  (setq-default consult-project-root-function 'aproject-project-root))
 
 (use-package embark-consult
   :after (embark consult)
