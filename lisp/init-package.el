@@ -19,7 +19,8 @@
   (advice-add 'package--save-selected-packages :override #'fix-save-selected-packages))
 
 (unless (bound-and-true-p package--initialized)
-  (setq package-enable-at-startup nil)
+  (setq package-check-signature nil
+        package-enable-at-startup nil)
   (package-initialize))
 
 (unless (package-installed-p 'use-package)
