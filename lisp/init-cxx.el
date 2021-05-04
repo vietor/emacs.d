@@ -39,6 +39,11 @@
     (setq flycheck-gcc-language-standard "c++11"
           flycheck-clang-language-standard "c++11")))
 
+(when (executable-find "clangd")
+  (add-hook 'c-mode-hook 'eglot-ensure)
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
+
 (provide 'init-cxx)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

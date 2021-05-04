@@ -7,10 +7,9 @@
   (setq eglot-stay-out-of '(flymake)
         eglot-ignored-server-capabilites '(:documentHighlightProvider))
 
-  (defun eglot-disable-flymake()
-    (when eglot--managed-mode
-      (flymake-mode -1)))
-  (add-hook 'eglot-managed-mode-hook 'eglot-disable-flymake)
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (flymake-mode -1)))
   :init
   (before-aproject-change
    (eglot-shutdown-all))
