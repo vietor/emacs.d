@@ -42,16 +42,16 @@
 
 (use-package aproject
   :bind ("C-x p" . aproject-change-project)
-  :config
+  :init
   (setq aproject-plugin-environ t)
-  (defun aproject-current()
+  (defun aproject-project-root()
     "Return the project directory by `aproject`''"
     aproject-rootdir))
 
 (with-eval-after-load 'project
   (defun project-current ()
     "Return the project instance hack by `aproject`''"
-    (cons 'transient (aproject-current))))
+    (cons 'transient (aproject-project-root))))
 
 (provide 'init-package)
 ;; Local Variables:
