@@ -4,8 +4,12 @@
 
 (use-package eglot
   :config
-  (setq eglot-stay-out-of '(flymake)
-        eglot-ignored-server-capabilites '(:documentHighlightProvider))
+  (setq-default eglot-autoshutdown t
+                eglot-sync-connect 1
+                eglot-connect-timeout 10
+                eglot-stay-out-of '(flymake)
+                eglot-ignored-server-capabilites '(:hoverProvider
+                                                   :documentHighlightProvider))
 
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
