@@ -6,8 +6,7 @@
   :config
   (setq-default eglot-autoshutdown t
                 eglot-sync-connect 1
-                eglot-connect-timeout 10
-                eglot-stay-out-of '(flymake)
+                eglot-connect-timeout 60
                 eglot-ignored-server-capabilites '(:hoverProvider
                                                    :documentHighlightProvider))
 
