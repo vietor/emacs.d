@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; cmake
+
+(use-package cmake-mode)
+
 ;; markdown
 
 (use-package markdown-mode
