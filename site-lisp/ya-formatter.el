@@ -27,7 +27,8 @@
     (unless beautify
       (setq beautify (cdr (assoc nil ya-formatter-beautify-minor-alist
                                  (lambda (mode _)
-                                   (car (member mode minor-mode-list)))))))
+                                   (and (car (member mode minor-mode-list))
+                                        (symbol-value mode)))))))
     (if (not beautify)
         (ya-formatter-indent)
       (let ((c-point (point))
