@@ -9,10 +9,7 @@
                 eglot-connect-timeout 60
                 eglot-ignored-server-capabilites '(:hoverProvider
                                                    :documentHighlightProvider))
-
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              (flymake-mode -1)))
+  (add-to-list 'eglot-stay-out-of 'flymake)
   :init
   (before-aproject-change
    (eglot-shutdown-all))
