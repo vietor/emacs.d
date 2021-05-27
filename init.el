@@ -78,7 +78,7 @@
 (require 'init-git)
 (require 'init-grep)
 (require 'init-ibuffer)
-(require 'init-selectrum)
+(require 'init-minibuffer)
 
 (require 'init-lsp)
 (require 'init-java)

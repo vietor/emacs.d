@@ -1,4 +1,4 @@
-;;; init-selectrum.el --- -*- lexical-binding: t -*-
+;;; init-minibuffer.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -34,8 +34,8 @@
   :config
   (setq-default marginalia-annotators '(marginalia-annotators-heavy)))
 
-(provide 'init-selectrum)
+(provide 'init-minibuffer)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init-selectrum.el ends here
+;;; init-minibuffer.el ends here
