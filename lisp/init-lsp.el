@@ -10,6 +10,9 @@
                 eglot-ignored-server-capabilites '(:hoverProvider
                                                    :documentHighlightProvider))
   (add-to-list 'eglot-stay-out-of 'flymake)
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (setq company-backends optimized-company-backends)))
   :init
   (before-aproject-change
    (eglot-shutdown-all))

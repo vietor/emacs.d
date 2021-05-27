@@ -2,10 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'ya-formatter)
-(bind-key "<f12>" 'ya-formatter-indent)
-(bind-key "M-<f12>" 'ya-formatter-beautify)
-
 (use-package doom-themes
   :when window-system
   :config
@@ -54,6 +50,21 @@
   :hook (after-init . which-key-mode)
   :config
   (setq-default which-key-idle-delay 1.5))
+
+;; embed package
+
+(use-package ya-formatter
+  :demand t
+  :ensure nil
+  :bind
+  ("<f12>" . ya-formatter-indent)
+  ("M-<f12>" . 'ya-formatter-beautify))
+
+(use-package insert-string
+  :ensure nil
+  :bind
+  ("M-g t i" . insert-random-string)
+  ("M-g t t" . insert-ordered-string))
 
 ;; buffer and file
 
@@ -133,12 +144,6 @@
     (when (= oldpos (point))
       (end-of-line))))
 (bind-key [remap move-end-of-line] 'smart-end-of-line)
-
-;; insert string
-
-(require 'insert-string)
-(bind-key "M-g t i" 'insert-random-string)
-(bind-key "M-g t t" 'insert-ordered-string)
 
 (provide 'init-enhance)
 ;; Local Variables:
