@@ -8,7 +8,7 @@
 (use-package orderless
   :after vertico
   :init
-  (setq completion-styles '(basic partial-completion orderless)))
+  (setq completion-styles '(substring orderless)))
 
 (use-package consult
   :after vertico
