@@ -8,7 +8,9 @@
 (use-package orderless
   :after vertico
   :init
-  (setq completion-styles '(substring orderless)))
+  (defun fix-orderless-in-minibuffer ()
+    (setq-local completion-styles '(substring orderless)))
+  (add-hook 'minibuffer-setup-hook fix-orderless-in-minibuffer))
 
 (use-package consult
   :after vertico
