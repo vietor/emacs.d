@@ -15,6 +15,14 @@
 (defconst system-is-mac (eq system-type 'darwin))
 (defconst system-is-win (eq system-type 'windows-nt))
 
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
 ;;----------------------------------------------------------------------------
 ;; Adjust garbage collection
 (defvar gc-auto-timer (run-with-idle-timer 15 t #'garbage-collect))
