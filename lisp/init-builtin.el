@@ -139,7 +139,11 @@
 
 (use-package eldoc
   :ensure nil
-  :diminish)
+  :diminish eldoc-mode)
+
+(use-package abbrev
+  :ensure nil
+  :diminish abbrev-mode)
 
 (use-package whitespace
   :ensure nil
