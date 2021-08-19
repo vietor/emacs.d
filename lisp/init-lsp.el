@@ -9,9 +9,9 @@
                 eglot-connect-timeout 60
                 eglot-ignored-server-capabilites '(:hoverProvider
                                                    :documentHighlightProvider))
-  (add-to-list 'eglot-stay-out-of 'flymake)
-  (add-hook 'eglot-managed-mode-hook
+    (add-hook 'eglot-managed-mode-hook
             (lambda ()
+              (flycheck-mode -1)
               (setq company-backends optimized-company-backends)))
   (setq-default eglot-workspace-configuration
                 `((:java.format.settings.profile . "GoogleStyle")
