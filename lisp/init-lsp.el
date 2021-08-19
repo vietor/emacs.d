@@ -7,9 +7,13 @@
   (setq-default eglot-autoshutdown t
                 eglot-sync-connect 1
                 eglot-connect-timeout 60
+                eglot-events-buffer-size 0
                 eglot-ignored-server-capabilites '(:hoverProvider
-                                                   :documentHighlightProvider))
-    (add-hook 'eglot-managed-mode-hook
+                                                   :documentHighlightProvider
+                                                   :codeLensProvider
+                                                   :documentLinkProvider
+                                                   :documentOnTypeFormattingProvider))
+  (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (flycheck-mode -1)
               (setq company-backends optimized-company-backends)))
