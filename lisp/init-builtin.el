@@ -137,10 +137,6 @@
         inhibit-compacting-font-caches t))
 (setq-default bidi-display-reordering nil)
 
-(use-package eldoc
-  :ensure nil
-  :diminish eldoc-mode)
-
 (use-package abbrev
   :ensure nil
   :diminish abbrev-mode)

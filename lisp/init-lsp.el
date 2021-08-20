@@ -4,22 +4,23 @@
 
 (use-package eglot
   :config
-  (setq-default eglot-autoshutdown t
-                eglot-sync-connect 1
-                eglot-connect-timeout 60
-                eglot-events-buffer-size 0
-                eglot-ignored-server-capabilites '(:hoverProvider
-                                                   :documentHighlightProvider
-                                                   :codeLensProvider
-                                                   :documentLinkProvider
-                                                   :documentOnTypeFormattingProvider))
+  (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (flycheck-mode -1)
               (setq company-backends optimized-company-backends)))
+  (setq-default eglot-autoshutdown t
+                eglot-sync-connect 1
+                eglot-connect-timeout 60
+                eglot-events-buffer-size 0
+                eglot-ignored-server-capabilites '(:codeLensProvider
+                                                   :documentLinkProvider
+                                                   :documentHighlightProvider
+                                                   :documentOnTypeFormattingProvider))
   (setq-default eglot-workspace-configuration
                 `((:java.format.settings.profile . "GoogleStyle")
-                  (:java.format.settings.url . ,(concat "file:///" (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))))
+                  (:java.format.settings.url
+                   . ,(concat "file:///" (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))))
   :init
   (before-aproject-change
    (eglot-shutdown-all))
