@@ -34,6 +34,7 @@
       (let ((c-point (point))
             (w-start (window-start)))
         (funcall beautify)
+        (delete-trailing-whitespace)
         (goto-char c-point)
         (goto-char (line-beginning-position))
         (set-window-start (selected-window) w-start)))))
