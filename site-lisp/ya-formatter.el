@@ -34,7 +34,11 @@
       (let ((c-point (point))
             (w-start (window-start)))
         (funcall beautify)
-        (delete-trailing-whitespace)
+        ;; remove the ^M
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward "\r+$" nil t)
+            (replace-match "" t t)))
         (goto-char c-point)
         (goto-char (line-beginning-position))
         (set-window-start (selected-window) w-start)))))
