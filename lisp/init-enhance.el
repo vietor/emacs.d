@@ -58,7 +58,8 @@
   :ensure nil
   :bind
   ("<f12>" . ya-formatter-indent)
-  ("M-<f12>" . 'ya-formatter-beautify))
+  ("M-<f12>" . 'ya-formatter-beautify)
+  ("C-M-<f12>" . 'ya-formatter-clean-eol))
 
 (use-package insert-string
   :ensure nil

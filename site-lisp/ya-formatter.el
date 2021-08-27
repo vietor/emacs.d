@@ -12,6 +12,17 @@
 
 (defvar ya-formatter-beautify-minor-alist nil)
 
+(defun ya-formatter-x-clean-eol()
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "\r+$" nil t)
+      (replace-match "" t t))))
+
+(defun ya-formatter-clean-eol()
+  "Clean the buffer's eof like ^M"
+  (interactive)
+  (ya-formatter-x-clean-eol))
+
 (defun ya-formatter-indent ()
   "Reformat current buffer by indent."
   (interactive)
@@ -34,11 +45,6 @@
       (let ((c-point (point))
             (w-start (window-start)))
         (funcall beautify)
-        ;; remove the ^M
-        (save-excursion
-          (goto-char (point-min))
-          (while (re-search-forward "\r+$" nil t)
-            (replace-match "" t t)))
         (goto-char c-point)
         (goto-char (line-beginning-position))
         (set-window-start (selected-window) w-start)))))
