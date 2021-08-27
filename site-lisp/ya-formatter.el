@@ -12,7 +12,7 @@
 
 (defvar ya-formatter-beautify-minor-alist nil)
 
-(defun ya-formatter-x-clean-eol()
+(defun ya-formatter-x-clean-eol(&rest _)
   (save-excursion
     (goto-char (point-min))
     (while (re-search-forward "\r+$" nil t)
