@@ -56,7 +56,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-(defun optimize-site-lisp-to-load-path (&rest _)
+(defun optimize-site-lisp-to-load-path (&rest args)
   "Add subdirectories to `load-path'."
   (let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
     (add-to-list 'load-path default-directory)

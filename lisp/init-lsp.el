@@ -27,7 +27,8 @@
   ;; ignore the mouse-1 usage
   (cl-loop for type in '(eglot-note eglot-warning eglot-error )
            do (let ((foc (get type 'flymake-overlay-control)))
-                (cl-delete 'keymap foc :key #'car :test #'equal)))
+                (cl-delete 'keymap foc :key #'car :test #'equal)
+                (cl-delete 'mouse-face foc :key #'car :test #'equal)))
 
   :init
   (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)

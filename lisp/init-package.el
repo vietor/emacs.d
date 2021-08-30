@@ -47,7 +47,7 @@
     aproject-rootdir))
 
 (with-eval-after-load 'project
-  (defun project-current (&rest _)
+  (defun project-current (&rest args)
     "Return the project instance hack by `aproject`''"
     (cons 'transient (aproject-project-root))))
 
