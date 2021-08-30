@@ -3,8 +3,6 @@
 ;;; Code:
 
 (use-package eglot
-  :bind (:map eglot-mode-map
-              ("C-c o" . eglot-code-actions))
   :config
   (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
