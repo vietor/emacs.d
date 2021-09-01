@@ -22,11 +22,12 @@
   ;; (setq-default eglot-workspace-configuration
   ;;               `((:java.format.settings.url . ,(concat "file:///" (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))))
 
-  ;; ignore the mouse-1 usage
+  ;; ignore some feature
   (cl-loop for type in '(eglot-note eglot-warning eglot-error )
            do (let ((foc (get type 'flymake-overlay-control)))
-                (cl-delete 'keymap foc :key #'car :test #'equal)
-                (cl-delete 'mouse-face foc :key #'car :test #'equal)))
+                (setq foc (cl-remove 'keymap foc :key #'car))
+                (setq foc (cl-remove 'mouse-face foc :key #'car))
+                (put type 'flymake-overlay-control foc)))
 
   :init
   (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
