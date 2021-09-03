@@ -44,7 +44,9 @@
   (setq aproject-plugin-environ t)
   (defun aproject-project-root()
     "Return the project directory by `aproject`''"
-    aproject-rootdir))
+    aproject-rootdir)
+
+  (add-to-list 'vc-directory-exclusion-list ".aproject"))
 
 (with-eval-after-load 'project
   (defun project-current (&rest args)

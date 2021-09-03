@@ -3,6 +3,7 @@
 ;;; Code:
 
 ;; grep
+(require 'grep)
 
 (setq-default grep-highlight-matches t
               grep-scroll-output t)
@@ -36,7 +37,10 @@
   (agtags-bind-keys)
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook 'agtags-mode-on))
-  (add-to-list 'xref-backend-functions 'agtags-xref-backend))
+  (add-to-list 'xref-backend-functions 'agtags-xref-backend)
+
+  (dolist (item '("GPATH" "GTAGS" "GRTAGS"))
+    (add-to-list 'grep-find-ignored-files item)))
 
 (provide 'init-grep)
 ;; Local Variables:
