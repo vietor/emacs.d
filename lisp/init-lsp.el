@@ -13,9 +13,13 @@
                 eglot-sync-connect 1
                 eglot-connect-timeout 60
                 eglot-events-buffer-size 0
-                eglot-ignored-server-capabilites '(:codeLensProvider
+                eglot-ignored-server-capabilites '(:documentHighlightProvider
+                                                   :hoverProvider
+                                                   :signatureHelpProvider
                                                    :documentLinkProvider
-                                                   :documentHighlightProvider
+                                                   :codeLensProvider
+                                                   :colorProvider
+                                                   :foldingRangeProvider
                                                    :documentOnTypeFormattingProvider))
 
   ;; TODO
@@ -29,7 +33,11 @@
                 (setq foc (cl-remove 'mouse-face foc :key #'car))
                 (put type 'flymake-overlay-control foc)))
 
+  (bind-keys :map eglot-mode-map
+             ("C-c o" . eglot-code-actions))
+
   :init
+
   (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
   (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol)
 
