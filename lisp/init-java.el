@@ -37,9 +37,8 @@
 
       (setq launcher-jar
             (ignore-errors
-              (car (directory-files plugin-dir nil "org\\.eclipse\\.equinox\\.launcher_.*\\.jar$"))))
-      (if (and launcher-jar (file-exists-p (expand-file-name launcher-jar plugin-dir)))
-          (setq launcher-jar (expand-file-name launcher-jar plugin-dir))
+              (car (directory-files plugin-dir t "org\\.eclipse\\.equinox\\.launcher_.*\\.jar$"))))
+      (unless (and launcher-jar (file-exists-p launcher-jar))
         (error "Not found 'eclipse.jdt.ls' launcher jar"))
 
       (unless (file-directory-p workspace-dir)

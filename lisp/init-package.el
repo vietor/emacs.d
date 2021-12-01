@@ -41,6 +41,7 @@
 (use-package aproject
   :bind ("C-x p" . aproject-change-project)
   :init
+  (setq desktop-restore-eager 1)
   (setq aproject-plugin-environ t)
   (defun aproject-project-root()
     "Return the project directory by `aproject`''"

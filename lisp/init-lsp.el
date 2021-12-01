@@ -13,6 +13,7 @@
                 eglot-sync-connect 1
                 eglot-connect-timeout 60
                 eglot-events-buffer-size 0
+                eglot-confirm-server-initiated-edits nil
                 eglot-ignored-server-capabilites '(:documentHighlightProvider
                                                    :hoverProvider
                                                    :signatureHelpProvider
