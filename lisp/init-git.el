@@ -4,8 +4,7 @@
 
 (setq vc-handled-backends '(Git))
 
-(use-package gitignore-mode)
-(use-package gitconfig-mode)
+(use-package git-modes)
 
 (use-package git-timemachine
   :when (executable-find "git")
