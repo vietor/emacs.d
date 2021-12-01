@@ -22,16 +22,12 @@
                                                    :foldingRangeProvider
                                                    :documentOnTypeFormattingProvider))
 
-  ;; TODO
-  ;; (setq-default eglot-workspace-configuration
-  ;;               `((:java.format.settings.url . ,(concat "file:///" (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))))
-
   ;; ignore some feature
-  (cl-loop for type in '(eglot-note eglot-warning eglot-error )
-           do (let ((foc (get type 'flymake-overlay-control)))
-                (setq foc (cl-remove 'keymap foc :key #'car))
-                (setq foc (cl-remove 'mouse-face foc :key #'car))
-                (put type 'flymake-overlay-control foc)))
+  (dolist (type '(eglot-note eglot-warning eglot-error))
+    (let ((foc (get type 'flymake-overlay-control)))
+      (dolist (key '(keymap mouse-face))
+        (setq foc (cl-remove key foc :key #'car)))
+      (put type 'flymake-overlay-control foc)))
 
   (bind-keys :map eglot-mode-map
              ("C-c o" . eglot-code-actions))

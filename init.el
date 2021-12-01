@@ -66,7 +66,8 @@
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 
-(defconst user-space-directory "~/.emacs.space")
+(defconst user-emacs-space-directory
+  (expand-file-name "../.emacs.space/" user-emacs-directory))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;;----------------------------------------------------------------------------
