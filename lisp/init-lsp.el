@@ -3,6 +3,9 @@
 ;;; Code:
 
 (use-package eglot
+  :demand
+  :bind(:map eglot-mode-map
+             ("C-c o" . eglot-code-actions))
   :config
   (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
@@ -29,9 +32,6 @@
       (dolist (key '(keymap mouse-face))
         (setq foc (cl-remove key foc :key #'car)))
       (put type 'flymake-overlay-control foc)))
-
-  (bind-keys :map eglot-mode-map
-             ("C-c o" . eglot-code-actions))
 
   ;; language workspace configuration
   (defvar eglot-language-configuration-alist nil)
