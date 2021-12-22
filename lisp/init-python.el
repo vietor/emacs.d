@@ -18,8 +18,7 @@
     "Deep indent for python."
     (py-autopep8-buffer)
     (when system-is-win
-      (goto-char (point-min))
-      (while (search-forward "\r" nil t) (replace-match ""))))
+      (ya-formatter-x-clean-eol)))
   (add-to-list 'ya-formatter-beautify-alist '(python-mode . python-mode-beautify)))
 
 (provide 'init-python)

@@ -5,7 +5,6 @@
 (use-package scala-mode)
 
 (use-package groovy-mode
-  :when (executable-find "gradle")
   :mode "\\.gradle\\'")
 
 (use-package java

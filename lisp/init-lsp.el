@@ -11,8 +11,9 @@
    (eglot-shutdown-all))
   (add-to-list 'ya-formatter-beautify-minor-alist
                '(eglot--managed-mode . eglot-format-buffer))
-  (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
-  (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol)
+  (when system-is-win
+    (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
+    (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol))
   :config
   (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
