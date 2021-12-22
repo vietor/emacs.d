@@ -33,8 +33,15 @@
   (bind-keys :map eglot-mode-map
              ("C-c o" . eglot-code-actions))
 
-  :init
+  ;; language workspace configuration
+  (defvar eglot-language-configuration-alist nil)
+  (defun eglot-language-configuration-on (server)
+    (let ((configuration (cdr (assoc (eglot--language-id server)
+                                     eglot-language-configuration-alist))))
+      (when configuration (funcall configuration))))
+  (add-hook 'eglot-connect-hook #'eglot-language-configuration-on)
 
+  :init
   (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
   (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol)
 
