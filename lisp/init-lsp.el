@@ -6,6 +6,13 @@
   :demand
   :bind(:map eglot-mode-map
              ("C-c o" . eglot-code-actions))
+  :init
+  (before-aproject-change
+   (eglot-shutdown-all))
+  (add-to-list 'ya-formatter-beautify-minor-alist
+               '(eglot--managed-mode . eglot-format-buffer))
+  (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
+  (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol)
   :config
   (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
@@ -39,16 +46,7 @@
     (let ((configuration (cdr (assoc (eglot--language-id server)
                                      eglot-language-configuration-alist))))
       (when configuration (funcall configuration))))
-  (add-hook 'eglot-connect-hook #'eglot-language-configuration-on)
-
-  :init
-  (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
-  (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol)
-
-  (before-aproject-change
-   (eglot-shutdown-all))
-  (add-to-list 'ya-formatter-beautify-minor-alist
-               '(eglot--managed-mode . eglot-format-buffer)))
+  (add-hook 'eglot-connect-hook #'eglot-language-configuration-on))
 
 (provide 'init-lsp)
 ;; Local Variables:
