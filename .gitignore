@@ -13,6 +13,9 @@ auto-save-list/
 transient/
 newsticker/
 smex-items
+bookmarks
+network-security.data
+recentf
 
 setenv
 custom.el*
