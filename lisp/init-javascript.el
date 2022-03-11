@@ -8,7 +8,9 @@
 
 (use-package json-mode
   :init
-  (add-to-list 'ya-formatter-beautify-alist '(json-mode . json-mode-beautify)))
+  (defun fix-json-mode-beautify()
+    (call-interactively 'json-mode-beautify))
+  (add-to-list 'ya-formatter-beautify-alist '(json-mode . fix-json-mode-beautify)))
 
 ;; javascript
 
