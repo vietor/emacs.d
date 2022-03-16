@@ -120,6 +120,5 @@
 (provide 'init-windows)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; init-windows.el ends here

@@ -57,6 +57,5 @@ variables such as `exec-path'."
 (provide 'ya-environ)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; ya-environ.el ends here

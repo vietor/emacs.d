@@ -54,6 +54,5 @@
 (provide 'ya-formatter)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; ya-formatter.el ends here

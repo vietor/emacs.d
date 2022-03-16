@@ -49,6 +49,5 @@
 (provide 'insert-string)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; insert-string.el ends here

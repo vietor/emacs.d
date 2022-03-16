@@ -82,7 +82,7 @@
 (require 'init-windows)
 
 (require 'init-company)
-(require 'init-flycheck)
+(require 'init-flymake)
 
 (require 'init-git)
 (require 'init-grep)

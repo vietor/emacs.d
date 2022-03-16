@@ -149,6 +149,5 @@
 (provide 'init-enhance)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; init-enhance.el ends here

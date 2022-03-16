@@ -18,7 +18,6 @@
   (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
-              (flycheck-mode -1)
               (setq company-backends optimized-company-backends)))
   (setq-default eglot-autoshutdown t
                 eglot-sync-connect 1
