@@ -12,7 +12,14 @@
   :config
   (setq-default flycheck-disabled-checkers
                 (append (default-value 'flycheck-disabled-checkers)
-                        '(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package))))
+                        '(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package)))
+
+
+  (defun active-flymake-flycheck ()
+    (setq-local flymake-diagnostic-functions
+                (append flymake-diagnostic-functions
+                        (flymake-flycheck-all-chained-diagnostic-functions))))
+  (add-hook 'flymake-mode-hook 'active-flymake-flycheck))
 
 (provide 'init-flymake)
 ;; Local Variables:
