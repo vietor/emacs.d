@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq read-process-output-max (* 1024 1024)
+(setq read-process-output-max (* 3 1024 1024)
       gc-cons-threshold most-positive-fixnum)
 
 (setq package-enable-at-startup nil)
