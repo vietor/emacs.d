@@ -34,11 +34,6 @@
 (add-hook 'c-mode-hook 'google-set-c-style)
 (add-hook 'c++-mode-hook 'google-set-c-style)
 
-(with-eval-after-load 'flycheck
-  (with-eval-after-load 'c++-mode
-    (setq flycheck-gcc-language-standard "c++11"
-          flycheck-clang-language-standard "c++11")))
-
 (when (executable-find "clangd")
   (add-hook 'c-mode-hook 'eglot-ensure)
   (add-hook 'c++-mode-hook 'eglot-ensure))
