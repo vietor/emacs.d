@@ -15,6 +15,10 @@
   (defvar eclipse-jdt-vmargs
     '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx1G" "-Xms100m"))
 
+
+  (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
+    :documentation "Eclipse's Java Development Tools Language Server.")
+
   (defun eclipse-jdt-contact (interactive)
     (let* ((install-dir
             (expand-file-name "eclipse.jdt.ls" user-emacs-space-directory))
@@ -46,10 +50,14 @@
                                  "-Declipse.application=org.eclipse.jdt.ls.core.id1"
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
+	                             "-noverify"
                                  ,@eclipse-jdt-vmargs
                                  "-jar" ,launcher-jar
                                  "-configuration" ,config-dir
-                                 "-data" ,workspace-dir))))
+                                 "-data" ,workspace-dir
+                                 "--add-modules=ALL-SYSTEM"
+	                             "--add-opens java.base/java.util=ALL-UNNAMED"
+                                 "--add-opens java.base/java.lang=ALL-UNNAMED"))))
 
   (add-to-list 'eglot-server-programs '(java-mode . eclipse-jdt-contact)))
 
