@@ -19,6 +19,15 @@
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
 
+  (cl-defmethod eglot-initialization-options ((server eglot-eclipse-jdt))
+    "Passes through required jdt initialization options."
+    (let ((code-style-file (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
+      `(:settings
+        (:java
+         (:format
+          (:settings
+           (:profile "GoogleStyle" :url ,(concat "file:///" code-style-file))))))))
+
   (defun eclipse-jdt-contact (interactive)
     (let* ((install-dir
             (expand-file-name "eclipse.jdt.ls" user-emacs-space-directory))
