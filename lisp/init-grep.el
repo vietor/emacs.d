@@ -18,6 +18,12 @@
   (setq wgrep-enable-key "e"
         wgrep-auto-save-buffer t))
 
+;; ripgrep
+
+(use-package rg
+  :when (executable-find "rg")
+  :bind (("M-g t s" . rg-dwim-project-dir)))
+
 ;; gtags
 
 (use-package agtags
