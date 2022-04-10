@@ -15,7 +15,9 @@
              (configurationSources . ["flake8"])
              (plugins
               (flake8 (enabled . t))
-              (mypy (enabled . t)))))))
+              (mypy (enabled . t))
+              (mccabe (enabled . :json-false))
+              (pycodestyle (enabled . :json-false)))))))
   (add-to-list 'eglot-language-configuration-alist '("python" . python-workspace-configuration)))
 
 (use-package pip-requirements)
