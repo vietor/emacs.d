@@ -101,6 +101,7 @@
 (require 'init-textmodes)
 (require 'init-progmodes)
 
+(require 'init-irc)
 (require 'init-http)
 (require 'init-docker)
 
