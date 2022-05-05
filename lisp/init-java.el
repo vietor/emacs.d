@@ -52,6 +52,12 @@
       (unless (and launcher-jar (file-exists-p launcher-jar))
         (error "Not found 'eclipse.jdt.ls' launcher jar"))
 
+      (setq lombok-jar
+            (ignore-errors
+              (car (last (directory-files (expand-file-name "lib" install-dir) t "lombok-.*\\.jar$")))))
+      (when (and lombok-jar (file-exists-p lombok-jar))
+        (add-to-list 'eclipse-jdt-vmargs (concat "-javaagent:" lombok-jar)))
+
       (unless (file-directory-p workspace-dir)
         (make-directory workspace-dir t))
 
@@ -60,13 +66,13 @@
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
 	                             "-noverify"
+                                 "--add-modules=ALL-SYSTEM"
+	                             "--add-opens" "java.base/java.util=ALL-UNNAMED"
+                                 "--add-opens" "java.base/java.lang=ALL-UNNAMED"
                                  ,@eclipse-jdt-vmargs
                                  "-jar" ,launcher-jar
                                  "-configuration" ,config-dir
-                                 "-data" ,workspace-dir
-                                 "--add-modules=ALL-SYSTEM"
-	                             "--add-opens java.base/java.util=ALL-UNNAMED"
-                                 "--add-opens java.base/java.lang=ALL-UNNAMED"))))
+                                 "-data" ,workspace-dir))))
 
   (add-to-list 'eglot-server-programs '(java-mode . eclipse-jdt-contact)))
 
