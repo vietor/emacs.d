@@ -5,6 +5,7 @@
 (use-package eglot
   :demand
   :bind(:map eglot-mode-map
+             ("C-c h" . eldoc)
              ("C-c o" . eglot-code-actions))
   :init
   (before-aproject-change
@@ -15,7 +16,6 @@
     (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
     (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol))
   :config
-  (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq company-backends optimized-company-backends)))
