@@ -32,7 +32,7 @@
       (shell-command "open -n -a Emacs.app"))
      (system-is-win
       (w32-shell-execute "open" (concat (file-name-directory (car command-line-args)) "runemacs.exe")))
-     (t (message "Couldn't support to start a new Emacs"))))
+     (t (call-process-shell-command (concat (car command-line-args) " & disown")))))
 
   (bind-key "M-g z" 'open-new-emacs))
 
