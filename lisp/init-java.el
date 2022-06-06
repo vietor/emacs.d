@@ -28,6 +28,11 @@
           (:settings
            (:profile "GoogleStyle" :url ,(concat "file:///" code-style-file))))))))
 
+  (cl-defmethod eglot-execute-command ((_server eglot-eclipse-jdt)
+                                       (_cmd (eql java.apply.workspaceEdit))
+                                       arguments)
+    (mapc #'eglot--apply-workspace-edit arguments))
+
   (defun eclipse-jdt-contact (interactive)
     (let* ((install-dir
             (expand-file-name "eclipse.jdt.ls" user-emacs-space-directory))
