@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(unless (version< emacs-version "28.1")
+  (setq eldoc-documentation-function 'eldoc-documentation-compose))
+
 (use-package flymake
   :init
   (dolist (hook '(prog-mode-hook text-mode-hook))
