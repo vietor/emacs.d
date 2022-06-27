@@ -5,7 +5,6 @@
 (use-package eglot
   :demand
   :bind(:map eglot-mode-map
-             ("C-c h" . eldoc)
              ("C-c r" . eglot-rename)
              ("C-c C-r" . eglot-reconnect)
              ("C-c o" . eglot-code-actions))
@@ -29,6 +28,7 @@
                 eglot-ignored-server-capabilities '(:documentHighlightProvider
                                                     :hoverProvider
                                                     :documentLinkProvider
+                                                    :signatureHelpProvider
                                                     :codeLensProvider
                                                     :colorProvider
                                                     :foldingRangeProvider
