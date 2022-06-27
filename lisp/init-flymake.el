@@ -6,6 +6,9 @@
   (setq eldoc-documentation-function 'eldoc-documentation-compose))
 
 (use-package flymake
+  :bind(:map flymake-mode-map
+             ("M-n" . flymake-goto-next-error)
+             ("M-p" . flymake-goto-prev-error))
   :init
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook 'flymake-mode)))
