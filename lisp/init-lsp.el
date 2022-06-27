@@ -6,6 +6,8 @@
   :demand
   :bind(:map eglot-mode-map
              ("C-c h" . eldoc)
+             ("C-c r" . eglot-rename)
+             ("C-c C-r" . eglot-reconnect)
              ("C-c o" . eglot-code-actions))
   :init
   (before-aproject-change
@@ -26,7 +28,6 @@
                 eglot-confirm-server-initiated-edits nil
                 eglot-ignored-server-capabilities '(:documentHighlightProvider
                                                     :hoverProvider
-                                                    :signatureHelpProvider
                                                     :documentLinkProvider
                                                     :codeLensProvider
                                                     :colorProvider
