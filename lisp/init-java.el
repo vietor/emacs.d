@@ -59,7 +59,7 @@
 
       (setq lombok-jar
             (ignore-errors
-              (car (last (directory-files (expand-file-name "lib" install-dir) t "lombok-.*\\.jar$")))))
+              (car (last (directory-files (expand-file-name "helpers" install-dir) t "lombok-.*\\.jar$")))))
       (when (and lombok-jar (file-exists-p lombok-jar))
         (add-to-list 'eclipse-jdt-vmargs (concat "-javaagent:" lombok-jar)))
 
@@ -71,10 +71,10 @@
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
 	                             "-noverify"
+                                 ,@eclipse-jdt-vmargs
                                  "--add-modules=ALL-SYSTEM"
 	                             "--add-opens" "java.base/java.util=ALL-UNNAMED"
                                  "--add-opens" "java.base/java.lang=ALL-UNNAMED"
-                                 ,@eclipse-jdt-vmargs
                                  "-jar" ,launcher-jar
                                  "-configuration" ,config-dir
                                  "-data" ,workspace-dir))))
