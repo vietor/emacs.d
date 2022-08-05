@@ -88,8 +88,6 @@
 
 (setq-default tab-width 4
               standard-indent 4
-              nxml-child-indent 4
-              nxml-attribute-indent 4
               indent-tabs-mode nil)
 (bind-key "RET" 'newline-and-indent)
 

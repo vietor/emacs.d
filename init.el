@@ -97,6 +97,7 @@
 (require 'init-cxx)
 (require 'init-web)
 (require 'init-javascript)
+(require 'init-nxml)
 (require 'init-python)
 (require 'init-textmodes)
 (require 'init-progmodes)
