@@ -6,14 +6,15 @@
   :demand
   :bind(:map eglot-mode-map
              ("C-c r" . eglot-rename)
-             ("C-c C-r" . eglot-reconnect)
-             ("C-c o" . eglot-code-actions))
+             ("C-c o" . eglot-code-actions)
+             ("C-c C-r" . eglot-reconnect))
   :init
   (before-aproject-change
    (eglot-shutdown-all))
   (add-to-list 'ya-formatter-beautify-minor-alist
                '(eglot--managed-mode . eglot-format-buffer))
   (when system-is-win
+    (advice-add #'eglot-rename :after #'ya-formatter-x-clean-eol)
     (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
     (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol))
   :config

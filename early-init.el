@@ -5,7 +5,8 @@
 (setq read-process-output-max (* 3 1024 1024)
       gc-cons-threshold most-positive-fixnum)
 
-(setq package-enable-at-startup nil)
+(setq package-check-signature nil
+      package-enable-at-startup nil)
 (advice-add #'package--ensure-init-file :override #'ignore)
 
 ;; before initial gui
