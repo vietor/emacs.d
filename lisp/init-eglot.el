@@ -14,9 +14,7 @@
   (add-to-list 'ya-formatter-beautify-minor-alist
                '(eglot--managed-mode . eglot-format-buffer))
   (when system-is-win
-    (advice-add #'eglot-rename :after #'ya-formatter-x-clean-eol)
-    (advice-add #'eglot-code-actions :after #'ya-formatter-x-clean-eol)
-    (advice-add #'eglot-format-buffer :after #'ya-formatter-x-clean-eol))
+    (advice-add #'eglot--apply-text-edits :after #'ya-formatter-x-clean-eol))
   :config
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
