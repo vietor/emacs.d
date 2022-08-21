@@ -89,7 +89,7 @@
 (require 'init-ibuffer)
 (require 'init-minibuffer)
 
-(require 'init-lsp)
+(require 'init-eglot)
 (require 'init-java)
 (require 'init-dart)
 

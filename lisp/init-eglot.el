@@ -1,4 +1,4 @@
-;;; init-lsp.el --- -*- lexical-binding: t -*-
+;;; init-eglot.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -49,8 +49,8 @@
       (when configuration (funcall configuration))))
   (add-hook 'eglot-connect-hook #'eglot-language-configuration-on))
 
-(provide 'init-lsp)
+(provide 'init-eglot)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init-lsp.el ends here
+;;; init-eglot.el ends here
