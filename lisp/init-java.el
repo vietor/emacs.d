@@ -60,7 +60,6 @@
                                  "-Declipse.application=org.eclipse.jdt.ls.core.id1"
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
-	                             "-noverify"
                                  ,@eclipse-jdt-vmargs
                                  "--add-modules=ALL-SYSTEM"
 	                             "--add-opens" "java.base/java.util=ALL-UNNAMED"
