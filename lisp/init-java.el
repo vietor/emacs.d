@@ -57,13 +57,13 @@
         (make-directory workspace-dir t))
 
       (cons 'eglot-eclipse-jdt `(,(executable-find "java")
+                                 "--add-modules=ALL-SYSTEM"
+                                 "--add-opens" "java.base/java.util=ALL-UNNAMED"
+                                 "--add-opens" "java.base/java.lang=ALL-UNNAMED"
                                  "-Declipse.application=org.eclipse.jdt.ls.core.id1"
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
                                  ,@eclipse-jdt-vmargs
-                                 "--add-modules=ALL-SYSTEM"
-	                             "--add-opens" "java.base/java.util=ALL-UNNAMED"
-                                 "--add-opens" "java.base/java.lang=ALL-UNNAMED"
                                  "-jar" ,launcher-jar
                                  "-configuration" ,config-dir
                                  "-data" ,workspace-dir))))
