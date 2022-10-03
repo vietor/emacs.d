@@ -26,14 +26,6 @@
   :init
   (add-to-list 'ya-formatter-beautify-alist '(js-mode . prettier-js)))
 
-;; helper for company-mode
-
-(with-eval-after-load 'company-gtags
-  (add-to-list 'company-gtags-modes 'js-mode))
-
-(with-eval-after-load 'company-dabbrev-code
-  (add-to-list 'company-dabbrev-code-modes 'js-mode))
-
 (provide 'init-javascript)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

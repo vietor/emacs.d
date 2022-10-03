@@ -16,9 +16,6 @@
   (when system-is-win
     (advice-add #'eglot--apply-text-edits :after #'ya-formatter-x-clean-eol))
   :config
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              (setq company-backends optimized-company-backends)))
   (setq-default eglot-autoshutdown t
                 eglot-sync-connect 1
                 eglot-connect-timeout 60

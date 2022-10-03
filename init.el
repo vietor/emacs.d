@@ -81,7 +81,7 @@
 (require 'init-enhance)
 (require 'init-windows)
 
-(require 'init-company)
+(require 'init-corfu)
 (require 'init-flymake)
 
 (require 'init-git)
