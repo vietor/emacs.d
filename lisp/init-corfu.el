@@ -12,6 +12,12 @@
                 corfu-preview-current nil
                 corfu-quit-no-match 'separator))
 
+(use-package cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-keyword))
+
 (provide 'init-corfu)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
