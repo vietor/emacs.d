@@ -32,8 +32,6 @@
   (after-aproject-change
    (agtags-update-root aproject-rootdir))
   :config
-  (require 'agtags-xref)
-
   (defun agtags-mode-on()
     (agtags-mode 1)
     (diminish 'agtags-mode))
@@ -43,7 +41,6 @@
   (agtags-bind-keys)
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook 'agtags-mode-on))
-  (add-to-list 'xref-backend-functions 'agtags-xref-backend)
 
   (dolist (item '("GPATH" "GTAGS" "GRTAGS"))
     (add-to-list 'grep-find-ignored-files item)))
