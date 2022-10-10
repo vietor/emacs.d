@@ -23,11 +23,16 @@
                                        arguments)
     (mapc #'eglot--apply-workspace-edit arguments))
 
+  (defun eclipse-jdt--found (directory match-regexp &optional default-file)
+    (or (ignore-errors
+          (car (last (directory-files directory t match-regexp))))
+        (if (not default-file)
+            nil
+          (expand-file-name default-file directory))))
+
   (defun eclipse-jdt-contact (interactive)
     (let* ((install-dir
-            (expand-file-name "eclipse.jdt.ls" user-emacs-space-directory))
-           (plugin-dir
-            (expand-file-name "plugins" install-dir))
+            (eclipse-jdt--found user-emacs-space-directory "jdt-language-server-*" "eclipse.jdt.ls"))
            (config-dir
             (expand-file-name (cond ((string= system-type "darwin") "config_mac")
                                     ((string= system-type "windows-nt") "config_win")
@@ -36,20 +41,21 @@
            (workspace-dir
             (expand-file-name (md5 (aproject-project-root))
                               (concat user-emacs-space-directory "eclipse.workspaces")))
-           (launcher-jar nil))
+           (launcher-jar nil)
+           (lombok-jar nil))
 
       (unless (file-directory-p install-dir)
         (error "Not found 'eclipse.jdt.ls' directory in '%s'" user-emacs-space-directory))
 
       (setq launcher-jar
-            (ignore-errors
-              (car (directory-files plugin-dir t "org\\.eclipse\\.equinox\\.launcher_.*\\.jar$"))))
+            (eclipse-jdt--found (expand-file-name "plugins" install-dir)
+                                "org\\.eclipse\\.equinox\\.launcher_.*\\.jar$"))
       (unless (and launcher-jar (file-exists-p launcher-jar))
         (error "Not found 'eclipse.jdt.ls' launcher jar"))
 
       (setq lombok-jar
-            (ignore-errors
-              (car (last (directory-files (expand-file-name "helpers" install-dir) t "lombok-.*\\.jar$")))))
+            (eclipse-jdt--found (concat user-emacs-space-directory "eclipse.assists")
+                                "lombok-.*\\.jar$"))
       (when (and lombok-jar (file-exists-p lombok-jar))
         (add-to-list 'eclipse-jdt-vmargs (concat "-javaagent:" lombok-jar)))
 
