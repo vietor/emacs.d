@@ -4,10 +4,10 @@
 
 (use-package eglot
   :demand
-  :bind(:map eglot-mode-map
-             ("C-c r" . eglot-rename)
-             ("C-c o" . eglot-code-actions)
-             ("C-c C-r" . eglot-reconnect))
+  :bind (:map eglot-mode-map
+              ("C-c r" . eglot-rename)
+              ("C-c o" . eglot-code-actions)
+              ("C-c C-r" . eglot-reconnect))
   :init
   (before-aproject-change
    (eglot-shutdown-all))

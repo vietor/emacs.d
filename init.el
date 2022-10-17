@@ -24,34 +24,6 @@
                      gcs-done)))
 
 ;;----------------------------------------------------------------------------
-;; Adjust garbage collection
-(defvar gc-auto-timer (run-with-idle-timer 15 t #'garbage-collect))
-
-(let ((large-threshold  (* 128 1024 1024))
-      (target-threshold  (* 24 1024 1024))
-      (origin-handler-alist file-name-handler-alist))
-  (setq gc-cons-threshold large-threshold
-        file-name-handler-alist nil)
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (setq gc-cons-threshold target-threshold
-                    file-name-handler-alist origin-handler-alist)
-
-              (if (boundp 'after-focus-change-function)
-                  (add-function :after after-focus-change-function
-                                (lambda ()
-                                  (unless (frame-focus-state)
-                                    (garbage-collect))))
-                (add-hook 'focus-out-hook 'garbage-collect))
-
-              (defun gc-minibuffer-setup-hook ()
-                (setq gc-cons-threshold large-threshold))
-              (defun gc-minibuffer-exit-hook ()
-                (setq gc-cons-threshold target-threshold))
-              (add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
-              (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook))))
-
-;;----------------------------------------------------------------------------
 ;; The `load-path' config
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
