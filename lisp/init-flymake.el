@@ -6,6 +6,8 @@
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error))
+  :config
+  (setq elisp-flymake-byte-compile-load-path load-path)
   :init
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook 'flymake-mode)))
