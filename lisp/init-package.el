@@ -50,11 +50,6 @@
 
   (add-to-list 'vc-directory-exclusion-list ".aproject"))
 
-(with-eval-after-load 'project
-  (defun project-current (&rest args)
-    "Return the project instance hack by `aproject`''"
-    (cons 'transient (aproject-project-root))))
-
 (provide 'init-package)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

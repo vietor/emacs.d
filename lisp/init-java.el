@@ -39,7 +39,7 @@
                                     (t "config_linux"))
                               install-dir))
            (workspace-dir
-            (expand-file-name (md5 (aproject-project-root))
+            (expand-file-name (md5 (project-root (eglot--current-project)))
                               (concat user-emacs-space-directory "eclipse.workspaces")))
            (launcher-jar nil)
            (lombok-jar nil))
