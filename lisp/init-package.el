@@ -41,14 +41,10 @@
 
 (use-package aproject
   :bind ("C-x p" . aproject-change-project)
-  :init
+  :config
   (setq desktop-restore-eager 1)
   (setq aproject-plugin-environ t)
-  (defun aproject-project-root()
-    "Return the project directory by `aproject`''"
-    aproject-rootdir)
-
-  (add-to-list 'vc-directory-exclusion-list ".aproject"))
+  (add-to-list 'vc-directory-exclusion-list aproject-dirname))
 
 (provide 'init-package)
 ;; Local Variables:
