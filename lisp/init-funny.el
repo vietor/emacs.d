@@ -1,4 +1,4 @@
-;;; init-irc.el --- -*- lexical-binding: t -*-
+;;; init-funny.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -7,8 +7,8 @@
   :config
   (setq erc-hide-list '("JOIN" "PART" "QUIT")))
 
-(provide 'init-irc)
+(provide 'init-funny)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init-irc.el ends here
+;;; init-funny.el ends here
