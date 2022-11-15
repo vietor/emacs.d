@@ -7,7 +7,7 @@
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-fairy-floss t))
+  (load-theme 'doom-dracula t))
 
 (use-package highlight-escape-sequences
   :hook (after-init . hes-mode))
