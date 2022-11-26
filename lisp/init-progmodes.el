@@ -12,10 +12,19 @@
 
 (use-package go-mode
   :when (executable-find "go")
-  :hook (before-save . gofmt-before-save)
+  :hook ((go-mode . eglot-ensure)
+         (before-save . gofmt-before-save))
   :init
   (after-aproject-change
    (setenv "GOPATH" aproject-rootdir)))
+
+;; rust-lang
+
+(use-package rust-mode
+  :when (executable-find "rustc")
+  :hook (rust-mode . eglot-ensure)
+  :config
+  (setq rust-format-on-save t))
 
 (provide 'init-progmodes)
 ;; Local Variables:
