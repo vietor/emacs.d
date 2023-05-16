@@ -6,7 +6,6 @@
   :ensure nil
   :bind ([remap list-buffers] . ibuffer)
   :config
-  (fullframe ibuffer ibuffer-quit)
   (setq ibuffer-show-empty-filter-groups nil
         ibuffer-filter-group-name-face 'font-lock-doc-face
         ibuffer-saved-filter-groups '(("beautify"
