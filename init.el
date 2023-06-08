@@ -46,6 +46,7 @@
 ;; Load configs
 
 (require 'init-package)
+(require 'init-project)
 (require 'init-environ)
 (require 'init-locales)
 

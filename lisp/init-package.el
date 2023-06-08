@@ -39,13 +39,6 @@
 (use-package diminish)
 (use-package fullframe)
 
-(use-package aproject
-  :bind ("C-x p" . aproject-change-project)
-  :config
-  (setq desktop-restore-eager 1)
-  (setq aproject-plugin-environ t)
-  (add-to-list 'vc-directory-exclusion-list aproject-dirname))
-
 (provide 'init-package)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
