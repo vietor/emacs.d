@@ -28,6 +28,7 @@
                                                     :codeLensProvider
                                                     :colorProvider
                                                     :foldingRangeProvider
+                                                    :inlayHintProvider
                                                     :documentOnTypeFormattingProvider))
 
   ;; ignore some feature
