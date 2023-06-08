@@ -33,10 +33,7 @@
 
   ;; ignore some feature
   (dolist (type '(eglot-note eglot-warning eglot-error))
-    (let ((foc (get type 'flymake-overlay-control)))
-      (dolist (key '(keymap mouse-face))
-        (setq foc (cl-remove key foc :key #'car)))
-      (put type 'flymake-overlay-control foc)))
+    (cl-remf (symbol-plist type) 'flymake-overlay-control))
 
   ;; language workspace configuration
   (defvar eglot-language-configuration-alist nil)
