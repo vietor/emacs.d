@@ -68,8 +68,7 @@
 
 (when (fboundp 'electric-pair-mode)
   (add-hook 'after-init-hook 'electric-pair-mode))
-(when (fboundp 'electric-indent-mode)
-  (add-hook 'after-init-hook 'electric-indent-mode))
+(add-hook 'after-init-hook 'electric-indent-mode)
 
 (when system-is-mac
   (setq ns-pop-up-frames nil
@@ -89,7 +88,6 @@
 (setq-default tab-width 4
               standard-indent 4
               indent-tabs-mode nil)
-(bind-key "RET" 'newline-and-indent)
 
 (setq inhibit-startup-screen t
       initial-scratch-message "")
