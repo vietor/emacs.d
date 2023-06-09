@@ -6,8 +6,15 @@
 (require 'subr-x)
 (require 'package)
 
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+;; preload for custom package-archives
+(let ((preload-file (expand-file-name "preload.el" user-emacs-directory)))
+  (when (file-exists-p preload-file)
+    (load preload-file)))
+
+(dolist (archive '(("melpa" . "https://melpa.org/packages/")))
+  (unless (assoc (car archive) package-archives)
+    (add-to-list 'package-archives archive t)))
+
 (setq package-user-dir
       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
                         user-emacs-directory))
