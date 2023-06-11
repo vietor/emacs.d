@@ -12,11 +12,10 @@
   :when (executable-find "java")
   :hook (java-mode . eglot-ensure)
   :init
+  (defconst eclipse-jdt-vmargs '("-Xmx1G" "-Xms100m"))
+
   (defconst eclipse-jdt-code-style-file-url (concat "file:///"
                                                     (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
-
-  (defvar eclipse-jdt-vmargs
-    '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx1G" "-Xms100m"))
 
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
@@ -53,7 +52,8 @@
             (expand-file-name (md5 (project-root (eglot--current-project)))
                               (concat user-emacs-space-directory "eclipse.workspaces")))
            (launcher-jar nil)
-           (lombok-jar nil))
+           (lombok-jar nil)
+           (runtime-jdt-vmargs (append '() eclipse-jdt-vmargs)))
 
       (unless (file-directory-p install-dir)
         (error "Not found 'eclipse.jdt.ls' directory in '%s'" user-emacs-space-directory))
@@ -68,7 +68,7 @@
             (eclipse-jdt--found (concat user-emacs-space-directory "eclipse.assists")
                                 "lombok-.*\\.jar$"))
       (when (and lombok-jar (file-exists-p lombok-jar))
-        (add-to-list 'eclipse-jdt-vmargs (concat "-javaagent:" lombok-jar)))
+        (add-to-list 'runtime-jdt-vmargs (concat "-javaagent:" lombok-jar)))
 
       (unless (file-directory-p workspace-dir)
         (make-directory workspace-dir t))
@@ -80,7 +80,7 @@
                                  "-Declipse.application=org.eclipse.jdt.ls.core.id1"
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
-                                 ,@eclipse-jdt-vmargs
+                                 ,@runtime-jdt-vmargs
                                  "-jar" ,launcher-jar
                                  "-configuration" ,config-dir
                                  "-data" ,workspace-dir))))
