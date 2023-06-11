@@ -12,11 +12,22 @@
   :when (executable-find "java")
   :hook (java-mode . eglot-ensure)
   :init
+  (defconst eclipse-jdt-code-style-file-url (concat "file:///"
+                                                    (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
+
   (defvar eclipse-jdt-vmargs
     '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx1G" "-Xms100m"))
 
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
+
+  (cl-defmethod eglot-initialization-options ((server eglot-eclipse-jdt))
+    "Passes through required jdt initialization options."
+    `(:settings
+      (:java
+       (:format
+        (:settings
+         (:profile "GoogleStyle" :url ,eclipse-jdt-code-style-file-url))))))
 
   (cl-defmethod eglot-execute-command ((_server eglot-eclipse-jdt)
                                        (_cmd (eql java.apply.workspaceEdit))
@@ -77,9 +88,8 @@
   (add-to-list 'eglot-server-programs '(java-mode . eclipse-jdt-contact))
 
   (defun java-workspace-configuration()
-    (let ((code-style-file (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
-      (setq eglot-workspace-configuration
-            `(("java.format.settings.url" . ,(concat "file:///" code-style-file))))))
+    (setq eglot-workspace-configuration
+          `(("java.format.settings.url" . ,eclipse-jdt-code-style-file-url))))
   (add-to-list 'eglot-language-configuration-alist '("java" . java-workspace-configuration)))
 
 (provide 'init-java)
