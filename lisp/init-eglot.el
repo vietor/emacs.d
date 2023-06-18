@@ -38,9 +38,10 @@
   ;; language workspace configuration
   (defvar eglot-language-configuration-alist nil)
   (defun eglot-language-configuration-on (server)
-    (let ((configuration (cdr (assoc (eglot--language-id server)
-                                     eglot-language-configuration-alist))))
-      (when configuration (funcall configuration))))
+    (let* ((language-id (car (eglot--language-ids server)))
+           (configuration (cdr (assoc language-id eglot-language-configuration-alist))))
+      (when configuration
+        (setq-default eglot-workspace-configuration (funcall configuration)))))
   (add-hook 'eglot-connect-hook #'eglot-language-configuration-on))
 
 (provide 'init-eglot)

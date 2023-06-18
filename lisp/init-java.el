@@ -20,7 +20,7 @@
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
 
-  (cl-defmethod eglot-initialization-options ((server eglot-eclipse-jdt))
+  (cl-defmethod eglot-initialization-options ((_server eglot-eclipse-jdt))
     "Passes through required jdt initialization options."
     `(:settings
       (:java
@@ -88,8 +88,7 @@
   (add-to-list 'eglot-server-programs '(java-mode . eclipse-jdt-contact))
 
   (defun java-workspace-configuration()
-    (setq eglot-workspace-configuration
-          `(("java.format.settings.url" . ,eclipse-jdt-code-style-file-url))))
+    `(("java.format.settings.url" . ,eclipse-jdt-code-style-file-url)))
   (add-to-list 'eglot-language-configuration-alist '("java" . java-workspace-configuration)))
 
 (provide 'init-java)
