@@ -68,7 +68,7 @@
             (eclipse-jdt--found (concat user-emacs-space-directory "eclipse.assists")
                                 "lombok-.*\\.jar$"))
       (when (and lombok-jar (file-exists-p lombok-jar))
-        (add-to-list 'runtime-jdt-vmargs (concat "-javaagent:" lombok-jar)))
+        (push (concat "-javaagent:" lombok-jar) runtime-jdt-vmargs))
 
       (unless (file-directory-p workspace-dir)
         (make-directory workspace-dir t))
