@@ -20,15 +20,17 @@
                 eglot-sync-connect 1
                 eglot-connect-timeout 60
                 eglot-events-buffer-size 0
+                eglot-autoreconnect 1
+                eglot-send-changes-idle-time 0.75
                 eglot-confirm-server-initiated-edits nil
-                eglot-ignored-server-capabilities '(:documentHighlightProvider
-                                                    :hoverProvider
-                                                    :documentLinkProvider
-                                                    :signatureHelpProvider
-                                                    :codeLensProvider
+                eglot-ignored-server-capabilities '(:hoverProvider
                                                     :colorProvider
-                                                    :foldingRangeProvider
+                                                    :codeLensProvider
                                                     :inlayHintProvider
+                                                    :signatureHelpProvider
+                                                    :foldingRangeProvider
+                                                    :documentLinkProvider
+                                                    :documentHighlightProvider
                                                     :documentOnTypeFormattingProvider))
 
   ;; ignore some feature
@@ -39,9 +41,10 @@
   (defvar eglot-language-configuration-alist nil)
   (defun eglot-language-configuration-on (server)
     (let* ((language-id (car (eglot--language-ids server)))
-           (configuration (cdr (assoc language-id eglot-language-configuration-alist))))
-      (when configuration
-        (setq-default eglot-workspace-configuration (funcall configuration)))))
+           (language-configuration (cdr (assoc language-id
+                                               eglot-language-configuration-alist))))
+      (when language-configuration
+        (setq-default eglot-workspace-configuration (funcall language-configuration)))))
   (add-hook 'eglot-connect-hook #'eglot-language-configuration-on))
 
 (provide 'init-eglot)
