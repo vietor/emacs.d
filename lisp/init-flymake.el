@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package flymake
+  :ensure nil
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error))
@@ -15,21 +16,22 @@
 (use-package flymake-flycheck
   :after flymake
   :config
-  (defun active-flymake-flycheck ()
+  (defun flymake-flycheck-on ()
     (setq-local flymake-diagnostic-functions
                 (append flymake-diagnostic-functions
                         (flymake-flycheck-all-chained-diagnostic-functions))))
-  (add-hook 'flymake-mode-hook 'active-flymake-flycheck))
+  (add-hook 'flymake-mode-hook 'flymake-flycheck-on))
 
 
 (unless (version< emacs-version "28.1")
   (setq eldoc-documentation-function 'eldoc-documentation-compose)
 
-  (add-hook 'flymake-mode-hook
-            (lambda ()
-              (setq eldoc-documentation-functions
-                    (cons 'flymake-eldoc-function
-                          (delq 'flymake-eldoc-function eldoc-documentation-functions))))))
+  (defun fix-eldoc-documentation ()
+    (setq eldoc-documentation-functions
+          (cons 'flymake-eldoc-function
+                (delq 'flymake-eldoc-function eldoc-documentation-functions))))
+
+  (add-hook 'flymake-mode-hook 'fix-eldoc-documentation))
 
 (provide 'init-flymake)
 ;; Local Variables:
