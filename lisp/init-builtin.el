@@ -169,7 +169,4 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (provide 'init-builtin)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-builtin.el ends here

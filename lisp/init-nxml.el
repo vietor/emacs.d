@@ -28,7 +28,4 @@
   (add-to-list 'ya-formatter-beautify-alist '(nxml-mode . nxml-mode-beautify)))
 
 (provide 'init-nxml)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-nxml.el ends here

@@ -52,7 +52,4 @@
         (set-window-start (selected-window) w-start)))))
 
 (provide 'ya-formatter)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; ya-formatter.el ends here

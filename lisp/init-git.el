@@ -29,7 +29,4 @@
   (bind-key "l" 'magit-vc-print-log vc-prefix-map))
 
 (provide 'init-git)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-git.el ends here

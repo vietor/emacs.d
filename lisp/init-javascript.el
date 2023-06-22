@@ -29,7 +29,4 @@
   (add-to-list 'ya-formatter-beautify-alist '(js-mode . prettier-js)))
 
 (provide 'init-javascript)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-javascript.el ends here

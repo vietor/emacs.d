@@ -10,7 +10,4 @@
   (add-to-list 'vc-directory-exclusion-list aproject-dirname))
 
 (provide 'init-project)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 ;;; init-project.el ends here

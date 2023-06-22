@@ -92,7 +92,4 @@
   (add-to-list 'eglot-language-configuration-alist '("java" . java-workspace-configuration)))
 
 (provide 'init-java)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-java.el ends here

@@ -17,7 +17,4 @@
 (setq-default css-fontify-colors nil)
 
 (provide 'init-web)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-web.el ends here

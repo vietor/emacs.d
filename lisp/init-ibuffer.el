@@ -17,7 +17,4 @@
               (ibuffer-switch-to-saved-filter-groups "beautify"))))
 
 (provide 'init-ibuffer)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-ibuffer.el ends here

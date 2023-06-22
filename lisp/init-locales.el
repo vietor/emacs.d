@@ -20,7 +20,4 @@
   (set-selection-coding-system 'utf-8))
 
 (provide 'init-locales)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-locales.el ends here

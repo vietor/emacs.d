@@ -12,7 +12,4 @@
   (add-hook 'c++-mode-hook 'eglot-ensure))
 
 (provide 'init-cxx)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-cxx.el ends here

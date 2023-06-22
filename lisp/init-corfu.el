@@ -19,7 +19,4 @@
   (add-to-list 'completion-at-point-functions #'cape-keyword))
 
 (provide 'init-corfu)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-corfu.el ends here

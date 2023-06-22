@@ -23,7 +23,4 @@
 (use-package pip-requirements)
 
 (provide 'init-python)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-python.el ends here

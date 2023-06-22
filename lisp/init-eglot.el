@@ -48,7 +48,4 @@
   (add-hook 'eglot-connect-hook #'eglot-language-configuration-on))
 
 (provide 'init-eglot)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-eglot.el ends here

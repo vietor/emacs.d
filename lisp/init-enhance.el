@@ -147,7 +147,4 @@
 (bind-key [remap move-end-of-line] 'smart-end-of-line)
 
 (provide 'init-enhance)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-enhance.el ends here

@@ -55,7 +55,4 @@ variables such as `exec-path'."
     (ya-environ--setenv "PATH" (string-join (delete-dups (append news olds)) path-separator))))
 
 (provide 'ya-environ)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; ya-environ.el ends here

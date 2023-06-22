@@ -17,7 +17,4 @@
 (use-package docker-compose-mode)
 
 (provide 'init-docker)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-docker.el ends here

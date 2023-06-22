@@ -58,8 +58,4 @@
               (setq gc-cons-threshold better-gc-cons-threshold))))
 
 (provide 'early-init)
-;; Local Variables:
-;; coding: utf-8
-;; no-byte-compile: t
-;; End:
 ;;; early-init.el ends here

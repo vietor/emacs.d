@@ -37,7 +37,4 @@
   (bind-key "M-g z" 'open-new-emacs))
 
 (provide 'init-environ)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-environ.el ends here

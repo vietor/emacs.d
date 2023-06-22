@@ -34,7 +34,4 @@
   (add-hook 'flymake-mode-hook 'fix-eldoc-documentation))
 
 (provide 'init-flymake)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-flymake.el ends here

@@ -12,7 +12,4 @@
       (pop-to-buffer (current-buffer)))))
 
 (provide 'init-http)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-http.el ends here

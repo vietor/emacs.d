@@ -47,7 +47,4 @@
          (insert (insert-string--encode-base ts base)))))))
 
 (provide 'insert-string)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; insert-string.el ends here

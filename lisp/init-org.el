@@ -63,7 +63,4 @@
       org-archive-location "%s_archive::* Archive")
 
 (provide 'init-org)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-org.el ends here

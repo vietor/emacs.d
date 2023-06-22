@@ -47,7 +47,4 @@
 (use-package fullframe)
 
 (provide 'init-package)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 ;;; init-package.el ends here

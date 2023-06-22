@@ -118,7 +118,4 @@
 (bind-key "C-x 4 2" 'split-window-vertically-instead)
 
 (provide 'init-windows)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-windows.el ends here

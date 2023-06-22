@@ -46,7 +46,4 @@
     (add-to-list 'grep-find-ignored-files item)))
 
 (provide 'init-grep)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-grep.el ends here

@@ -24,7 +24,4 @@
   (setq rust-format-on-save t))
 
 (provide 'init-progmodes)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
 ;;; init-progmodes.el ends here
