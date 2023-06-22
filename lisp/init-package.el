@@ -19,12 +19,6 @@
       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
                         user-emacs-directory))
 
-(when (fboundp 'package--save-selected-packages)
-  (defun fix-save-selected-packages (&optional value)
-    (when value
-      (setq package-selected-packages value)))
-  (advice-add 'package--save-selected-packages :override #'fix-save-selected-packages))
-
 (unless (bound-and-true-p package--initialized)
   (setq package-check-signature nil
         package-enable-at-startup nil)

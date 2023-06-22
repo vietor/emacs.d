@@ -16,10 +16,16 @@
 (use-package flymake-flycheck
   :after flymake
   :config
+  (with-eval-after-load 'flycheck
+    (setq-default flycheck-disabled-checkers
+                  (append (default-value 'flycheck-disabled-checkers)
+                          '(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package))))
+
   (defun flymake-flycheck-on ()
     (setq-local flymake-diagnostic-functions
                 (append flymake-diagnostic-functions
                         (flymake-flycheck-all-chained-diagnostic-functions))))
+
   (add-hook 'flymake-mode-hook 'flymake-flycheck-on))
 
 
