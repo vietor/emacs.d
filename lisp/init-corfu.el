@@ -4,6 +4,9 @@
 
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
+(setq completion-category-defaults nil
+      completion-category-overrides nil)
+(setq completion-cycle-threshold 4)
 
 (use-package corfu
   :hook (after-init . global-corfu-mode)

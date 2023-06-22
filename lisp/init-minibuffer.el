@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package selectrum
-  :hook (after-init . selectrum-mode))
+(use-package vertico
+  :hook (after-init . vertico-mode))
 
 (use-package orderless
   :init
