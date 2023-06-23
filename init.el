@@ -9,19 +9,26 @@
     (error "Your Emacs is too old -- this config requires v%s or higher" minver))
   (unless (memq system-type '(darwin windows-nt gnu/linux))
     (error "I am not working on the current operating system, bye")))
+
 (unless (boundp 'early-init-file)
   (load (concat (file-name-directory load-file-name) "early-init") nil t))
 
 (defconst system-is-mac (eq system-type 'darwin))
 (defconst system-is-win (eq system-type 'windows-nt))
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs loaded in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+;; Adjust garbage collection
+
+(let ((normal-gc-cons-threshold (* 20 1024 1024)))
+  (setq gc-cons-threshold most-positive-fixnum)
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq gc-cons-threshold normal-gc-cons-threshold)
+
+              (message "Emacs loaded in %s with %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done))))
 
 ;;----------------------------------------------------------------------------
 ;; The `load-path' config
