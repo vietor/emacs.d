@@ -12,6 +12,8 @@ eshell/
 auto-save-list/
 transient/
 newsticker/
+tree-sitter/
+
 smex-items
 bookmarks
 network-security.data

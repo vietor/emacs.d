@@ -3,17 +3,23 @@
 ;;; Code:
 
 (setq tab-always-indent 'complete)
-(add-to-list 'completion-styles 'initials t)
 (setq completion-category-defaults nil
       completion-category-overrides nil)
 (setq completion-cycle-threshold 4)
+
+(use-package orderless
+  :config
+  (setq completion-styles '(orderless basic)))
 
 (use-package corfu
   :hook (after-init . global-corfu-mode)
   :config
   (setq-default corfu-auto t
                 corfu-preview-current nil
-                corfu-quit-no-match 'separator))
+                corfu-quit-no-match 'separator)
+
+  (with-eval-after-load 'corfu
+    (corfu-popupinfo-mode)))
 
 (use-package cape
   :init

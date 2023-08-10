@@ -15,7 +15,7 @@
   :when (executable-find "git")
   :bind ("C-x g" . magit-status)
   :config
-  (setq-default magit-diff-refine-hunk t)
+  (setq-default magit-diff-refine-hunk 'all)
   (fullframe magit-status magit-mode-quit-window)
 
   (defun magit-vc-print-log (&optional prompt)
