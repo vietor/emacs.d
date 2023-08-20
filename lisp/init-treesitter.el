@@ -5,6 +5,9 @@
 (when (and (require 'treesit nil t)
            (fboundp 'treesit-available-p)
            (treesit-available-p))
+  (add-to-list 'treesit-extra-load-path
+               (concat user-emacs-space-directory "tree-sitter"))
+
   (let ((try-treesit-remap-lang '("c" "c++" "js" "python"))
         (lang-to-grammar-name '(("c++" . "cpp")
                                 ("js" . "javascript"))))
