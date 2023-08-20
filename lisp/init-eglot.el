@@ -4,6 +4,7 @@
 
 (use-package eglot
   :ensure t
+  :demand t
   :bind (:map eglot-mode-map
               ("C-c r" . eglot-rename)
               ("C-c o" . eglot-code-actions)

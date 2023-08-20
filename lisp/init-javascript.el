@@ -7,6 +7,7 @@
 ;; json
 
 (use-package json-mode
+  :ensure t
   :init
   (defun fix-json-mode-beautify()
     (call-interactively 'json-mode-beautify))
@@ -24,6 +25,7 @@
   (setq-default js-indent-level 2))
 
 (use-package prettier-js
+  :ensure t
   :when (executable-find "prettier")
   :commands (prettier-js)
   :init
