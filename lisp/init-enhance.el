@@ -11,6 +11,7 @@
   (load-theme 'doom-dracula t))
 
 (use-package highlight-escape-sequences
+  :ensure t
   :hook (after-init . hes-mode))
 
 (use-package move-dup
@@ -38,6 +39,7 @@
   :bind ("C-=" . er/expand-region))
 
 (use-package whole-line-or-region
+  :ensure t
   :diminish whole-line-or-region-local-mode
   :hook (after-init . whole-line-or-region-global-mode))
 
@@ -68,6 +70,7 @@
   ("C-M-<f12>" . 'ya-formatter-clean-eol))
 
 (use-package insert-string
+  :demand t
   :bind
   ("M-g t i" . insert-random-string)
   ("M-g t t" . insert-ordered-string))
