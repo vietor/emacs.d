@@ -17,8 +17,10 @@
 (use-package js-mode
   :ensure nil
   :mode "\\.\\(\\js\\|es6\\|mjs\\)\\(\\.erb\\)?\\'"
-  :bind (:map js-mode-map
-              ("M-." . nil))
+  :bind ((:map js-mode-map
+               ("M-." . nil))
+         (:map js-ts-mode-map
+               ("M-." . nil)))
   :init
   (setq-default js-indent-level 2))
 

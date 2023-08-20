@@ -4,12 +4,16 @@
 
 (require 'google-c-style)
 
-(add-hook 'c-mode-hook 'google-set-c-style)
-(add-hook 'c++-mode-hook 'google-set-c-style)
+(let ((c-c++-hooks '(c-mode-hook
+                     c++-mode-hook
+                     c-ts=mode-hook
+                     c++-ts-mode-hook)))
+  (dolist (hook c-c++-hooks)
+    (add-hook hook 'google-set-c-style))
 
-(when (executable-find "clangd")
-  (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure))
+  (when (executable-find "clangd")
+    (dolist (hook c-c++-hooks)
+      (add-hook hook 'eglot-ensure))))
 
 (provide 'init-cxx)
 ;;; init-cxx.el ends here

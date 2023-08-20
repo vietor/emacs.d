@@ -5,7 +5,8 @@
 (use-package python
   :ensure nil
   :mode ("SConstruct\\'" "SConscript\\'")
-  :hook (python-mode . eglot-ensure)
+  :hook ((python-mode . eglot-ensure)
+         (python-ts-mode . eglot-ensure))
   :init
   (setq python-shell-interpreter "python3")
 
