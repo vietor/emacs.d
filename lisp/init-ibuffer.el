@@ -3,7 +3,6 @@
 ;;; Code:
 
 (use-package ibuffer
-  :ensure nil
   :bind ([remap list-buffers] . ibuffer)
   :config
   (setq ibuffer-show-empty-filter-groups nil

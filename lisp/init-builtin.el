@@ -134,18 +134,15 @@
 (setq-default bidi-display-reordering nil)
 
 (use-package abbrev
-  :ensure nil
   :diminish abbrev-mode)
 
 (use-package whitespace
-  :ensure nil
   :bind ("M-g w" . whitespace-mode)
   :init
   (setq-default whitespace-style
                 '(face spaces tabs newline space-mark tab-mark newline-mark)))
 
 (use-package autorevert
-  :ensure nil
   :diminish
   :hook (after-init . global-auto-revert-mode)
   :init
@@ -153,7 +150,6 @@
         auto-revert-verbose nil))
 
 (use-package uniquify
-  :ensure nil
   :init
   (setq uniquify-buffer-name-style 'reverse
         uniquify-separator " • "
@@ -161,7 +157,6 @@
         uniquify-ignore-buffers-re "^\\*"))
 
 (use-package dired
-  :ensure nil
   :bind (("C-x C-j" . dired-jump)
          ("C-x 4 C-j" . dired-jump-other-window))
   :init

@@ -3,7 +3,6 @@
 ;;; Code:
 
 (use-package python
-  :ensure nil
   :mode ("SConstruct\\'" "SConscript\\'")
   :hook ((python-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure))
@@ -21,7 +20,8 @@
         (pycodestyle (enabled . :json-false))))))
   (add-to-list 'eglot-language-configuration-alist '("python" . python-workspace-configuration)))
 
-(use-package pip-requirements)
+(use-package pip-requirements
+  :ensure t)
 
 (provide 'init-python)
 ;;; init-python.el ends here

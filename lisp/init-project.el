@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package aproject
+  :ensure t
   :bind ("C-x p" . aproject-change-project)
   :config
   (setq desktop-restore-eager 1)

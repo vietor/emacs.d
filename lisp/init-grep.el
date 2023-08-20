@@ -14,6 +14,7 @@
 ;; wgrep
 
 (use-package wgrep
+  :ensure t
   :config
   (setq wgrep-enable-key "e"
         wgrep-auto-save-buffer t))
@@ -21,12 +22,14 @@
 ;; ripgrep
 
 (use-package rg
+  :ensure t
   :when (executable-find "rg")
   :bind (("M-g t s" . rg-dwim-project-dir)))
 
 ;; gtags
 
 (use-package agtags
+  :ensure t
   :when (executable-find "global")
   :init
   (after-aproject-change

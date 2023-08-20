@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package dart-mode
+  :ensure t
   :when (executable-find "dart")
   :hook (dart-mode . eglot-ensure))
 

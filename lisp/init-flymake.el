@@ -3,7 +3,6 @@
 ;;; Code:
 
 (use-package flymake
-  :ensure nil
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error))
@@ -14,6 +13,7 @@
     (add-hook hook 'flymake-mode)))
 
 (use-package flymake-flycheck
+  :ensure t
   :after flymake
   :config
   (with-eval-after-load 'flycheck

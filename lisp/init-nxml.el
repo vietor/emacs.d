@@ -3,7 +3,6 @@
 ;;; Code:
 
 (use-package nxml-mode
-  :ensure nil
   :init
   (setq nxml-slash-auto-complete-flag t)
 

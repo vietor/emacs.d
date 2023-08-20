@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package doom-themes
+  :ensure t
   :when window-system
   :config
   (setq doom-themes-enable-bold t
@@ -13,13 +14,16 @@
   :hook (after-init . hes-mode))
 
 (use-package move-dup
+  :ensure t
   :diminish
   :hook (after-init . global-move-dup-mode))
 
 (use-package avy
+  :ensure t
   :bind ("C-;" . avy-goto-char-timer))
 
 (use-package multiple-cursors
+  :ensure t
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-M->" . mc/skip-to-next-like-this)
@@ -30,6 +34,7 @@
   (defun mc/save-lists () "Ignore save history."))
 
 (use-package expand-region
+  :ensure t
   :bind ("C-=" . er/expand-region))
 
 (use-package whole-line-or-region
@@ -37,6 +42,7 @@
   :hook (after-init . whole-line-or-region-global-mode))
 
 (use-package browse-kill-ring
+  :ensure t
   :bind (("M-Y" . browse-kill-ring)
          :map browse-kill-ring-mode-map
          ("C-g" . browse-kill-ring-quit)
@@ -46,6 +52,7 @@
   (setq browse-kill-ring-separator "\f"))
 
 (use-package which-key
+  :ensure t
   :diminish
   :hook (after-init . which-key-mode)
   :config
@@ -55,14 +62,12 @@
 
 (use-package ya-formatter
   :demand t
-  :ensure nil
   :bind
   ("<f12>" . ya-formatter-indent)
   ("M-<f12>" . 'ya-formatter-beautify)
   ("C-M-<f12>" . 'ya-formatter-clean-eol))
 
 (use-package insert-string
-  :ensure nil
   :bind
   ("M-g t i" . insert-random-string)
   ("M-g t t" . insert-ordered-string))

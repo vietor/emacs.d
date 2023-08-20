@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package vertico
+  :ensure t
   :hook (after-init . vertico-mode))
 
 (provide 'init-minibuffer)

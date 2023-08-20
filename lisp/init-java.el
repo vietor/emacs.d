@@ -2,13 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package scala-mode)
+(use-package scala-mode
+  :ensure t)
 
 (use-package groovy-mode
+  :ensure t
   :mode "\\.gradle\\'")
 
 (use-package java
-  :ensure nil
   :when (executable-find "java")
   :hook (java-mode . eglot-ensure)
   :init

@@ -3,7 +3,7 @@
 ;;; Code:
 
 (use-package eglot
-  :demand
+  :ensure t
   :bind (:map eglot-mode-map
               ("C-c r" . eglot-rename)
               ("C-c o" . eglot-code-actions)

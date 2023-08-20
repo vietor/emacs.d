@@ -28,18 +28,14 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(eval-and-compile
-  (setq use-package-always-ensure t)
-  (setq use-package-expand-minimally t))
-
 (eval-when-compile
   (require 'use-package))
 
 ;;; necessary packages
 
-(use-package bind-key)
-(use-package diminish)
-(use-package fullframe)
+(use-package bind-key :ensure t)
+(use-package diminish :ensure t)
+(use-package fullframe :ensure t)
 
 (provide 'init-package)
 ;;; init-package.el ends here

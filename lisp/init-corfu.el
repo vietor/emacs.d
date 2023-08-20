@@ -8,10 +8,12 @@
 (setq completion-cycle-threshold 4)
 
 (use-package orderless
+  :ensure t
   :config
   (setq completion-styles '(orderless basic)))
 
 (use-package corfu
+  :ensure t
   :hook (after-init . global-corfu-mode)
   :config
   (setq-default corfu-auto t
@@ -22,6 +24,7 @@
     (corfu-popupinfo-mode)))
 
 (use-package cape
+  :ensure t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)

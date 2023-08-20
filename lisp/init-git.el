@@ -4,14 +4,17 @@
 
 (setq vc-handled-backends '(Git))
 
-(use-package git-modes)
+(use-package git-modes
+  :ensure t)
 
 (use-package git-timemachine
+  :ensure t
   :when (executable-find "git")
   :bind (:map vc-prefix-map
               ("t" . git-timemachine-toggle)))
 
 (use-package magit
+  :ensure t
   :when (executable-find "git")
   :bind ("C-x g" . magit-status)
   :config
