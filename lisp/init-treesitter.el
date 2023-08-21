@@ -8,7 +8,7 @@
   (add-to-list 'treesit-extra-load-path
                (concat user-emacs-space-directory "tree-sitter"))
 
-  (let ((try-treesit-remap-lang '("c" "c++" "js" "python"))
+  (let ((try-treesit-remap-lang '("js" "python" "yaml"))
         (lang-to-grammar-name '(("c++" . "cpp")
                                 ("js" . "javascript"))))
     (dolist (lang try-treesit-remap-lang)
