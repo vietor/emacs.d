@@ -38,10 +38,15 @@
   (dolist (type '(eglot-note eglot-warning eglot-error))
     (cl-remf (symbol-plist type) 'flymake-overlay-control))
 
+  (defun eglot-language-found-id (server)
+    (if (fboundp 'eglot--language-id)
+        (eglot--language-id server)
+      (car (eglot--language-ids server))))
+
   ;; language workspace configuration
   (defvar eglot-language-configuration-alist nil)
   (defun eglot-language-configuration-on (server)
-    (let* ((language-id (car (eglot--language-ids server)))
+    (let* ((language-id (eglot-language-found-id server))
            (language-configuration (cdr (assoc language-id
                                                eglot-language-configuration-alist))))
       (when language-configuration
