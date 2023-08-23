@@ -68,7 +68,6 @@
 (require 'init-grep)
 (require 'init-ibuffer)
 (require 'init-minibuffer)
-(require 'init-treesitter)
 
 (require 'init-eglot)
 (require 'init-java)
@@ -82,6 +81,7 @@
 (require 'init-python)
 (require 'init-textmodes)
 (require 'init-progmodes)
+(require 'init-treesitter)
 
 (require 'init-http)
 (require 'init-docker)
