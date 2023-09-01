@@ -29,7 +29,8 @@
   :when (executable-find "prettier")
   :commands (prettier-js)
   :init
-  (add-to-list 'ya-formatter-beautify-alist '(js-mode . prettier-js)))
+  (add-to-list 'ya-formatter-beautify-alist '(js-mode . prettier-js))
+  (add-to-list 'ya-formatter-beautify-alist '(js-ts-mode . prettier-js)))
 
 (provide 'init-javascript)
 ;;; init-javascript.el ends here

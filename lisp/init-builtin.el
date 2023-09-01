@@ -134,7 +134,7 @@
 (setq-default bidi-display-reordering nil)
 
 (use-package abbrev
-  :diminish abbrev-mode)
+  :diminish)
 
 (use-package whitespace
   :bind ("M-g w" . whitespace-mode)
@@ -143,7 +143,7 @@
                 '(face spaces tabs newline space-mark tab-mark newline-mark)))
 
 (use-package autorevert
-  :diminish
+  :diminish auto-revert-mode
   :hook (after-init . global-auto-revert-mode)
   :init
   (setq global-auto-revert-non-file-buffers t

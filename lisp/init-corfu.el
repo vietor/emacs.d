@@ -21,7 +21,11 @@
                 corfu-quit-no-match 'separator)
 
   (with-eval-after-load 'corfu
-    (corfu-popupinfo-mode)))
+    (corfu-popupinfo-mode))
+
+  (with-eval-after-load 'eshell
+    (add-hook 'eshell-mode-hook
+              (lambda () (setq-local corfu-auto nil)))))
 
 (use-package cape
   :ensure t
