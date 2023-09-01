@@ -80,6 +80,9 @@
 (when (fboundp 'toggle-frame-fullscreen)
   (bind-key "C-<f10>" 'toggle-frame-fullscreen))
 
+(when (fboundp 'pixel-scroll-precision-mode)
+  (pixel-scroll-precision-mode))
+
 (after-aproject-change
  (setq frame-title-format '("Emacs @ " aproject-rootdir)))
 

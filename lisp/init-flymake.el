@@ -23,8 +23,8 @@
 
   (defun flymake-flycheck-on ()
     (setq-local flymake-diagnostic-functions
-                (append flymake-diagnostic-functions
-                        (flymake-flycheck-all-chained-diagnostic-functions))))
+                (seq-uniq (append flymake-diagnostic-functions
+                                  (flymake-flycheck-all-chained-diagnostic-functions)))))
 
   (add-hook 'flymake-mode-hook 'flymake-flycheck-on))
 
@@ -33,9 +33,7 @@
   (setq eldoc-documentation-function 'eldoc-documentation-compose)
 
   (defun fix-eldoc-documentation ()
-    (setq eldoc-documentation-functions
-          (cons 'flymake-eldoc-function
-                (delq 'flymake-eldoc-function eldoc-documentation-functions))))
+    (add-hook 'eldoc-documentation-functions 'flymake-eldoc-function nil t))
 
   (add-hook 'flymake-mode-hook 'fix-eldoc-documentation))
 
