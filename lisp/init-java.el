@@ -27,7 +27,7 @@
       (:java
        (:format
         (:settings
-         (:profile "GoogleStyle" :url ,eclipse-jdt-code-style-file-url))))))
+         (:url ,eclipse-jdt-code-style-file-url))))))
 
   (cl-defmethod eglot-execute-command ((_server eglot-eclipse-jdt)
                                        (_cmd (eql java.apply.workspaceEdit))
@@ -75,15 +75,18 @@
         (make-directory workspace-dir t))
 
       (cons 'eglot-eclipse-jdt `(,(executable-find "java")
-                                 "--add-modules=ALL-SYSTEM"
-                                 "--add-opens" "java.base/java.util=ALL-UNNAMED"
-                                 "--add-opens" "java.base/java.lang=ALL-UNNAMED"
                                  "-Declipse.application=org.eclipse.jdt.ls.core.id1"
                                  "-Dosgi.bundles.defaultStartLevel=4"
                                  "-Declipse.product=org.eclipse.jdt.ls.core.product"
+                                 "-Dosgi.checkConfiguration=true"
+			                     ,(concat "-Dosgi.sharedConfiguration.area=" config-dir)
+			                     "-Dosgi.sharedConfiguration.area.readOnly=true"
+			                     "-Dosgi.configuration.cascaded=true"
+                                 "--add-modules=ALL-SYSTEM"
+                                 "--add-opens" "java.base/java.util=ALL-UNNAMED"
+                                 "--add-opens" "java.base/java.lang=ALL-UNNAMED"
                                  ,@runtime-jdt-vmargs
                                  "-jar" ,launcher-jar
-                                 "-configuration" ,config-dir
                                  "-data" ,workspace-dir))))
 
   (add-to-list 'eglot-server-programs '(java-mode . eclipse-jdt-contact))
