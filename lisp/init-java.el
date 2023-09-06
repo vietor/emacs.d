@@ -95,9 +95,5 @@
     `(("java.format.settings.url" . ,eclipse-jdt-code-style-file-url)))
   (add-to-list 'eglot-language-configuration-alist '("java" . java-workspace-configuration)))
 
-(with-eval-after-load 'project
-  (add-to-list 'project-vc-extra-root-markers "pom.xml")
-  (add-to-list 'project-vc-extra-root-markers "build.gradle"))
-
 (provide 'init-java)
 ;;; init-java.el ends here
