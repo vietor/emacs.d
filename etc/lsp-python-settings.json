@@ -1,0 +1,24 @@
+{
+  "pylsp": {
+    "configurationSources": [
+      "flake8"
+    ],
+    "plugins": {
+      "flake8": {
+        "enabled": true
+      },
+      "mypy": {
+        "enabled": true
+      },
+      "mccabe": {
+        "enabled": false
+      },
+      "pyflakes": {
+        "enabled": false
+      },
+      "pycodestyle": {
+        "enabled": false
+      }
+    }
+  }
+}

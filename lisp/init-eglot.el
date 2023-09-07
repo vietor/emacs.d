@@ -44,15 +44,30 @@
                               (eglot--language-id server)
                             (car (eglot--language-ids server)))))
 
+  (defun eglot-language-etc-file (file)
+    (expand-file-name (concat "etc/" file) user-emacs-directory))
+
+  (defun eglot-language-etc-file-url (file)
+    (concat "file://" (eglot-language-etc-file file)))
+
+  (defun eglot-language-etc-json-read (file)
+    (ignore-errors
+      (with-temp-buffer
+        (insert-file-contents (eglot-language-etc-file file))
+        (goto-char (point-min))
+        (when (search-forward "{{ETC-" nil t)
+          (replace-string "{{ETC-PATH}}" (eglot-language-etc-file ""))
+          (goto-char (point-min))
+          (replace-string "{{ETC-URL}}" (eglot-language-etc-file-url "")))
+        (goto-char (point-min))
+        (json-read))))
+
   ;; language workspace configuration
-  (defvar eglot-language-configuration-alist nil)
-  (defun eglot-language-configuration-on (server)
+  (defun eglot-language-workspace-configuration (server)
     (let* ((language-id (eglot-language-found-id server))
-           (language-configuration (cdr (assoc language-id
-                                               eglot-language-configuration-alist))))
-      (when language-configuration
-        (setq-default eglot-workspace-configuration (funcall language-configuration)))))
-  (add-hook 'eglot-connect-hook #'eglot-language-configuration-on))
+           (language-configuration-file (concat "lsp-" language-id "-settings.json")))
+      (or (eglot-language-etc-json-read language-configuration-file) ())))
+  (setq-default eglot-workspace-configuration 'eglot-language-workspace-configuration))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here

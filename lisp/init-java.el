@@ -90,11 +90,7 @@
                                  "-jar" ,launcher-jar
                                  "-data" ,workspace-dir))))
 
-  (add-to-list 'eglot-server-programs '((java-mode java-ts-mode) . eclipse-jdt-contact))
-
-  (defun java-workspace-configuration()
-    `(("java.format.settings.url" . ,eclipse-jdt-code-style-file-url)))
-  (add-to-list 'eglot-language-configuration-alist '("java" . java-workspace-configuration)))
+  (add-to-list 'eglot-server-programs '((java-mode java-ts-mode) . eclipse-jdt-contact)))
 
 (provide 'init-java)
 ;;; init-java.el ends here

@@ -1,0 +1,9 @@
+{
+  "java": {
+    "format": {
+      "settings": {
+        "url": "{{ETC-URL}}eclipse-java-google-style.xml"
+      }
+    }
+  }
+}

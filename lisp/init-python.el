@@ -7,18 +7,7 @@
   :hook ((python-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure))
   :init
-  (setq python-shell-interpreter "python3")
-
-  (defun python-workspace-configuration()
-    '((pylsp
-       (configurationSources . ["flake8"])
-       (plugins
-        (flake8 (enabled . t))
-        (mypy (enabled . t))
-        (mccabe (enabled . :json-false))
-        (pyflakes (enabled . :json-false))
-        (pycodestyle (enabled . :json-false))))))
-  (add-to-list 'eglot-language-configuration-alist '("python" . python-workspace-configuration)))
+  (setq python-shell-interpreter "python3"))
 
 (use-package pip-requirements
   :ensure t)
