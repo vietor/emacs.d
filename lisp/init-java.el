@@ -16,19 +16,8 @@
   :init
   (defconst eclipse-jdt-vmargs '("-Xmx1G" "-Xms100m"))
 
-  (defconst eclipse-jdt-code-style-file-url (concat "file://" (if (eq system-type 'windows-nt) "/")
-                                                    (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
-
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
-
-  (cl-defmethod eglot-initialization-options ((_server eglot-eclipse-jdt))
-    "Passes through required jdt initialization options."
-    `(:settings
-      (:java
-       (:format
-        (:settings
-         (:url ,eclipse-jdt-code-style-file-url))))))
 
   (cl-defmethod eglot-execute-command ((_server eglot-eclipse-jdt)
                                        (_cmd (eql java.apply.workspaceEdit))

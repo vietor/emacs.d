@@ -48,7 +48,7 @@
     (expand-file-name (concat "etc/" file) user-emacs-directory))
 
   (defun eglot-language-etc-file-url (file)
-    (concat "file://" (eglot-language-etc-file file)))
+    (concat "file://" (if (eq system-type 'windows-nt) "/") (eglot-language-etc-file file)))
 
   (defun eglot-language-etc-json-read (file)
     (ignore-errors
