@@ -83,7 +83,7 @@
     (if (and (fboundp 'tramp-tramp-file-p)
              (tramp-tramp-file-p filename))
         (error "Cannot open tramp file")
-      (browse-url (concat "file://" filename)))))
+      (browse-url (concat "file://" (if (eq system-type 'windows-nt) "/") filename)))))
 (bind-key "M-g f b" 'browse-current-file)
 
 (defun delete-current-buffer-file ()

@@ -39,9 +39,10 @@
     (cl-remf (symbol-plist type) 'flymake-overlay-control))
 
   (defun eglot-language-found-id (server)
-    (if (fboundp 'eglot--language-id)
-        (eglot--language-id server)
-      (car (eglot--language-ids server))))
+    (string-remove-suffix "-ts"
+                          (if (fboundp 'eglot--language-id)
+                              (eglot--language-id server)
+                            (car (eglot--language-ids server)))))
 
   ;; language workspace configuration
   (defvar eglot-language-configuration-alist nil)

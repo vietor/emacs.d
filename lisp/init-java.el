@@ -11,11 +11,12 @@
 
 (use-package java
   :when (executable-find "java")
-  :hook (java-mode . eglot-ensure)
+  :hook ((java-mode . eglot-ensure)
+         (java-ts-mode . eglot-ensure))
   :init
   (defconst eclipse-jdt-vmargs '("-Xmx1G" "-Xms100m"))
 
-  (defconst eclipse-jdt-code-style-file-url (concat "file:///"
+  (defconst eclipse-jdt-code-style-file-url (concat "file://" (if (eq system-type 'windows-nt) "/")
                                                     (expand-file-name "etc/eclipse-java-google-style.xml" user-emacs-directory)))
 
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
@@ -89,7 +90,7 @@
                                  "-jar" ,launcher-jar
                                  "-data" ,workspace-dir))))
 
-  (add-to-list 'eglot-server-programs '(java-mode . eclipse-jdt-contact))
+  (add-to-list 'eglot-server-programs '((java-mode java-ts-mode) . eclipse-jdt-contact))
 
   (defun java-workspace-configuration()
     `(("java.format.settings.url" . ,eclipse-jdt-code-style-file-url)))
