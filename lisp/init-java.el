@@ -19,6 +19,9 @@
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
 
+  (cl-defmethod eglot-initialization-options ((_server eglot-eclipse-jdt))
+    (eglot-language-etc-json-read "lsp-java-options.json"))
+
   (cl-defmethod eglot-execute-command ((_server eglot-eclipse-jdt)
                                        (_cmd (eql java.apply.workspaceEdit))
                                        arguments)

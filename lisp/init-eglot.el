@@ -60,7 +60,7 @@
           (goto-char (point-min))
           (replace-string "{{ETC-URL}}" (eglot-language-etc-file-url "")))
         (goto-char (point-min))
-        (json-read))))
+        (json-parse-buffer :object-type 'plist :false-object :json-false))))
 
   ;; language workspace configuration
   (defun eglot-language-workspace-configuration (server)
