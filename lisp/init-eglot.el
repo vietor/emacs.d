@@ -14,7 +14,7 @@
    (eglot-shutdown-all))
   (add-to-list 'ya-formatter-beautify-minor-alist
                '(eglot--managed-mode . eglot-format-buffer))
-  (when system-is-win
+  (when (eq system-type 'windows-nt)
     (advice-add #'eglot--apply-text-edits :after #'ya-formatter-x-clean-eol))
   :config
   (setq-default eglot-autoshutdown t

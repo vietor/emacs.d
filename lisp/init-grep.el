@@ -8,7 +8,7 @@
 (setq-default grep-highlight-matches t
               grep-scroll-output t)
 
-(when system-is-mac
+(when (eq system-type 'darwin)
   (setq-default locate-command "mdfind"))
 
 ;; wgrep

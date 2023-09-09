@@ -70,7 +70,7 @@
   (add-hook 'after-init-hook 'electric-pair-mode))
 (add-hook 'after-init-hook 'electric-indent-mode)
 
-(when system-is-mac
+(when (eq system-type 'darwin)
   (setq ns-pop-up-frames nil
         mac-command-modifier 'meta
         mac-option-modifier 'none)
@@ -129,7 +129,7 @@
 
 ;; fix some slow
 
-(when system-is-win
+(when (eq system-type 'windows-nt)
   (setq w32-pipe-read-delay 0
         w32-pipe-buffer-size (* 64 1024)
         w32-get-true-file-attributes nil

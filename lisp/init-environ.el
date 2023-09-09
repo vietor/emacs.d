@@ -28,9 +28,9 @@
     "Open a new Emacs process."
     (interactive)
     (cond
-     (system-is-mac
+     ((eq system-type 'darwin)
       (shell-command "open -n -a Emacs.app"))
-     (system-is-win
+     ((eq system-type 'windows-nt)
       (w32-shell-execute "open" (concat (file-name-directory (car command-line-args)) "runemacs.exe")))
      (t (call-process-shell-command (concat (car command-line-args) " & disown")))))
 

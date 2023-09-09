@@ -13,9 +13,6 @@
 (unless (boundp 'early-init-file)
   (load (concat (file-name-directory load-file-name) "early-init") nil t))
 
-(defconst system-is-mac (eq system-type 'darwin))
-(defconst system-is-win (eq system-type 'windows-nt))
-
 ;; Adjust garbage collection
 
 (let ((normal-gc-cons-threshold (* 20 1024 1024)))
@@ -45,7 +42,7 @@
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 
-(defconst user-emacs-space-directory
+(defvar user-emacs-space-directory
   (expand-file-name "../.emacs.space/" user-emacs-directory))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
