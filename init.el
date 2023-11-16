@@ -13,7 +13,10 @@
 (unless (boundp 'early-init-file)
   (load (concat (file-name-directory load-file-name) "early-init") nil t))
 
-;; Adjust garbage collection
+;; Process performance tuning
+
+(setq read-process-output-max (* 4 1024 1024))
+(setq process-adaptive-read-buffering nil)
 
 (let ((normal-gc-cons-threshold (* 20 1024 1024)))
   (setq gc-cons-threshold most-positive-fixnum)

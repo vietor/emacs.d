@@ -6,6 +6,10 @@
 (require 'subr-x)
 (require 'package)
 
+(setq package-check-signature nil
+      package-enable-at-startup nil)
+(advice-add #'package--ensure-init-file :override #'ignore)
+
 ;; preload for custom package-archives
 (let ((preload-file (expand-file-name "preload.el" user-emacs-directory)))
   (when (file-exists-p preload-file)
