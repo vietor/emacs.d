@@ -7,11 +7,11 @@
   :init
   (setq winner-dont-bind-my-keys 5))
 
-(use-package ace-window
-  :bind ("C-x o" . ace-window)
-  :config
-  (setq aw-scope 'frame
-        aw-background nil))
+(use-package switch-window
+  :bind ("C-x o" . switch-window)
+  :init
+  (setq-default switch-window-shortcut-style 'qwerty)
+  (setq-default switch-window-timeout nil))
 
 ;; switch buffers
 
