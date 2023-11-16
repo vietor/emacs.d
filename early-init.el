@@ -3,7 +3,8 @@
 ;;; Code:
 
 (setq gc-cons-threshold most-positive-fixnum)
-(setq read-process-output-max (* 3 1024 1024))
+(setq read-process-output-max (* 4 1024 1024))
+(setq process-adaptive-read-buffering nil)
 
 (setq package-check-signature nil
       package-enable-at-startup nil)
