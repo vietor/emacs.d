@@ -14,7 +14,7 @@
   :hook ((java-mode . eglot-ensure)
          (java-ts-mode . eglot-ensure))
   :init
-  (defconst eclipse-jdt-vmargs '("-Xmx1G" "-Xms100m"))
+  (defconst eclipse-jdt-vmargs '("-Xmx1G" "-Xms128m" "-Xss256k"))
 
   (defclass eglot-eclipse-jdt (eglot-lsp-server) ()
     :documentation "Eclipse's Java Development Tools Language Server.")
